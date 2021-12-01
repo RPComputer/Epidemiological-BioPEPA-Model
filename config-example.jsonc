@@ -8,6 +8,7 @@
         "S": [["contact","I"]],
         "I": [["recovery","R"],["death","D"]]
     },
+    "classless_states":["R","D"],
     "model_calsses_number": 2,
     "model_classes": ["y", "o"],
     "disease_rates_by_class":

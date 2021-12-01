@@ -1,0 +1,33 @@
+Functions for the general script
+
+Functional rate general computing:
+    ratename + " = [" + expression + "];" <- needs specific model computing of expression, ratename
+    can be computed by geneal script 
+        warning: not all states need state + category
+
+    Functional rate for specific model script:
+    input: what's needed
+    output: dictionary with keys being ratenames, values the expression strings
+
+Initial state general computing:
+    state + category + "0 = " initial value +";" <- all can be computed by general script
+        warning: not all states need state + category
+    shouldn't be necessary to demand the computing to specific model script
+
+Model general computing:
+    statename + " = " + expression + " + " + expression + ... + ";"
+
+    Model function for specific model script:
+    input: what's needed
+    output: dictionary with keys being statenames, values list of expressions
+
+
+System equation general computing:
+from first to last -1 ==> state + category + "[" + initial state + "] <*> "
+for last ==> state + category + "[" + initial state + "]
+
+
+TASKS:
+1 Find out how to manage state + class states and classless states
+2 Write functions and complete the general script
+3 Write specific script for the SIRD model
