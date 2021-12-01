@@ -1,0 +1,24 @@
+//Model config.json example:
+{
+    "state_number": 4,
+    "states": ["S", "I", "R", "D"],
+    "staring_state": "S",
+    "states_description":
+    {
+        "S": [["contact","I"]],
+        "I": [["recovery","R"],["death","D"]]
+    },
+    "model_calsses_number": 2,
+    "model_classes": ["y", "o"],
+    "disease_rates_by_class":
+    {
+        "y":{"recovery":0.005,"death":0.0001},
+        "o":{"recovery":0.005,"death":0.0001}
+    },
+    "total_population": 1000,
+    "initial_state":
+    {
+        "y": [490,10,0,0],
+        "o": [500,0,0,0]
+    }
+}
