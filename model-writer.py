@@ -1,6 +1,13 @@
 #Imports
 import sys, getopt
 import json, numpy
+from modelImplementation import ModelImplementation
+
+global WRITER
+WRITER: ModelImplementation
+
+global OUTFILECONTENT
+OUTFILECONTENT = []
 
 #Loading data
 def usage():
@@ -20,7 +27,7 @@ def inputs(argv):
             usage()
             sys.exit()
         elif opt == "-m":
-            exec(open(arg).read())
+            WRITER = __import__(arg)
         elif opt == "-p":
             global parametersfile
             parametersfile = arg
@@ -32,6 +39,7 @@ def inputs(argv):
             outputfilename = arg
 
 def error(message):
+    print("An error has occurred, aborting. Details:\n")
     print(message)
     sys.exit()
 
@@ -86,11 +94,43 @@ def parsematrix():
 #Model computation and writing
 def compute_functionalrates():
     #must use imported specifi model functions
+    result = WRITER.computeContacts(matrix)
+    #add to OUTFILECONTENT
+    OUTFILECONTENT.append("//Parameters\n//-Functional rates")
     pass
 
 def model_builder():
+    #prepare initial state lines, competence of this script, add to OUTFILECONTENT
+    classedStates = []
+    statesToClass = set(parameters["states"]) - set(parameters["classless_states"])
+    for s in statesToClass:
+        for c in parameters["model_classes"]:
+            initalNum = parameters["initial_state"][c][parameters["states"].index(s)]
+            line = "" + s + c + "0 = " + initalNum + ";"
+            classedStates.append(line)
+    classlessStates = []
+    for s in parameters["classless_states"]:
+        stateNum = 0
+        for c in parameters["model_classes"]:
+            stateNum += parameters["initial_state"][c][parameters["states"].index(s)]
+        line = "" + s + "0 = " + stateNum + ";"
+        classlessStates.append(line)
     #must use imported specifi model functions
+    result = WRITER.computeModelDefinitions(parameters)
+    #compute system equation
+
+    #add to OUTFILECONTENT everything
+    OUTFILECONTENT.append("//-Initial state")
+    OUTFILECONTENT.extend(classedStates)
+    OUTFILECONTENT.extend(classlessStates)
+    OUTFILECONTENT.append("//Model")
+    OUTFILECONTENT.extend(result)
     pass
+
+def writefile():
+    file = open(outputfilename, 'w')
+    file.writelines(OUTFILECONTENT)
+    file.close()
 
 #Main
 def main(argv):
@@ -99,6 +139,7 @@ def main(argv):
     parsematrix()
     compute_functionalrates()
     model_builder()
+    writefile()
 
 
 if __name__ == "__main__":
