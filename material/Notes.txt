@@ -7,7 +7,7 @@ Functional rate general computing:
 
     Functional rate for specific model script:
     input: what's needed
-    output: dictionary with keys being ratenames, values the expression strings
+    output: list of expression strings
 
 Initial state general computing:
     state + category + "0 = " initial value +";" <- all can be computed by general script
@@ -17,9 +17,11 @@ Initial state general computing:
 Model general computing:
     statename + " = " + expression + " + " + expression + ... + ";"
 
+    expression -> "(" + ratename + ",1)" + transition_vers(state, class) + transition_dest
+
     Model function for specific model script:
     input: what's needed
-    output: dictionary with keys being statenames, values list of expressions
+    output: list of expressions
 
 
 System equation general computing:

@@ -125,13 +125,15 @@ def model_builder():
     #must use imported specifi model functions
     result = WRITER.computeModelDefinitions(parameters)
     #compute system equation
-
+    systemEquation = WRITER.computeSystemEquation()
     #add to OUTFILECONTENT everything
     OUTFILECONTENT.append("//-Initial state")
     OUTFILECONTENT.extend(classedStates)
     OUTFILECONTENT.extend(classlessStates)
     OUTFILECONTENT.append("//Model")
     OUTFILECONTENT.extend(result)
+    OUTFILECONTENT.append("//System equation")
+    OUTFILECONTENT.extend(systemEquation)
 
 
 def writefile():
