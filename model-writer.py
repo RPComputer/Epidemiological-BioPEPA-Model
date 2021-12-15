@@ -27,7 +27,8 @@ def inputs(argv):
             usage()
             sys.exit()
         elif opt == "-m":
-            WRITER = __import__(arg)
+            global modelScript
+            modelScript = __import__(arg)
         elif opt == "-p":
             global parametersfile
             parametersfile = arg
@@ -79,10 +80,16 @@ def parseparameters():
     global parameters
     parameters = json.load(parametersfile)
     checkparameters(parameters)
+    WRITER = modelScript(parameters)
 
 def parsematrix():
     file = open(matrixfile, "r")
+    global classes
     classes = file.readline().split()
+    global coordinates
+    coordinates = dict()
+    for i in len(classes):
+        coordinates[classes[i]] = i
     for c in classes:
         if c not in parameters["model_classes"]:
             file.close()
@@ -94,10 +101,10 @@ def parsematrix():
 #Model computation and writing
 def compute_functionalrates():
     #must use imported specifi model functions
-    result = WRITER.computeContacts(matrix)
+    result = WRITER.computeContacts(coordinates,matrix)
     #add to OUTFILECONTENT
     OUTFILECONTENT.append("//Parameters\n//-Functional rates")
-    pass
+    OUTFILECONTENT.extend(result)
 
 def model_builder():
     #prepare initial state lines, competence of this script, add to OUTFILECONTENT
@@ -125,7 +132,7 @@ def model_builder():
     OUTFILECONTENT.extend(classlessStates)
     OUTFILECONTENT.append("//Model")
     OUTFILECONTENT.extend(result)
-    pass
+
 
 def writefile():
     file = open(outputfilename, 'w')
