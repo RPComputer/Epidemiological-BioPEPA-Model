@@ -1,8 +1,7 @@
-//Model config.json example:
 {
     "state_number": 4,
     "states": ["S", "I", "R", "D"],
-    "staring_state": "S",
+    "starting_state": "S",
     "states_description":
     {
         "S": [["contact","I"]],

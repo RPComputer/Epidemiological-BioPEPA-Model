@@ -1,9 +1,9 @@
 #Imports
-import sys, getopt
+import sys, getopt, importlib
 import json, numpy
 from modelImplementation import ModelImplementation
 
-global WRITER
+#global WRITER
 WRITER: ModelImplementation
 
 global OUTFILECONTENT
@@ -18,26 +18,28 @@ def usage():
 def inputs(argv):
     try:
         opts, args = getopt.getopt(argv,"hm:p:i:o:")
+        for opt, arg in opts:
+            print(opt,arg)
+            if opt == '-h':
+                usage()
+                sys.exit()
+            elif opt == "-m":
+                global modelScript
+                modelScript = importlib.import_module(arg)
+            elif opt == "-p":
+                global parametersfile
+                parametersfile = arg
+            elif opt == "-i":
+                global matrixfile
+                matrixfile = arg
+            elif opt == "-o":
+                global outputfilename
+                outputfilename = arg
     except getopt.GetoptError as err:
         print(err)
         usage()
         sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            usage()
-            sys.exit()
-        elif opt == "-m":
-            global modelScript
-            modelScript = __import__(arg)
-        elif opt == "-p":
-            global parametersfile
-            parametersfile = arg
-        elif opt == "-i":
-            global matrixfile
-            matrixfile = arg
-        elif opt == "-o":
-            global outputfilename
-            outputfilename = arg
+    
 
 def error(message):
     print("An error has occurred, aborting. Details:\n")
@@ -78,7 +80,8 @@ def checkparameters(param):
 
 def parseparameters():
     global parameters
-    parameters = json.load(parametersfile)
+    pfile = open(parametersfile, 'r')
+    parameters = json.load(pfile)
     checkparameters(parameters)
     WRITER = modelScript(parameters)
 
