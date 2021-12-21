@@ -18,14 +18,14 @@ class ExampleModel (ModelImplementation):
         for s in self.statesToClass:
             for c in self.parameters["states_description"].keys():
                 if s == c:
-                    for i in len(self.parameters["states_description"][s]):
+                    for i in range(len(self.parameters["states_description"][s])):
                         classedActionsToRate.append(self.parameters["states_description"][s][i][0])
         for c in comb(self.classes,2):
             for a in classedActionsToRate:
                 ratename = a + c[0] + c[1]
                 coefficient = matrix[coord[c[0]],coord[c[1]]]
                 elements = '*S' + c[0] + '*I' + c[1]
-                result.append(ratename + " = [" + coefficient + elements + "];")
+                result.append(ratename + " = [" + str(coefficient) + elements + "];")
                 for s in self.statesToClass:
                     for t in self.parameters["states_description"][s]:
                         if t[0] == a:
@@ -33,15 +33,15 @@ class ExampleModel (ModelImplementation):
                             self.transitions.append(trans)
         
         diseaseRates = self.parameters["disease_rates_by_class"]
-        for k,v in diseaseRates.values():
-            for k1,v1 in v:
+        for k,v in diseaseRates.items():
+            for k1,v1 in v.items():
                 ratename = k1+k
                 coefficient = v1
                 elements = '*I' + k
-                result.append(ratename + " = [" + coefficient + elements + "];")
-                self.transitions.append(ratename)
+                result.append(ratename + " = [" + str(coefficient) + elements + "];")
+                #self.transitions.append(ratename)
                 for s in self.parameters["classless_states"]:
-                    for s1,a1 in self.parameters["states_description"].values():
+                    for s1,a1 in self.parameters["states_description"].items():
                         for t in a1:
                             if t[1] == s:
                                 trans = Transition(start_state=s1,end_state=s,start_category=k,action=t[0],ratename=ratename)

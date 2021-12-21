@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "args": ["-m SIRDModel", "-p ./config-example.json", "-i ./material/example_matrix.csv", "-o 2class_model.biopepa"],
+            "args": ["-m", "SIRDModel", "-c", "ExampleModel", "-p", "./config-example.json", "-i", "./material/example_matrix.csv", "-o", "first.biopepa"],
             "name": "Python: File corrente",
             "type": "python",
             "request": "launch",

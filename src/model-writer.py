@@ -3,21 +3,21 @@ import sys, getopt, importlib
 import json, numpy
 from modelImplementation import ModelImplementation
 
-#global WRITER
-WRITER: ModelImplementation
+
+#WRITER: ModelImplementation
 
 global OUTFILECONTENT
 OUTFILECONTENT = []
 
 #Loading data
 def usage():
-    output = "The script needs:\n\t specific model file 'sfile' \n\t parameters file 'pfile';\n\t contact matrix file 'mfile';\n\t output filename 'ofile'\n"
-    ustring = 'model-writer.py -m <sfile> -p <pfile> -i <mfile> -o <ofile>'
+    output = "The script needs:\n\t specific model file 'sfile' \n\t specific model class name 'cname' \n\t parameters file 'pfile';\n\t contact matrix file 'mfile';\n\t output filename 'ofile'\n"
+    ustring = 'model-writer.py -m <sfile> -c <cname> -p <pfile> -i <mfile> -o <ofile>'
     print(output + ustring)
 
 def inputs(argv):
     try:
-        opts, args = getopt.getopt(argv,"hm:p:i:o:")
+        opts, args = getopt.getopt(argv,"hm:c:p:i:o:")
         for opt, arg in opts:
             print(opt,arg)
             if opt == '-h':
@@ -26,6 +26,9 @@ def inputs(argv):
             elif opt == "-m":
                 global modelScript
                 modelScript = importlib.import_module(arg)
+            elif opt == "-c":
+                global modelclassname
+                modelclassname = arg
             elif opt == "-p":
                 global parametersfile
                 parametersfile = arg
@@ -61,17 +64,17 @@ def checkparameters(param):
     seq = param["states_description"]
     rates = param["disease_rates_by_class"]
     to_check = []
-    for k,v in seq:
+    for k,v in seq.items():
         for e in v:
             to_check.append(e[0])
     for a in to_check:
         for v in rates.values():
-            if a not in v.keys():
+            if a not in v.keys() and "contact" not in a:
                 error("States and action rates binding error")
     #Initial state check
     sum = 0
-    for c,s in param["initial_state"]:
-        if len(s) != param["model_calsses_number"]:
+    for s in param["initial_state"].values():
+        if len(param["initial_state"].values()) != param["model_calsses_number"]:
             error("Error in initial state definition")
         for p in s:
             sum += p
@@ -83,22 +86,27 @@ def parseparameters():
     pfile = open(parametersfile, 'r')
     parameters = json.load(pfile)
     checkparameters(parameters)
-    WRITER = modelScript(parameters)
+    global WRITER
+    WRITER = getattr(modelScript, modelclassname)
+    WRITER = WRITER(parameters)
+    if not issubclass(type(WRITER), ModelImplementation):
+        error("Module provided do not respect ModelImplementation inteface")
 
 def parsematrix():
     file = open(matrixfile, "r")
     global classes
-    classes = file.readline().split()
+    classes = file.readline().strip('\n').split(sep=',')
     global coordinates
     coordinates = dict()
-    for i in len(classes):
+    for i in range(len(classes)):
         coordinates[classes[i]] = i
     for c in classes:
         if c not in parameters["model_classes"]:
             file.close()
             error("Model classes and matrix classes mismatch error")
     global matrix
-    matrix = numpy.loadtxt(file, delimiter=",", skiprows=1)
+    matrix = numpy.loadtxt(file, delimiter=",", skiprows=0)
+    print(matrix)
     file.close()
 
 #Model computation and writing
@@ -116,17 +124,17 @@ def model_builder():
     for s in statesToClass:
         for c in parameters["model_classes"]:
             initalNum = parameters["initial_state"][c][parameters["states"].index(s)]
-            line = "" + s + c + "0 = " + initalNum + ";"
+            line = "" + s + c + "0 = " + str(initalNum) + ";"
             classedStates.append(line)
     classlessStates = []
     for s in parameters["classless_states"]:
         stateNum = 0
         for c in parameters["model_classes"]:
             stateNum += parameters["initial_state"][c][parameters["states"].index(s)]
-        line = "" + s + "0 = " + stateNum + ";"
+        line = "" + s + "0 = " + str(stateNum) + ";"
         classlessStates.append(line)
     #must use imported specifi model functions
-    result = WRITER.computeModelDefinitions(parameters)
+    result = WRITER.computeModelDefinitions()
     #compute system equation
     systemEquation = WRITER.computeSystemEquation()
     #add to OUTFILECONTENT everything
@@ -140,12 +148,16 @@ def model_builder():
 
 
 def writefile():
+    print("Writing output file: ", outputfilename, "...")
     file = open(outputfilename, 'w')
-    file.writelines(OUTFILECONTENT)
+    for l in OUTFILECONTENT:
+        file.write(l)
+        file.write("\n")
     file.close()
 
 #Main
 def main(argv):
+    print(argv)
     inputs(argv)
     parseparameters()
     parsematrix()
