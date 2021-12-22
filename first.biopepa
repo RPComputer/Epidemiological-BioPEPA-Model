@@ -1,13 +1,8 @@
 //Parameters
 //-Functional rates
-recoveryyy = [5e-05*Sy*Iy];
-deathyy = [5e-05*Sy*Iy];
 contactyy = [5e-05*Sy*Iy];
-recoveryyo = [3.5e-05*Sy*Io];
-deathyo = [3.5e-05*Sy*Io];
 contactyo = [3.5e-05*Sy*Io];
-recoveryoo = [1e-05*So*Io];
-deathoo = [1e-05*So*Io];
+contactoy = [2.5e-05*So*Iy];
 contactoo = [1e-05*So*Io];
 recoveryy = [0.005*Iy];
 deathy = [0.0001*Iy];
@@ -21,11 +16,11 @@ So0 = 500;
 R0 = 0;
 D0 = 0;
 //Model
-Iy = (recoveryyy,1)<<I(deathyy,1)<<I;
-Io = (recoveryoo,1)<<I(deathoo,1)<<I;
-Sy = (contactyy,1)<<S;
-So = (contactoo,1)<<S;
-R = (recoveryyy,1)>>R(recoveryyo,1)>>R(recoveryoo,1)>>R(recoveryy,1)>>R(deathy,1)>>R(recoveryo,1)>>R(deatho,1)>>R;
-D = (deathyy,1)>>D(deathyo,1)>>D(deathoo,1)>>D(recoveryy,1)>>D(deathy,1)>>D(recoveryo,1)>>D(deatho,1)>>D;
+Iy = (recoveryy,1)<<Iy + (deathy,1)<<Iy + (recoveryy,1)<<Iy + (deathy,1)<<Iy;
+Io = (recoveryo,1)<<Io + (deatho,1)<<Io + (recoveryo,1)<<Io + (deatho,1)<<Io;
+Sy = (contactyy,1)<<Sy + (contactyo,1)<<Sy;
+So = (contactoy,1)<<So + (contactoo,1)<<So;
+R = (recoveryy,1)>>R + (deathy,1)>>R + (recoveryo,1)>>R + (deatho,1)>>R;
+D = (recoveryy,1)>>D + (deathy,1)>>D + (recoveryo,1)>>D + (deatho,1)>>D;
 //System equation
 Iy[Iy0] <*> Io[Io0] <*> Sy[Sy0] <*> So[So0] <*> R[R0] <*> D[D0]

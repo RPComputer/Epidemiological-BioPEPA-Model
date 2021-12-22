@@ -104,9 +104,9 @@ def parsematrix():
         if c not in parameters["model_classes"]:
             file.close()
             error("Model classes and matrix classes mismatch error")
+    numpy.set_printoptions(suppress=True)
     global matrix
     matrix = numpy.loadtxt(file, delimiter=",", skiprows=0)
-    print(matrix)
     file.close()
 
 #Model computation and writing

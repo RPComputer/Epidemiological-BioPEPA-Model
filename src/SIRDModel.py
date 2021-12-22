@@ -1,7 +1,7 @@
 #Imports
 from modelImplementation import ModelImplementation
 from transition import Transition
-from itertools import combinations_with_replacement as comb
+from itertools import product
 
 class ExampleModel (ModelImplementation):
 
@@ -19,8 +19,9 @@ class ExampleModel (ModelImplementation):
             for c in self.parameters["states_description"].keys():
                 if s == c:
                     for i in range(len(self.parameters["states_description"][s])):
-                        classedActionsToRate.append(self.parameters["states_description"][s][i][0])
-        for c in comb(self.classes,2):
+                        if 'contact' in self.parameters["states_description"][s][i][0]:
+                            classedActionsToRate.append(self.parameters["states_description"][s][i][0])
+        for c in product(self.classes, repeat=2):
             for a in classedActionsToRate:
                 ratename = a + c[0] + c[1]
                 coefficient = matrix[coord[c[0]],coord[c[1]]]
@@ -52,36 +53,18 @@ class ExampleModel (ModelImplementation):
 
     def transition_info(self,s,c,t):
         res = []
-        #if c is not None:
-        for tr in self.transitions:
-            if s == tr.start_state and c == tr.start_category and t[0] == tr.action:
-                res.append(tr.ratename)
-                res.append("<<"+s)
-                return res
-            elif s == tr.end_state and c == tr.end_category and t[0] == tr.action:
-                res.append(tr.ratename)
-                res.append(">>"+s)
-                return res
-            elif s == tr.cat_state and c == tr.cat_category and t[0] == tr.action:
-                res.append(tr.ratename)
-                res.append("(+)")
-                return res
-        '''
-        else:
-            for tr in self.transitions:
-                if s == tr.start_state and c == tr.start_category and t[0] == tr.action:
-                    res.append(tr.ratename)
-                    res.append("<<"+s)
-                    return res
-                elif s == tr.end_state and c == tr.end_category and t[0] == tr.action:
-                    res.append(tr.ratename)
-                    res.append(">>"+s)
-                    return res
-                elif s == tr.cat_state and c == tr.cat_category and t[0] == tr.action:
-                    res.append(tr.ratename)
-                    res.append("(+)")
-                    return res
-        '''
+        if s == t.start_state and c == t.start_category:
+            res.append(t.ratename)
+            res.append("<<"+s+c)
+            return res
+        elif s == t.end_state and c == t.end_category:
+            res.append(t.ratename)
+            res.append(">>"+s+c)
+            return res
+        elif s == t.cat_state and c == t.cat_category:
+            res.append(t.ratename)
+            res.append("(+)")
+            return res
 
     def computeModelDefinitions(self):
         super().computeModelDefinitions()
@@ -89,28 +72,30 @@ class ExampleModel (ModelImplementation):
         for s in self.statesToClass:
             for c in self.classes:
                 line = s+c+" = "
-                first = True
-                for t in self.parameters["states_description"][s]:
-                    tinfo = self.transition_info(s,c,t)
-                    transition = "(" + tinfo[0] + ",1)" + tinfo[1]
-                    line += transition
-                    if not first and not t == self.parameters["states_description"][s][-1]:
-                        line += " + "
+                for a in [x[0] for x in self.parameters["states_description"][s]]:
+                    for tr in self.transitions:
+                        if a in tr.action:
+                            tinfo = self.transition_info(s,c,tr)
+                            if tinfo is not None:
+                                transition = "(" + tinfo[0] + ",1)" + tinfo[1]
+                                line += transition
+                                line += " + "
+                line = line.strip('+ ')
                 line += ";"
                 model.append(line)
 
         for s in self.parameters["classless_states"]:
             involved_transitions = []
             for t in self.transitions:
-                if t.end_state == s:
-                    involved_transitions.append(t)
+                for x in self.parameters["states_description"].values():
+                    if t.end_state == s and t.action in [e[0] for e in x]:
+                        involved_transitions.append(t)
             line = s+" = "
-            first = True
             for t in involved_transitions:
                 transition = "(" + t.ratename + ",1)" + ">>" + s
                 line += transition
-                if not first and not t == involved_transitions[-1]:
-                    line += " + "
+                line += " + "
+            line = line.strip('+ ')
             line += ";"
             model.append(line)
 
