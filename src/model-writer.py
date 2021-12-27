@@ -19,7 +19,6 @@ def inputs(argv):
     try:
         opts, args = getopt.getopt(argv,"hm:c:p:i:o:")
         for opt, arg in opts:
-            print(opt,arg)
             if opt == '-h':
                 usage()
                 sys.exit()
@@ -157,7 +156,6 @@ def writefile():
 
 #Main
 def main(argv):
-    print(argv)
     inputs(argv)
     parseparameters()
     parsematrix()

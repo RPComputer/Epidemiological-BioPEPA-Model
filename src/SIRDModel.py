@@ -40,11 +40,10 @@ class ExampleModel (ModelImplementation):
                 coefficient = v1
                 elements = '*I' + k
                 result.append(ratename + " = [" + str(coefficient) + elements + "];")
-                #self.transitions.append(ratename)
                 for s in self.parameters["classless_states"]:
                     for s1,a1 in self.parameters["states_description"].items():
                         for t in a1:
-                            if t[1] == s:
+                            if t[0] == k1 and t[1] == s:
                                 trans = Transition(start_state=s1,end_state=s,start_category=k,action=t[0],ratename=ratename)
                                 self.transitions.append(trans)
         self.ratesComputed = True
@@ -65,6 +64,7 @@ class ExampleModel (ModelImplementation):
             res.append(t.ratename)
             res.append("(+)")
             return res
+        else: return None
 
     def computeModelDefinitions(self):
         super().computeModelDefinitions()
@@ -72,14 +72,12 @@ class ExampleModel (ModelImplementation):
         for s in self.statesToClass:
             for c in self.classes:
                 line = s+c+" = "
-                for a in [x[0] for x in self.parameters["states_description"][s]]:
-                    for tr in self.transitions:
-                        if a in tr.action:
-                            tinfo = self.transition_info(s,c,tr)
-                            if tinfo is not None:
-                                transition = "(" + tinfo[0] + ",1)" + tinfo[1]
-                                line += transition
-                                line += " + "
+                for tr in self.transitions:
+                        tinfo = self.transition_info(s,c,tr)
+                        if tinfo is not None:
+                            transition = "(" + tinfo[0] + ",1)" + tinfo[1]
+                            line += transition
+                            line += " + "
                 line = line.strip('+ ')
                 line += ";"
                 model.append(line)
