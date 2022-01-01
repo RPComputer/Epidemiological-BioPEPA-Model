@@ -8,17 +8,19 @@
         "I": [["recovery","R"],["death","D"]]
     },
     "classless_states":["R","D"],
-    "model_calsses_number": 2,
-    "model_classes": ["y", "o"],
+    "model_calsses_number": 3,
+    "model_classes": ["y", "m", "o"],
     "disease_rates_by_class":
     {
         "y":{"recovery":0.005,"death":0.0001},
-        "o":{"recovery":0.004,"death":0.001}
+        "m":{"recovery":0.0035,"death":0.00055},
+        "o":{"recovery":0.0025,"death":0.001}
     },
-    "total_population": 1000,
+    "total_population": 2000,
     "initial_state":
     {
-        "y": [490,10,0,0],
+        "y": [990,10,0,0],
+        "m": [490,10,0,0],
         "o": [500,0,0,0]
     }
 }

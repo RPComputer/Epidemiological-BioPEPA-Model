@@ -3,7 +3,15 @@
     "configurations": [
         {
             "args": ["-m", "SIRDModel", "-c", "ExampleModel", "-p", "./config-example.json", "-i", "./material/example_matrix.csv", "-o", "first.biopepa"],
-            "name": "Python: File corrente",
+            "name": "First",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "args": ["-m", "SIRDModel", "-c", "ExampleModel", "-p", "./config-example2.json", "-i", "./material/example_matrix2.csv", "-o", "second.biopepa"],
+            "name": "Second",
             "type": "python",
             "request": "launch",
             "program": "${file}",
