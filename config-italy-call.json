@@ -1,0 +1,55 @@
+{
+    "state_number": 4,
+    "states": ["S", "I", "R", "D"],
+    "starting_state": "S",
+    "states_description":
+    {
+        "S": [["contact","I"]],
+        "I": [["recovery","R"],["death","D"]]
+    },
+    "transmission_action": "contact",
+    "transmission_states": ["S", "I"],
+    "internal_classed_states": ["R"],
+    "classless_states":["D"],
+    "model_calsses_number": 16,
+    "model_classes": ["X1a","X2a","X3a","X4a","X5a","X6a","X7a","X8a","X9a","X10a","X11a","X12a","X13a","X14a","X15a","X16a"],
+    "disease_rates_by_class":
+    {
+        "X1a":{"recovery":0.2,"death":0.1},
+        "X2a":{"recovery":0.2,"death":0.1},
+        "X3a":{"recovery":0.2,"death":0.1},
+        "X4a":{"recovery":0.2,"death":0.1},
+        "X5a":{"recovery":0.2,"death":0.1},
+        "X6a":{"recovery":0.2,"death":0.1},
+        "X7a":{"recovery":0.2,"death":0.1},
+        "X8a":{"recovery":0.2,"death":0.1},
+        "X9a":{"recovery":0.2,"death":0.1},
+        "X10a":{"recovery":0.2,"death":0.1},
+        "X11a":{"recovery":0.2,"death":0.1},
+        "X12a":{"recovery":0.2,"death":0.1},
+        "X13a":{"recovery":0.2,"death":0.1},
+        "X14a":{"recovery":0.2,"death":0.1},
+        "X15a":{"recovery":0.2,"death":0.1},
+        "X16a":{"recovery":0.2,"death":0.1}
+    },
+    "total_population": 16000000,
+    "initial_state":
+    {
+        "X1a":[1000000,0,0,0],
+        "X2a":[1000000,0,0,0],
+        "X3a":[1000000,0,0,0],
+        "X4a":[1000000,0,0,0],
+        "X5a":[1000000,0,0,0],
+        "X6a":[1000000,0,0,0],
+        "X7a":[1000000,0,0,0],
+        "X8a":[999995,5,0,0],
+        "X9a":[1000000,0,0,0],
+        "X10a":[1000000,0,0,0],
+        "X11a":[1000000,0,0,0],
+        "X12a":[1000000,0,0,0],
+        "X13a":[1000000,0,0,0],
+        "X14a":[1000000,0,0,0],
+        "X15a":[1000000,0,0,0],
+        "X16a":[1000000,0,0,0]
+    }
+}

@@ -2,16 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "args": ["-m", "SIRDModel", "-c", "ExampleModel", "-p", "./config-example.json", "-i", "./material/example_matrix.csv", "-o", "first.biopepa"],
-            "name": "First",
+            "args": ["-m", "SIRDModel", "-c", "SIRDmodel", "-p", "./config-italy-call.json", "-i", "./material/italy_contacts.csv", "-o", "italy_sird_scaled.biopepa"],
+            "name": "Italy_contacts2",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
         },
         {
-            "args": ["-m", "SIRDModel", "-c", "ExampleModel", "-p", "./config-example2.json", "-i", "./material/example_matrix2.csv", "-o", "second.biopepa"],
-            "name": "Second",
+            "args": ["-m", "SIRDModel", "-c", "SIRDmodel", "-p", "./config-example2.json", "-i", "./material/example_matrix2.csv", "-o", "example2_sird.biopepa"],
+            "name": "Example2",
             "type": "python",
             "request": "launch",
             "program": "${file}",

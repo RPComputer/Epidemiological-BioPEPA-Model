@@ -7,7 +7,10 @@
         "S": [["contact","I"]],
         "I": [["recovery","R"],["death","D"]]
     },
-    "classless_states":["R","D"],
+    "transmission_action": "contact",
+    "transmission_states": ["S", "I"],
+    "internal_classed_states": ["R"],
+    "classless_states":["D"],
     "model_calsses_number": 3,
     "model_classes": ["y", "m", "o"],
     "disease_rates_by_class":

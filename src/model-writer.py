@@ -59,16 +59,21 @@ def checkparameters(param):
         error("Starting state missing")
     if param["starting_state"] not in param["states"]:
         error("States declaration error")
-    #need to check all the basic rates: rate for each class for each action except contact
+    if "transmission_action" not in param or param["transmission_action"] == "":
+        error("Transmission action not declared")
+    if len(param["transmission_states"]) + len(param["internal_classed_states"]) + len(param["classless_states"]) != param["state_number"]:
+        error("States subdivision error, check transmission/internal/classless states")
+    #need to check all the basic rates: rate for each class for each action except transmission action
     seq = param["states_description"]
     rates = param["disease_rates_by_class"]
+    taction = param["transmission_action"]
     to_check = []
     for k,v in seq.items():
         for e in v:
             to_check.append(e[0])
     for a in to_check:
         for v in rates.values():
-            if a not in v.keys() and "contact" not in a:
+            if a not in v.keys() and taction not in a:
                 error("States and action rates binding error")
     #Initial state check
     sum = 0
@@ -111,7 +116,7 @@ def parsematrix():
 #Model computation and writing
 def compute_functionalrates():
     #must use imported specifi model functions
-    result = WRITER.computeContacts(coordinates,matrix)
+    result = WRITER.computeTransmissionRates(coordinates,matrix)
     #add to OUTFILECONTENT
     OUTFILECONTENT.append("//Parameters\n//-Functional rates")
     OUTFILECONTENT.extend(result)
