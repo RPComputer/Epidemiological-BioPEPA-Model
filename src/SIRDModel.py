@@ -38,15 +38,6 @@ class SIRDmodel (ModelImplementation):
         print("Beta:", beta)
         #compute transmission matrix
         Tmatrix = beta * contactMatrix
-        '''
-        nPop = []
-        for i in range(16):
-            nPop.append(1000000)
-        totContact = np.matmul(contactMatrix, nPop)
-        for i in range(len(Tmatrix)):
-            for j in range(len(Tmatrix[0])):
-                Tmatrix[i][j] = Tmatrix[i][j] / totContact[j]
-        '''
         return Tmatrix
 
     def defineTransmissionFormula(self, Tmatrix, coord, c1, c2, ratename):
@@ -54,14 +45,8 @@ class SIRDmodel (ModelImplementation):
         elements = '*S' + c1 + '*I' + c2
         totSum = ""
         classedStates = set(self.parameters["transmission_states"]).union(set(self.parameters["internal_classed_states"]))
-        '''
         for s in classedStates:
-            for c in self.classes:
-                totSum += s+c + " + "
-        '''
-        for s in classedStates:
-            for c in [c1,c2]:
-                totSum += s+c + " + "
+            totSum += s+c2 + " + "
         totSum = totSum.strip('+ ')
         rate = "(" + str(coefficient) + "/(" + totSum + "))" + elements
         return ratename + " = [" + rate + "];"
