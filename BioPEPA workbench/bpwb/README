@@ -1,0 +1,29 @@
+The Bio-PEPA Workbench is a modelling and analysis tool for models of
+reaction networks expressed in the Bio-PEPA process algebra.  
+
+Given a Bio-PEPA model the Workbench generates a simulation model
+ready for execution using the StochKit implementation of Gillespie's
+Stochastic Simulation Algorithm (SSA).  It additionally generates an
+ODE model suitable for analysis with the Sundials ODE suite or Matlab.
+Thus the tool enables the modeller to switch between analysis via
+simulation and analysis via differential equations (or to compare the
+results of these) while maintaining only a single source model in the
+Bio-PEPA language.
+
+Further documentation is available at the Web site
+http://homepages.inf.ed.ac.uk/stg/software/biopepa
+
+To build this program from source you will need a Standard ML compiler
+such as Moscow ML, Standard ML of New Jersey, or MLton.  Edit the
+Makefile as necessary to identify your SML compiler and compile with
+"make" or "make nj" or "make mlton".
+
+This program is freely distributed as open-source program code under
+the terms of the GNU Public License.
+
+Stephen Gilmore
+Laboratory for Foundations of Computer Science
+The University of Edinburgh
+25/08/2008
+
+

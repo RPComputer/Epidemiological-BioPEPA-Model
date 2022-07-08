@@ -1,0 +1,53 @@
+% Bio-PEPA model of Ras/Raf-1/MEK/ERK pathway
+
+% as in Calder-Vyshermirsky-Gilbert-Orton03
+% and Cho-Shin-Kim-Wolkenhauer-McFerran-Kolch03
+
+
+r1  = [k1  * Raf-1             * RKIP  ];
+r2  = [k2  * Raf-1:RKIP                ];
+r3  = [k3  * Raf-1:RKIP        * ERK-PP];
+r4  = [k4  * Raf-1:RKIP:ERK-PP         ];
+r5  = [k5  * Raf-1:RKIP:ERK-PP         ];
+r6  = [k6  * MEK-PP            * ERK-P ];
+r7  = [k7  * MEK-PP:ERK-P              ];
+r8  = [k8  * MEK-PP:ERK-P              ];
+r9  = [k9  * RKIP-P            * RP    ];
+r10 = [k10 * RKIP-P:RP                 ];
+r11 = [k11 * RKIP-P:RP                 ];
+
+%m1
+Raf-1             = r1<< + r2>> +               r5>>                                              ;
+
+%m2
+RKIP              = r1<< + r2>> +                                                           r11>> ;
+
+%m3
+Raf-1:RKIP        = r1>> + r2<< + r3<< + r4>> ;
+
+%m9
+ERK-PP            =               r3<< + r4>> +                      r8>> ;
+
+%m4
+Raf-1:RKIP:ERK-PP =               r3>> + r4<< + r5<< ;
+
+%m5
+ERK-P             =                             r5>> + r6<< + r7>> ;
+
+%m6
+RKIP-P            =                             r5>> +                      r9<< +  r10>> ;
+
+%m7
+MEK-PP            =                                    r6<< + r7>> + r8>> +                       ;
+
+%m8
+MEK-PP:ERK-P      =                                    r6>> + r7<< + r8<< ;
+
+%m10
+RP                =                                                         r9<< +  r10>> + r11>> ;
+
+%m11
+RKIP-P:RP         =                                                         r9>> +  r10<< + r11<< ;
+
+
+(Raf-1 <> (RKIP <> (Raf-1:RKIP <> (ERK-PP <> (Raf-1:RKIP:ERK-PP <> (ERK-P <> (RKIP-P <> (MEK-PP <> (MEK-PP:ERK-P <> (RP <> RKIP-P:RP))))))))))

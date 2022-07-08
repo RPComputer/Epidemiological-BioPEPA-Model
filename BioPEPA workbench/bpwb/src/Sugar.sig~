@@ -1,0 +1,11 @@
+(* 
+ File: Sugar.sig
+
+ Signature for the structure which contains the BioPEPA preparser
+ which checks for simple syntax errors.
+*)
+
+signature Sugar =
+sig
+  val desugar : Lexer.token list -> Lexer.token list 
+end;

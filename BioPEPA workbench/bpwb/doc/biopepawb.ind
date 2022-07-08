@@ -1,0 +1,14 @@
+\begin{theindex}
+
+  \item Setting
+    \subitem biopepa
+      \subsubitem independent.replications, 10
+      \subsubitem report.image.scale, 11
+      \subsubitem report.simulations.every, 11
+      \subsubitem show.all.replications, 10
+      \subsubitem simulation.stoptime, 8
+      \subsubitem simulator, 8
+    \subitem stochkit
+      \subsubitem opt.progress.interval, 10
+
+\end{theindex}

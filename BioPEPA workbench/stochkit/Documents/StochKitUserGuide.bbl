@@ -1,0 +1,195 @@
+\begin{thebibliography}{10}
+
+\bibitem{trapezoidal}
+{ Y. Cao and L. Petzold}.
+\newblock {Trapezoidal tau-leaping formula for the stochastic simulation of
+  chemically reacting systems}.
+\newblock Submitted, 2005.
+
+\bibitem{lapack}
+E.~Anderson, Z.~Bai, C.~Bischof, J.~Demmel, J.~Dongarra, J.~Du Croz,
+  A.~Greenbaum, S.~Hammarling, A.~McKenney, S.~Ostrouchov, and D.~Sorensen.
+\newblock {\em {LAPACK} Users' Guide}.
+\newblock SIAM, Philadelphia, PA, 1995.
+
+\bibitem{Hallthesis}
+{Andrew Hall}.
+\newblock {A Computational Framework for Accelerated Stochastic Simulation of
+  Biochemical Networks}.
+\newblock M. S. Thesis, UCSB, 2002.
+
+\bibitem{arkin-ross+98}
+A.~Arkin, J.~Ross, and H.H. McAdams.
+\newblock "stochastic kinetic analysis of developmental pathway bifurcation in
+  phage $\lambda$-infected {\em e.\ coli} cells".
+\newblock {\em Genetics}, 149:1633--1648, Aug 1998.
+
+\bibitem{ascher-petzold}
+U.~M. Ascher and L.~R. Petzold.
+\newblock {\em Computer Methods for Ordinary Differential Equations and
+  Differential-Algebraic Equations}.
+\newblock SIAM, 1998.
+
+\bibitem{ranlib}
+B.W. Brown, J.~Lovato, and K.~Russell.
+\newblock {\em \textup{RANLIB.C} Library of C Routines for Random Number
+  Generation}.
+\newblock M.D. Anderson Cancer Center, The University of Texas, 1991.
+
+\bibitem{rao-arkin-02}
+{C. Rao and A. Arkin}.
+\newblock {Stochastic chemical Kinetics and the quasi steady-state assumption:
+  application to the Gillespie algorithm}.
+\newblock {\em J. Chem. Phys.}, 118:4999--5010, 2003.
+
+\bibitem{netlib}
+J.~Dongarra and E.~Grosse.
+\newblock Netlib.
+\newblock http://www.netlib.org.
+
+\bibitem{frankowicz-moreau+93}
+M.~Frankowicz, M.~Moreau, P.P. Szcz\c{e}sny, J.~T\'{o}th, and L.~Vicente.
+\newblock Fast variables elimination in stochastic kinetics.
+\newblock {\em J. Phys. Chem.}, 97:1891--1895, 1993.
+
+\bibitem{Gillespie76}
+D.T. Gillespie.
+\newblock A general method for numerically simulating the stochastic time
+  evolution of coupled chemical reactions.
+\newblock {\em J. Comp. Phys.}, 22:403--434, 1976.
+
+\bibitem{Gillespie77}
+D.T. Gillespie.
+\newblock Exact stochastic simulation of coupled chemical reactions.
+\newblock {\em J. Phys. Chem.}, 81:2340--2361, 1977.
+
+\bibitem{Gillespie01}
+D.T. Gillespie.
+\newblock Approximate accelerated stochastic simulation of chemically reacting
+  systems.
+\newblock {\em J. Chem. Phys.}, 115(4):1716--1733, 2001.
+
+\bibitem{gillespie-petzold-03}
+D.T. Gillespie and L.R. Petzold.
+\newblock Improved leap-size selection for accelerated stochastic simulation.
+\newblock {\em J. Chem. Phys.}, 119, 2003.
+
+\bibitem{sbml}
+M.~Hucka, A.~Finney, H.M. Sauro, H.~Bolouri, J.~C. Doyle, and H.~Kitano.
+\newblock The systems biology markup language (\textup{SBML}): a medium for
+  representation and exchange of biochemical network models.
+\newblock {\em Bioinformatics}, 19(4):524--531, 2003.
+
+\bibitem{lapack++}
+D.~Walker J.~Dongarra, R.~Pozo.
+\newblock \textup{LAPACK}++: A design overview of object-oriented extensions
+  for high performance linear algebra.
+\newblock In {\em Proceedings of Supercomputing `93}, pages 162--171. IEEE
+  Computer Society Press, 1993.
+
+\bibitem{roguewave}
+T.~Keffer and A.~Vermeulen.
+\newblock {\em Math.h++ Introduction and Reference Manual}.
+\newblock Rogue Wave Software, Corvallis, Oregon, 1989.
+
+\bibitem{lecuyer-cote-91}
+P.~L'Ecuyer and S.~Cote.
+\newblock Implementing a random number package with splitting facilities.
+\newblock {\em ACM Transactions on Mathematical Software}, 17(1):98--111, 1991.
+
+\bibitem{mascagni-99}
+M.~Mascagni.
+\newblock "sprng: A scalable library for pseudorandom number generation".
+\newblock In {\em Proceedings of the Ninth SIAM Conference on Parallel
+  Processing for Scientific Computing}, San Antonio, Texas, 1999.
+
+\bibitem{mascagni-srinivasan-00}
+M.~Mascagni and A.~Srinivasan.
+\newblock "sprng: A scalable library for pseudorandom number generation".
+\newblock {\em ACM Transactions on Mathematical Software}, 26:436--461, 2000.
+
+\bibitem{matlab}
+The Mathworks Inc., Natick, MA.
+\newblock {\em Using Matlab}, 1984-2002.
+
+\bibitem{mcadams-arkin-97}
+H.H. McAdams and A.~Arkin.
+\newblock Stochastic mechanisms in gene expression.
+\newblock {\em Proc. Natl. Acad. Sci. USA}, 94:814--819, 1997.
+
+\bibitem{mcadams-arkin-99}
+H.H. McAdams and A.~Arkin.
+\newblock It's a noisy business!
+\newblock {\em Trends in Genetics}, 15(2):65--69, Feb 1999.
+
+\bibitem{oxtoby-nachtrieb-90}
+D.W. Oxtoby and N.H. Nachtrieb.
+\newblock {\em Principles of Modern Chemistry}.
+\newblock Saunders College Publishing, 2nd edition, 1990.
+
+\bibitem{TNT}
+R.~Pozo.
+\newblock {\em Template Numerical Toolkit: An interface for scientific
+  computing in C++}.
+\newblock National Institute of Standards and Technology, Gaithersburg,
+  Maryland, 2002.
+
+\bibitem{numericalrecipes}
+W.H. Press, S.A. Teukolsky, W.T. Vetterling, and B.P. Flannery.
+\newblock {\em Numerical Recipes in C: The Art of Scientific Computing}.
+\newblock Cambridge University Press, 2nd edition, 1992.
+
+\bibitem{rathinam-petzold-gillespie-jchemphys}
+M.~Rathinam, Y.~Cao, L.R. Petzold, and D.T. Gillespie.
+\newblock Stiffness in stochastic chemically reacting systems: The implicit
+  tau-leaping method.
+\newblock {\em Journal of Chemical Physics}, 2003.
+
+\bibitem{POOMA}
+J.V.W. Reynders, P.J. Hinker, J.C. Cummings, S.R. Atlas, S.~Banerjee, W.F.
+  Humphrey, S.R. Karmesin, K.~Keahey, M.~Srikant, and M.~Tholburn.
+\newblock {\em \textup{POOMA}: A Framework for Scientific Simulation on
+  Parallel Architectures}.
+\newblock Los Alamos National Laboratory, 1996.
+
+\bibitem{MTL}
+J.G. Siek.
+\newblock {\em A Modern Framework for Portable High Performance Numerical
+  Linear Algebra}, April 1999.
+
+\bibitem{c++}
+B.~Stroustrup.
+\newblock {\em The C++ Programming Language}.
+\newblock Addison-Wesley, 1997.
+
+\bibitem{java}
+Sun, http://java.sun.com/reference/api/index.html.
+\newblock {\em API Specifications}, 2004.
+
+\bibitem{blitz++}
+T.L. Veldhuizen.
+\newblock {\em The Blitz++ User Guide}.
+\newblock http://www.oonumerics.org/ blitz/manual/blitz.html, February 2001.
+
+\bibitem{adaptive}
+{Y. Cao, D. Gillespie and L. Petzold}.
+\newblock {Avoiding negative populations in explicit Poisson tau-leaping}.
+\newblock Submitted, 2005.
+
+\bibitem{SPEA2}
+{Y. Cao, D. Gillespie and L. Petzold}.
+\newblock Multiscale stochastic simulation algorithm with stochastic partial
+  equilibrium assumption for chemically reacting systems.
+\newblock {\em {to appear, J. Comput. Phys.}}, 2005.
+
+\bibitem{CaoGP2005_Stepsize}
+{Y. Cao, D. Gillespie and L. Petzold}.
+\newblock {Robust and efficient stepsize control for the tau-leaping method}.
+\newblock In preparation, 2005.
+
+\bibitem{SPEA1}
+{Y. Cao, D. Gillespie and L. Petzold}.
+\newblock {The slow-scale stochastic simulation algorithm}.
+\newblock {\em { J. Chem. Phys.}}, 122:014116, 2005.
+
+\end{thebibliography}

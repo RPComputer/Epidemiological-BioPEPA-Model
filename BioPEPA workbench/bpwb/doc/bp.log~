@@ -1,0 +1,48 @@
+Bio-PEPA Workbench Version 0.9.9 "Chad Smith" [25-August-2008]
+Processing input from mm.biopepa
+Compiling the model
+Reaction channels: r1, rm1, r2
+Species defined: E, S, E:S, P
+Model components defined: 
+Starting Dot file compilation.
+Finished Dot file compilation.
+Starting StochKit compilation.
+Finished StochKit compilation.
+Compilation complete.
+`mm001.cpp' -> `stochkit/ProblemDefinition.cpp'
+Compiling simulator.
+Running simulator.
+Completed all iterations of mm001.
+`mm002.cpp' -> `stochkit/ProblemDefinition.cpp'
+Compiling simulator.
+Running simulator.
+Completed all iterations of mm002.
+Running VFgen on mm001 for Matlab
+Running VFgen on mm001 for Sundials
+cc  -I/usr/local/include -c mm001_cvdemo.c
+cc  -I/usr/local/include -c mm001_cv.c
+cc  -o mm001_cvdemo mm001_cvdemo.o mm001_cv.o -L/usr/local/lib -lsundials_cvode -lsundials_nvecserial -lm
+Running VFgen on mm002 for Matlab
+Running VFgen on mm002 for Sundials
+cc  -I/usr/local/include -c mm002_cvdemo.c
+cc  -I/usr/local/include -c mm002_cv.c
+cc  -o mm002_cvdemo mm002_cvdemo.o mm002_cv.o -L/usr/local/lib -lsundials_cvode -lsundials_nvecserial -lm
+Plotting mm001_stochkit_results_0_plot.gnu
+Plotting mm001_stochkit_results_1_plot.gnu
+Plotting mm002_stochkit_results_0_plot.gnu
+Plotting mm002_stochkit_results_1_plot.gnu
+Running Dot over mm.dot
+eps2pdf: mm.eps -> mm.pdf [ok]
+Converting *.eps
+Results in DAT format in the 'dat' folder.
+Thumbnails in the 'thumbnails' folder.
+Results in PNG format in the 'png' folder.
+Report generation in progress.
+Reaction channels: r1, rm1, r2
+Species defined: E, S, E:S, P
+Model components defined: 
+Processing input from mm.biopepa
+Report generation complete.
+Report in mm.pdf
+Webpage in mm.html
+Exiting Bio-PEPA workbench.

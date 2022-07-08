@@ -1,0 +1,50 @@
+% Bio-PEPA style file biopepa.style
+% Keywords
+if	\mathrel{\mathbf{if}}
+then	\mathrel{\mathbf{then}}
+else	\mathrel{\mathbf{else}}
+fi	\mathrel{\textbf{fi}}
+and 	\wedge
+or	\vee
+not	\neg
+% Greek letters
+alpha	\alpha
+beta	\beta
+gamma	\gamma
+delta	\delta
+epsilon	\epsilon
+zeta    \zeta
+eta	\eta
+theta	\theta
+iota	\iota
+kappa	\kappa
+lambda	\lambda
+mu	\mu
+nu	\nu
+pi	\pi
+rho	\rho
+sigma	\sigma
+tau	\tau
+upsilon	\upsilon
+phi	\phi
+chi	\chi
+psi	\psi
+omega	\omega
+%
+r0	r_0
+r1	r_1
+rm1	r_{-1}
+r2	r_2
+%
+km5	k_{-5}
+km4	k_{-4}
+km3	k_{-5}
+km2	k_{-2}
+km1	k_{-1}
+k0      k_0
+k1	k_1
+k2	k_2
+k3	k_3
+k4	k_4
+k5	k_5
+%

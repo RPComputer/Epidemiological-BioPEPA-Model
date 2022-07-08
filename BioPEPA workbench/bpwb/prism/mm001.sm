@@ -1,0 +1,117 @@
+// PRISM model compiled from Bio-PEPA input file "mm" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+ctmc
+
+const double _k1 = 1;
+const double _km1 = 0.1;
+const double _k2 = 0.01;
+
+module Rates
+
+  [_r1] (( _k1 * _E * _S ) > 0) -> ( _k1 * _E * _S ) : true;
+  [_rm1] (( _km1 * _E_colon_S ) > 0) -> ( _km1 * _E_colon_S ) : true;
+  [_r2] (( _k2 * _E_colon_S ) > 0) -> ( _k2 * _E_colon_S ) : true;
+
+endmodule
+
+// Species: _E, _S, _E_colon_S, _P
+
+const int MAX = 100 + 100 + 0 + 0;
+
+module _E
+
+  _E : [0..MAX] init 100;
+
+  [_r1] (_E >= 1) -> 1 : (_E' = _E - 1);
+  [_rm1] (_E + 1 <= MAX) -> 1 : (_E' = _E + 1);
+  [_r2] (_E + 1 <= MAX) -> 1 : (_E' = _E + 1);
+
+endmodule
+
+module _S
+
+  _S : [0..MAX] init 100;
+
+  [_r1] (_S >= 1) -> 1 : (_S' = _S - 1);
+  [_rm1] (_S + 1 <= MAX) -> 1 : (_S' = _S + 1);
+
+endmodule
+
+module _E_colon_S
+
+  _E_colon_S : [0..MAX] init 0;
+
+  [_r1] (_E_colon_S + 1 <= MAX) -> 1 : (_E_colon_S' = _E_colon_S + 1);
+  [_rm1] (_E_colon_S >= 1) -> 1 : (_E_colon_S' = _E_colon_S - 1);
+  [_r2] (_E_colon_S >= 1) -> 1 : (_E_colon_S' = _E_colon_S - 1);
+
+endmodule
+
+module _P
+
+  _P : [0..MAX] init 0;
+
+  [_r2] (_P + 1 <= MAX) -> 1 : (_P' = _P + 1);
+
+endmodule
+
+
+// count rewards: "number of occurrences of r1"
+rewards "_r1"
+  [_r1] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of rm1"
+rewards "_rm1"
+  [_rm1] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of r2"
+rewards "_r2"
+  [_r2] true : 1;
+endrewards
+
+// rewards: "number of E molecules present"
+rewards "_E"
+  true : _E;
+endrewards
+
+// rewards: "square of number of E molecules present (used to calculate standard derivation)"
+rewards "_E_squared"
+  true : _E * _E;
+endrewards
+
+// rewards: "number of S molecules present"
+rewards "_S"
+  true : _S;
+endrewards
+
+// rewards: "square of number of S molecules present (used to calculate standard derivation)"
+rewards "_S_squared"
+  true : _S * _S;
+endrewards
+
+// rewards: "number of E:S molecules present"
+rewards "_E_colon_S"
+  true : _E_colon_S;
+endrewards
+
+// rewards: "square of number of E:S molecules present (used to calculate standard derivation)"
+rewards "_E_colon_S_squared"
+  true : _E_colon_S * _E_colon_S;
+endrewards
+
+// rewards: "number of P molecules present"
+rewards "_P"
+  true : _P;
+endrewards
+
+// rewards: "square of number of P molecules present (used to calculate standard derivation)"
+rewards "_P_squared"
+  true : _P * _P;
+endrewards
+
+
+
+// End PRISM model compiled from mm

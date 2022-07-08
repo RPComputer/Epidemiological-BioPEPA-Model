@@ -1,0 +1,35 @@
+%biopepa.independent.replications: 1
+%biopepa.simulation.stoptime: 2000
+%biopepa.show.all.replications: true
+%stochkit.opt.progress.interval: 1
+//Parameters
+//-Functional rates
+contactyy = [(k1/(Ry + Ry + Iy + Iy + Sy + Sy))*Sy*Iy];
+contactym = [(k2/(Ry + Rm + Iy + Im + Sy + Sm))*Sy*Im];
+contactyo = [(k1/(Ry + Ro + Iy + Io + Sy + So))*Sy*Io];
+contactmy = [(k3/(Rm + Ry + Im + Iy + Sm + Sy))*Sm*Iy];
+contactmm = [(k4/(Rm + Rm + Im + Im + Sm + Sm))*Sm*Im];
+contactmo = [(k5/(Rm + Ro + Im + Io + Sm + So))*Sm*Io];
+contactoy = [(k6/(Ro + Ry + Io + Iy + So + Sy))*So*Iy];
+contactom = [(k2/(Ro + Rm + Io + Im + So + Sm))*So*Im];
+contactoo = [(k7/(Ro + Ro + Io + Io + So + So))*So*Io];
+recoveryy = [r1*Iy];
+recoverym = [r2*Im];
+recoveryo = [r3*Io];
+deathy = [r4*Iy];
+deathm = [r5*Im];
+deatho = [r6*Io];
+
+//Model
+Iy = (contactyy,1)>>Iy + (contactym,1)>>Iy + (contactyo,1)>>Iy + (contactmy,1)(+) + (contactoy,1)(+) + (recoveryy,1)<<Iy + (deathy,1)<<Iy;
+Im = (contactym,1)(+) + (contactmy,1)>>Im + (contactmm,1)>>Im + (contactmo,1)>>Im + (contactom,1)(+) + (recoverym,1)<<Im + (deathm,1)<<Im;
+Io = (contactyo,1)(+) + (contactmo,1)(+) + (contactoy,1)>>Io + (contactom,1)>>Io + (contactoo,1)>>Io + (recoveryo,1)<<Io + (deatho,1)<<Io;
+Sy = (contactyy,1)<<Sy + (contactym,1)<<Sy + (contactyo,1)<<Sy;
+Sm = (contactmy,1)<<Sm + (contactmm,1)<<Sm + (contactmo,1)<<Sm;
+So = (contactoy,1)<<So + (contactom,1)<<So + (contactoo,1)<<So;
+Ry = (recoveryy,1)>>Ry;
+Rm = (recoverym,1)>>Rm;
+Ro = (recoveryo,1)>>Ro;
+D = (deathy,1)>>D + (deathm,1)>>D + (deatho,1)>>D;
+//System equation
+(Iy <> Im <> Io <> Sy <> Sm <> So <> Ry <> Rm <> Ro <> D)

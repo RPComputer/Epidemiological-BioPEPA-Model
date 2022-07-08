@@ -1,0 +1,10 @@
+Workbench requirements:
+
+dizzy edimburg
+sundials 2.3.0
+cvode 6.1.1
+mxml 3.3
+ginac 1.8.3
+cln 1.3.6
+vfgen
+libc

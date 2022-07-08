@@ -1,0 +1,112 @@
+MOSML=/cygdrive/c/mosml/bin
+
+
+# A makefile for the BioPEPA Workbench.  The default is to compile
+# with Moscow ML, but compile targets for Standard ML of New Jersey,
+# MLton and MLj are also available
+
+all:
+	echo "structure LocalTime = Time;" > LocalTime.sml
+	${MOSML}/mosmlc -c Version.sig
+	${MOSML}/mosmlc -c Version.sml
+	${MOSML}/mosmlc -c Help.sig
+	${MOSML}/mosmlc -c Help.sml
+	${MOSML}/mosmlc -c JobName.sig
+	${MOSML}/mosmlc -c JobName.sml
+	${MOSML}/mosmlc -c LocalTime.sml
+	${MOSML}/mosmlc -c Reporting.sig
+	${MOSML}/mosmlc -c Reporting.sml
+	${MOSML}/mosmlc -c Error.sig
+	${MOSML}/mosmlc -c Error.sml
+	${MOSML}/mosmlc -c Debugging.sig
+	${MOSML}/mosmlc -c Debugging.sml
+	${MOSML}/mosmlc -c Options.sig
+	${MOSML}/mosmlc -c Options.sml
+	${MOSML}/mosmlc -c FileUtils.sig
+	${MOSML}/mosmlc -c FileUtils.sml
+	${MOSML}/mosmlc -c Files.sig
+	${MOSML}/mosmlc -c Files.sml
+	${MOSML}/mosmlc -c BioPEPA.sig
+	${MOSML}/mosmlc -c BioPEPA.sml
+	${MOSML}/mosmlc -c Lexer.sig
+	${MOSML}/mosmlc -c Lexer.sml
+	${MOSML}/mosmlc -c Sort.sig
+	${MOSML}/mosmlc -c Sort.sml
+	${MOSML}/mosmlc -c Prettyprinter.sig
+	${MOSML}/mosmlc -c Prettyprinter.sml
+	${MOSML}/mosmlc -c XMLPrettyprinter.sig
+	${MOSML}/mosmlc -c XMLPrettyprinter.sml
+	${MOSML}/mosmlc -c Preparser.sig
+	${MOSML}/mosmlc -c Preparser.sml
+	${MOSML}/mosmlc -c Parser.sig
+	${MOSML}/mosmlc -c Parser.sml
+	${MOSML}/mosmlc -c Semantic.sig
+	${MOSML}/mosmlc -c Semantic.sml
+#	${MOSML}/mosmlc -c Bridge.sig
+#	${MOSML}/mosmlc -c Bridge.sml
+	${MOSML}/mosmlc -c Table.sig
+	${MOSML}/mosmlc -c Table.sml
+#	${MOSML}/mosmlc -c Branching.sig
+#	${MOSML}/mosmlc -c Branching.sml
+	${MOSML}/mosmlc -c Statespace.sig
+	${MOSML}/mosmlc -c Statespace.sml
+#	${MOSML}/mosmlc -c Arcs.sig
+#	${MOSML}/mosmlc -c Arcs.sml
+	${MOSML}/mosmlc -c DerivativeSets.sig
+	${MOSML}/mosmlc -c DerivativeSets.sml
+#	${MOSML}/mosmlc -c Cell.sig
+#	${MOSML}/mosmlc -c Cell.sml
+#	${MOSML}/mosmlc -c Markings.sig
+#	${MOSML}/mosmlc -c Markings.sml
+#	${MOSML}/mosmlc -c Priorities.sig
+#	${MOSML}/mosmlc -c Priorities.sml
+	${MOSML}/mosmlc -c Environment.sig
+	${MOSML}/mosmlc -c Environment.sml
+#	${MOSML}/mosmlc -c Derivatives.sig
+#	${MOSML}/mosmlc -c Derivatives.sml
+#	${MOSML}/mosmlc -c Aggregate.sig
+#	${MOSML}/mosmlc -c Aggregate.sml
+#	${MOSML}/mosmlc -c Graph.sig
+#	${MOSML}/mosmlc -c Graph.sml
+#	${MOSML}/mosmlc -c Folding.sig
+#	${MOSML}/mosmlc -c Folding.sml
+#	${MOSML}/mosmlc -c Primes.sig
+#	${MOSML}/mosmlc -c Primes.sml
+#	${MOSML}/mosmlc -c Listings.sig
+#	${MOSML}/mosmlc -c Listings.sml
+#	${MOSML}/mosmlc -c Alphabets.sig
+#	${MOSML}/mosmlc -c Alphabets.sml
+	${MOSML}/mosmlc -c Reactions.sig
+	${MOSML}/mosmlc -c Reactions.sml
+	${MOSML}/mosmlc -c BPWB.sig
+	${MOSML}/mosmlc -c BPWB.sml
+	${MOSML}/mosmlc -standalone -o biopepawb mosmlbpwb.sml
+	
+nj:
+	echo "structure LocalTime = Time;" > LocalTime.sml
+	cat njpwb.sml | sml
+
+mlton:
+	echo "structure LocalTime = Time;" > LocalTime.sml
+	${MLTON}/mlton -output pwb pwb_mlton.cm
+
+mlj:
+	echo "structure LocalTime = struct fun now () = () end;" > LocalTime.sml
+	${MLJ} pepa
+
+release:
+	cp README ${RELEASE}
+	cp LICENSE ${RELEASE}
+	cp Makefile ${RELEASE}
+	cp pwb_mlton.cm ${RELEASE}
+	cp pwb_mlton.buildfile ${RELEASE}
+	cp *.{sml,sig} ${RELEASE}
+	cp pwb ${RELEASE}
+	cp pwb.exe ${RELEASE}
+	cp doc/pwbpn.pdf ${RELEASE}/doc
+	cp TESTS/*.pepa ${RELEASE}/TESTS
+	(cd ${RELEASE} ; cd .. ; tar -zcvf pwb.tar.gz pwb)
+
+clean:	
+	rm *.ui *.uo
+

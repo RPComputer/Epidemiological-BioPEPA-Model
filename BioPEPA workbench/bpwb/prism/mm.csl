@@ -1,0 +1,123 @@
+// CSL formulae generated for PRISM model compiled from Bio-PEPA input file "mm" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+// Constants:
+const double T; // time instant
+const int i; // number of molecules
+const int rew; // reward variable
+
+// Probability of there being i molecules of species E at time T?
+P=? [ true U[T,T] _E=i ]
+
+// What is the probability of reaching the maximum number of molecules of species E at time T?
+P=? [ true U[T,T] "_E_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species E at time T or before?
+P=? [ true U<=T "_E_at_maximum" ]
+
+// Expected number of E molecules at time T?
+R{"_E"}=? [ I=T ]
+
+// Expected long-run number of E molecules?
+R{"_E"}=? [ S ]
+
+// Stability of species E in the steady-state?
+S=? [(_E >= (i - 1)) & (_E <= (i + 1)) ]
+
+// Probability of there being i molecules of species S at time T?
+P=? [ true U[T,T] _S=i ]
+
+// What is the probability of reaching the maximum number of molecules of species S at time T?
+P=? [ true U[T,T] "_S_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species S at time T or before?
+P=? [ true U<=T "_S_at_maximum" ]
+
+// Expected number of S molecules at time T?
+R{"_S"}=? [ I=T ]
+
+// Expected long-run number of S molecules?
+R{"_S"}=? [ S ]
+
+// Stability of species S in the steady-state?
+S=? [(_S >= (i - 1)) & (_S <= (i + 1)) ]
+
+// Probability of there being i molecules of species E:S at time T?
+P=? [ true U[T,T] _E_colon_S=i ]
+
+// What is the probability of reaching the maximum number of molecules of species E:S at time T?
+P=? [ true U[T,T] "_E_colon_S_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species E:S at time T or before?
+P=? [ true U<=T "_E_colon_S_at_maximum" ]
+
+// Expected number of E:S molecules at time T?
+R{"_E_colon_S"}=? [ I=T ]
+
+// Expected long-run number of E:S molecules?
+R{"_E_colon_S"}=? [ S ]
+
+// Stability of species E:S in the steady-state?
+S=? [(_E_colon_S >= (i - 1)) & (_E_colon_S <= (i + 1)) ]
+
+// Probability of there being i molecules of species P at time T?
+P=? [ true U[T,T] _P=i ]
+
+// What is the probability of reaching the maximum number of molecules of species P at time T?
+P=? [ true U[T,T] "_P_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species P at time T or before?
+P=? [ true U<=T "_P_at_maximum" ]
+
+// Expected number of P molecules at time T?
+R{"_P"}=? [ I=T ]
+
+// Expected long-run number of P molecules?
+R{"_P"}=? [ S ]
+
+// Stability of species P in the steady-state?
+S=? [(_P >= (i - 1)) & (_P <= (i + 1)) ]
+
+
+// Expected value of model component rew at time T?
+R{"rew"}=? [ I=T ]
+
+// Expected long-run value of model component rew?
+R{"rew"}=? [ S ]
+
+// Expected number of occurrences of reaction r1 at time T?
+R{"_r1"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction rm1 at time T?
+R{"_rm1"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction r2 at time T?
+R{"_r2"}=? [ C<=T ]
+
+
+// Is species E depleted?
+label "_E_depleted" = _E = 0;
+
+// Is species E at its maximum value?
+label "_E_at_maximum" = _E = MAX;
+
+// Is species S depleted?
+label "_S_depleted" = _S = 0;
+
+// Is species S at its maximum value?
+label "_S_at_maximum" = _S = MAX;
+
+// Is species E:S depleted?
+label "_E_colon_S_depleted" = _E_colon_S = 0;
+
+// Is species E:S at its maximum value?
+label "_E_colon_S_at_maximum" = _E_colon_S = MAX;
+
+// Is species P depleted?
+label "_P_depleted" = _P = 0;
+
+// Is species P at its maximum value?
+label "_P_at_maximum" = _P = MAX;
+
+
+// End CSL formulae model compiled from mm

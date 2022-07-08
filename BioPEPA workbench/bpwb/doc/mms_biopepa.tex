@@ -1,0 +1,46 @@
+
+
+
+%
+There are four reaction channels in the model.  Reaction $r_0$
+represents synthesis (of compound \textit{E:S}) at the 
+constant rate $k_0$.  The other three reactions are the usual
+Michaelis-Menten enzymatic reactions.
+%
+\begin{eqnarray*}
+r_0 & = & [ k_0 ]\\%
+r_1 & = & [ k_1 \times  E \times  S ]\\%
+r_{-1} & = & [ k_{-1} \times  \hbox{\textit{E:S}} ]\\%
+r_2 & = & [ k_2 \times  \hbox{\textit{E:S}} ]\\%
+\end{eqnarray*}
+%
+Five species are involved in the reactions.  These are the
+enzyme \textit{E}, the substrate \textit{S}, the compound
+\textit{E:S}, the product \textit{P} and the catalyst
+\textit{X}, which is needed to synthesize the compound
+\textit{E:S}.
+%
+\begin{eqnarray*}
+E & = & r_1{\downarrow} +  r_{-1}{\uparrow}  +  r_2{\uparrow} \\%
+S & = & r_1{\downarrow}  +  r_{-1}{\uparrow} \\%
+\hbox{\textit{E:S}} & = & r_0{\uparrow} + r_1{\uparrow}  +  r_{-1}{\downarrow}  +  r_2{\downarrow} \\%
+P & = & r_2{\uparrow} \\%
+X & = & (r_0, 1) \odot  X\\%
+\end{eqnarray*}
+%
+The component \textit{T} does not represent a chemical species.  
+It is a model component used to plot functions of the species
+numbers.  In this case \textit{T} is merely the sum of the number of 
+molecules of the species involved in the reactions.  The compound
+\textit{E:S} is counted as two molecules.
+%
+\begin{eqnarray*}
+T & = & [ E + S + (2 \times  \hbox{\textit{E:S}}) + P + X ]\\%
+\end{eqnarray*}
+%
+The species are involved in the reactions as described 
+in the \emph{model equation} below.
+%
+\begin{eqnarray*}
+(E \sync{\{r_1, r_{-1}, r_2\}} (S \sync{\{r_1, r_{-1}\}} ((X \sync{\{r_0\}} \hbox{\textit{E:S}}) \sync{\{r_2\}} P)))%
+\end{eqnarray*}

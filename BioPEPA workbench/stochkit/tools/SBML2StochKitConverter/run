@@ -1,0 +1,3 @@
+export XML_HOME=/home/stg/pub/STOCHKIT/StochKit/tools/SBML2StochKitConverter
+export LD_LIBRARY_PATH=$XML_HOME/lib:$LD_LIBRARY_PATH
+java -classpath .:./jar:./jar/parser.jar:./jar/xerces.jar Converter $1 $2

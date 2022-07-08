@@ -1,0 +1,546 @@
+/////////////////////////////////////////////////
+/// Bio-PEPA model of the rRNA model of CoTC  ///
+/// Jane Hillston                             ///
+/// Version 1                                 ///
+/// 07/10/08                                  ///
+/////////////////////////////////////////////////
+
+// Kinetic Law Declarations  TODO!
+
+delay1 = [ fMA(delay) ];
+delay2 = [ fMA(delay) ];
+delay3 = [ fMA(delay) ];
+
+reac3L1 = [ fMA(r3) ];
+reac3L2 = [ fMA(r3) ];
+reac3L3 = [ fMA(r3) ];
+reac3L4 = [ fMA(r3) ];
+reac3L5 = [ fMA(r3) ];
+reac3L6 = [ fMA(r3) ];
+reac3L7 = [ fMA(r3) ];
+reac3L8 = [ fMA(r3) ];
+reac3L9 = [ fMA(r3) ];
+reac3L10 = [ fMA(r3) ];
+reac3L11 = [ fMA(r3) ];
+reac3L12 = [ fMA(r3) ];
+reac3L13 = [ fMA(r3) ];
+reac3L14 = [ fMA(r3) ];
+reac3L15 = [ fMA(r3) ];
+reac3L16 = [ fMA(r3) ];
+reac3L17 = [ fMA(r3) ];
+
+reac4L1 = [ fMA(r4) ];
+reac4L2 = [ fMA(r4) ];
+reac4L3 = [ fMA(r4) ];
+reac4L4 = [ fMA(r4) ];
+reac4L5 = [ fMA(r4) ];
+reac4L6 = [ fMA(r4) ];
+reac4L7 = [ fMA(r4) ];
+reac4L8 = [ fMA(r4) ];
+reac4L9 = [ fMA(r4) ];
+reac4L10 = [ fMA(r4) ];
+reac4L11 = [ fMA(r4) ];
+reac4L12 = [ fMA(r4) ];
+reac4L13 = [ fMA(r4) ];
+reac4L14 = [ fMA(r4) ];
+reac4L15 = [ fMA(r4) ];
+reac4L16 = [ fMA(r4) ];
+reac4L17 = [ fMA(r4) ];
+
+reac5L1 = [ fMA(r5) ];
+reac5L2 = [ fMA(r5) ];
+reac5L3 = [ fMA(r5) ];
+reac5L4 = [ fMA(r5) ];
+reac5L5 = [ fMA(r5) ];
+reac5L6 = [ fMA(r5) ];
+reac5u = [ fMA(r5) ];
+
+reac6L1 = [ fMA(r6) ];
+reac6L2 = [ fMA(r6) ];
+reac6L3 = [ fMA(r6) ];
+reac6L4 = [ fMA(r6) ];
+reac6L5 = [ fMA(r6) ];
+reac6L6 = [ fMA(r6) ];
+reac6L7 = [ fMA(r6) ];
+reac6L8 = [ fMA(r6) ];
+reac6L9 = [ fMA(r6) ];
+reac6L10 = [ fMA(r6) ];
+
+reac7L1 = [ fMA(r7) ];
+reac7L2 = [ fMA(r7) ];
+reac7L3 = [ fMA(r7) ];
+reac7L4 = [ fMA(r7) ];
+reac7L5 = [ fMA(r7) ];
+reac7L6 = [ fMA(r7) ];
+reac7L7 = [ fMA(r7) ];
+reac7L8 = [ fMA(r7) ];
+reac7L9 = [ fMA(r7) ];
+reac7L10 = [ fMA(r7) ];
+
+reac8L1 = [ fMA(r8) ];
+reac8u = [ fMA(r8) ];
+
+transl1 = [ fMA(rt) ];
+transl2 = [ fMA(rt) ];
+transl3 = [ fMA(rt) ];
+transl4 = [ fMA(rt) ];
+transl5 = [ fMA(rt) ];
+transl6 = [ fMA(rt) ];
+transl7 = [ fMA(rt) ];
+transl8 = [ fMA(rt) ];
+transl9 = [ fMA(rt) ];
+transl10 = [ fMA(rt) ];
+transl11 = [ fMA(rt) ];
+transl12 = [ fMA(rt) ];
+transl13 = [ fMA(rt) ];
+transl14 = [ fMA(rt) ];
+transl15 = [ fMA(rt) ];
+transl16 = [ fMA(rt) ];
+transl17 = [ fMA(rt) ];
+
+trans27SA2l1 = [ fMA(rt) ];
+trans27SA2l2 = [ fMA(rt) ];
+trans27SA2l3 = [ fMA(rt) ];
+trans27SA2l4 = [ fMA(rt) ];
+trans27SA2l5 = [ fMA(rt) ];
+trans27SA2l6 = [ fMA(rt) ];
+trans27SA2l7 = [ fMA(rt) ];
+trans27SA2l8 = [ fMA(rt) ];
+trans27SA2l9 = [ fMA(rt) ];
+trans27SA2l10 = [ fMA(rt) ];
+
+transCOTCl1 = [ fMA(rt) ];
+transCOTCl2 = [ fMA(rt) ];
+transCOTCl3 = [ fMA(rt) ];
+transCOTCl4 = [ fMA(rt) ];
+transCOTCl5 = [ fMA(rt) ];
+transCOTCl6 = [ fMA(rt) ];
+transCOTCl7 = [ fMA(rt) ];
+
+// species definitions
+
+DNAl1init = (delay1, 1) << DNAl1init ;
+
+DNAp27SAl1init = (delay2, 1) << DNAp27SAl1init ;
+
+DNACOTCl1Init = (delay3, 1) << DNACOTCl1Init ;
+
+El35Sl1 = (reac3L1, 1) << El35Sl1 
+        + (reac4L1, 1) << El35Sl1 
+        + (transl1, 1) >> El35Sl1 ;
+
+El27SBl1 = (reac3L1, 1) >> El27SBl1 
+         + (reac6L1, 1) >> El27SBl1 
+         + (reac7L1, 1) << El27SBl1 ;
+
+El27SA2l1 = (reac4L1, 1) >> El27SA2l1 
+          + (reac6L1, 1) << El27SA2l1  
+          + (trans27SA2l1) >> El27SA2l1 ;
+
+El23Su = (reac3L1, 1) >> El23Su         
+       + (reac3L2, 1) >> El23Su         
+       + (reac3L3, 1) >> El23Su        
+       + (reac3L4, 1) >> El23Su         
+       + (reac3L5, 1) >> El23Su         
+       + (reac3L6, 1) >> El23Su         
+       + (reac3L7, 1) >> El23Su         
+       + (reac3L8, 1) >> El23Su         
+       + (reac3L9, 1) >> El23Su         
+       + (reac3L10, 1) >> El23Su ;      
+
+El23Sl1 = (reac3L11, 1) >> El23Sl1 ;     
+       
+El23Sl2 = (reac3L12, 1) >> El23Sl2 ;     
+       
+El23Sl3 = (reac3L13, 1) >> El23Sl3 ;     
+       
+El23Sl4 = (reac3L14, 1) >> El23Sl4 ;     
+       
+El23Sl5 = (reac3L15, 1) >> El23Sl5 ;     
+       
+El23Sl6 = (reac3L16, 1) >> El23Sl6 
+        + (reac3L17, 1) >> El23Sl6 ;     
+
+El20Su = (reac4L1, 1) >> El20Su         
+       + (reac4L2, 1) >> El20Su        
+       + (reac4L3, 1) >> El20Su         
+       + (reac4L4, 1) >> El20Su         
+       + (reac4L5, 1) >> El20Su         
+       + (reac4L6, 1) >> El20Su         
+       + (reac4L7, 1) >> El20Su         
+       + (reac4L8, 1) >> El20Su         
+       + (reac4L9, 1) >> El20Su        
+       + (reac4L10, 1) >> El20Su       
+       + (reac5u, 1) << El20Su ;       
+
+El18Su = (reac5u, 1) >> El18Su ;
+
+El20Sl1 = (reac4L11, 1) >> El20Sl1      
+        + (reac5L1, 1) << El20Sl1       
+        + (transCOTCl1, 1) >> El20Sl1 ;   
+
+El20Sl2 = (reac4L12, 1) >> El20Sl2      
+        + (reac5L2, 1) << El20Sl2       
+        + (transCOTCl2, 1) >> El20Sl2 ;   
+
+El20Sl3 = (reac4L13, 1) >> El20Sl3      
+        + (reac5L3, 1) << El20Sl3       
+        + (transCOTCl3, 1) >> El20Sl3 ;   
+
+El20Sl4 = (reac4L14, 1) >> El20Sl4     
+        + (reac5L4, 1) << El20Sl4       
+        + (transCOTCl4, 1) >> El20Sl4 ;    
+
+El20Sl5 = (reac4L15, 1) >> El20Sl5      
+        + (reac5L5, 1) << El20Sl5       
+        + (transCOTCl5, 1) >> El20Sl5 ;   
+
+El20Sl6 = (reac4L16, 1) >> El20Sl6      
+        + (reac4L17, 1) >> El20Sl6      
+        + (reac5L6, 1) << El20Sl6       
+        + (transCOTCl6, 1) >> El20Sl6    
+        + (transCOTCl7, 1) >> El20Sl6 ;   
+
+El35Sl2 = (reac3L2, 1) << El35Sl2       
+        + (reac4L2, 1) << El35Sl2     
+        + (transl2, 1) >> El35Sl2 ;      
+
+El27SBl2 = (reac3L2, 1) >> El27SBl2    
+         + (reac6L2, 1) >> El27SBl2   
+         + (reac7L2, 1) << El27SBl2 ;  
+
+El27SA2l2 = (reac4L2, 1) >> El27SA2l2 
+          + (reac6L2, 1) << El27SA2l2 
+          + (trans27SAl2, 1) >> El27SA2l2 ;
+
+El35Sl3 = (reac3L3, 1) << El35Sl3        
+        + (reac4L3, 1) << El35Sl3        
+        + (transl3, 1) >> El35Sl3 ;        
+
+El27SBl3 = (reac3L3, 1) >> El27SBl3     
+         + (reac6L3, 1) >> El27SBl3    
+         + (reac7L3, 1) << El27SBl3 ;    
+
+El27SA2l3 = (reac4L3, 1) >> El27SA2l3    
+          + (reac6L3, 1) << El27SA2l3   
+          + (trans27SAl3, 1) >> El27SA2l3 ;
+
+El35Sl4 = (reac3L4, 1) << El35Sl4       
+        + (reac4L4, 1) << El35Sl4        
+        + (transl4, 1) >> El35Sl4 ;        
+
+El27SBl4 = (reac3L4, 1) >> El27SBl4      
+         + (reac6L4, 1) >> El27SBl4      
+         + (reac7L4, 1) << El27SBl4 ;    
+
+El27SA2l4 = (reac4L4, 1) >> El27SA2l4    
+          + (reac6L4, 1) << El27SA2l4    
+          + (trans27SAl4, 1) >> El27SA2l4 ;
+
+El35Sl5 = (reac3L5, 1) << El35Sl5       
+        + (reac4L5, 1) << El35Sl5        
+        + (transl5, 1) >> El35Sl5 ;        
+
+El27SBl5 = (reac3L5, 1) >> El27SBl5      
+         + (reac6L5, 1) >> El27SBl5      
+         + (reac7L5, 1) << El27SBl5 ;    
+
+El27SA2l5 = (reac4L5, 1) >> El27SA2l5   
+          + (reac6L5, 1) << El27SA2l5  
+          + (trans27SAl5, 1) >> El27SA2l5 ;
+
+El35Sl6 = (reac3L6, 1) << El35Sl6        
+        + (reac4L6, 1) << El35Sl6        
+        + (transl6, 1) >> El35Sl6 ;        
+
+El27SBl6 = (reac3L6, 1) >> El27SBl6     
+         + (reac6L6, 1) >> El27SBl6     
+         + (reac7L6, 1) << El27SBl6 ;     
+
+El27SA2l6 = (reac4L6, 1) >> El27SA2l6     
+          + (reac6L6, 1) << El27SA2l6     
+          + (trans27SAl6, 1) >> El27SA2l6 ; 
+
+El35Sl7 = (reac3L7, 1) << El35Sl7         
+        + (reac4L7, 1) << El35Sl7         
+        + (transl7, 1) >> El35Sl7 ;         
+
+El27SBl7 = (reac3L7, 1) >> El27SBl7       
+         + (reac6L7, 1) >> El27SBl7      
+         + (reac7L7, 1) << El27SBl7 ;      
+
+El27SA2l7 = (reac4L7, 1) >> El27SA2l7    
+          + (reac6L7, 1) << El27SA2l7    
+          + (trans27SAl7, 1) >> El27SA2l7 ; 
+
+El35Sl8 = (reac3L8, 1) << El35Sl8         
+        + (reac4L8, 1) << El35Sl8         
+        + (transl8, 1) >> El35Sl8 ;         
+
+El27SBl8 = (reac3L8, 1) >> El27SBl8       
+         + (reac6L8, 1) >> El27SBl8       
+         + (reac7L8, 1) << El27SBl8 ;      
+
+El27SA2l8 = (reac4L8, 1) >> El27SA2l8     
+          + (reac6L8, 1) << El27SA2l8     
+          + (trans27SAl8, 1) >> El27SA2l8 ; 
+
+El35Sl9 = (reac3L9, 1) << El35Sl9         
+        + (reac4L9, 1) << El35Sl9         
+        + (transl9, 1) >> El35Sl9 ;         
+
+El27SBl9 = (reac3L9, 1) >> El27SBl9       
+         + (reac6L9, 1) >> El27SBl9       
+         + (reac7L9, 1) << El27SBl9 ;      
+
+El27SA2l9 = (reac4L9, 1) >> El27SA2l9     
+          + (reac6L9, 1) << El27SA2l9     
+          + (trans27SAl9, 1) >> El27SA2l9 ; 
+
+El35Sl10 = (reac3L10, 1) << El35Sl10      
+         + (reac4L10, 1) << El35Sl10      
+         + (transl10, 1) >> El35Sl10 ;      
+
+El27SBl10 = (reac3L10, 1) >> El27SBl10     
+          + (reac6L10, 1) >> El27SBl10    
+          + (reac7L10, 1) << El27SBl10 
+          + (reac3L11, 1) >> El27SBl11
+          + (reac3L12, 1) >> El27SBl12   
+          + (reac3L13, 1) >> El27SBl13     
+          + (reac3L14, 1) >> El27SBl14     
+          + (reac3L15, 1) >> El27SBl15     
+          + (reac3L16, 1) >> El27SBl16      
+          + (reac3L17, 1) >> El27SBl17 ;    
+
+El27SA2l10 = (reac4L10, 1) >> El27SA2l10  
+           + (reac4L11, 1) >> El27SA2l10  
+           + (reac4L12, 1) >> El27SA2l10  
+           + (reac4L13, 1) >> El27SA2l10  
+           + (reac4L14, 1) >> El27SA2l10  
+           + (reac4L15, 1) >> El27SA2l10  
+           + (reac4L16, 1) >> El27SA2l10  
+           + (reac4L17, 1) >> El27SA2l10  
+           + (reac6L1, 1) << El27SA2l10   
+           + (trans27SAl10, 1) >> El27SA2l10 ;
+
+El35Sl11 = (reac3L11, 1) << El35Sl11       
+         + (reac4L11, 1) << El35Sl11       
+         + (transl11, 1) >> El35Sl11 ;      
+
+
+El35Sl12 = (reac3L12, 1) << El35Sl12     
+         + (reac4L12, 1) << El35Sl12     
+         + (transl12, 1) >> El35Sl12      
+
+
+El35Sl13 = (reac3L13, 1) << El35Sl13       
+         + (reac4L13, 1) << El35Sl13       
+         + (transl13, 1) >> El35Sl13 ;       
+
+
+El35Sl14 = (reac3L14, 1) << El35Sl14       
+         + (reac4L14, 1) << El35Sl14       
+         + (transl14, 1) >> El35Sl14 ;       
+
+
+El35Sl15 = (reac3L15, 1) << El35Sl15       
+         + (reac4L15, 1) << El35Sl15      
+         + (transl15, 1) >> El35Sl15 ;       
+
+
+El35Sl16 = (reac3L16, 1) << El35Sl16      
+         + (reac4L16, 1) << El35Sl16      
+         + (transl16, 1) >> El35Sl16 ;       
+
+
+El35Sl17 = (reac3L17, 1) << El35Sl17        
+         + (reac4L17, 1) << El35Sl17        
+         + (transl17, 1) >> El35Sl17 ;      
+
+
+El18Sl1 = (reac5L1, 1) >> El18Sl1 ;           
+
+El18Sl2 = (reac5L2, 1) >> El18Sl2 ;           
+
+El18Sl3 = (reac5L3, 1) >> El18Sl3 ;           
+
+El18Sl4 = (reac5L4, 1) >> El18Sl4 ;           
+
+El18Sl5 = (reac5L5, 1) >> El18Sl5 ;          
+
+El18Sl6 = (reac5L6, 1) >> El18Sl6 ;           
+
+ElS7Su = (reac7L1, 1) >> ElS7Su              
+       + (reac7L2, 1) >> ElS7Su              
+       + (reac7L3, 1) >> ElS7Su              
+       + (reac7L4, 1) >> ElS7Su              
+       + (reac7L5, 1) >> ElS7Su              
+       + (reac7L6, 1) >> ElS7Su              
+       + (reac7L7, 1) >> ElS7Su              
+       + (reac7L8, 1) >> ElS7Su              
+       + (reac7L9, 1) >> ElS7Su              
+       + (reac8u, 1) << ElS7Su ;               
+
+ElS7Sl1 = (reac7L10, 1) >> ElS7Sl1           
+        + (reac8L1, 1) << ElS7Sl1 ;           
+
+El25Sl1 = (reac7L1, 1) >> El25Sl1 ;           
+
+El25Sl2 = (reac7L2, 1) >> El25Sl2 ;           
+
+El25Sl3 = (reac7L3, 1) >> El25Sl3 ;           
+
+El25Sl4 = (reac7L4, 1) >> El25Sl4 ;           
+
+El25Sl5 = (reac7L5, 1) >> El25Sl5 ;           
+
+El25Sl6 = (reac7L6, 1) >> El25Sl6 ;           
+
+El25Sl7 = (reac7L7, 1) >> El25Sl7 ;           
+
+El25Sl8 = (reac7L8, 1) >> El25Sl8 ;           
+
+El25Sl9 = (reac7L9, 1) >> El25Sl9            
+        + (reac7L10, 1) >> El25Sl9 ;          
+
+ElS58Su = (reac8u, 1) >> ElS58Su ;            
+
+ElS58Sl1 = (reac8L1, 1) >> ElS58Sl1 ;         
+
+
+DNAl1 = (delay1, 1) >> DNAl1                  
+      + (transl1, 1) << DNAl1 ;                
+
+DNAl2 = (transl1, 1) >> DNAl2     
+      + (transl2, 1) << DNAl2 ;   
+
+DNAl3 = (transl2, 1) >> DNAl3      
+      + (transl3, 1) << DNAl3 ;     
+
+DNAl4 = (transl3, 1) >> DNAl4      
+      + (transl4, 1) << DNAl4 ;     
+
+DNAl5 = (transl4, 1) >> DNAl5      
+      + (transl5, 1) << DNAl5 ;      
+
+DNAl6 = (transl5, 1) >> DNAl6       
+      + (transl6, 1) << DNAl6 ;      
+
+DNAl7 = (transl6, 1) >> DNAl7       
+      + (transl7, 1) << DNAl7 ;      
+
+DNAl8 = (transl7, 1) >> DNAl8       
+      + (transl8, 1) << DNAl8 ;      
+
+DNAl9 = (transl8, 1) >> DNAl9       
+      + (transl9, 1) << DNAl9 ;      
+
+DNAl10 = (transl9, 1) >> DNAl10     
+       + (transl10, 1) << DNAl10 ;   
+
+DNAl11 = (transl10, 1) >> DNAl11    
+       + (transl11, 1) << DNAl11 ;   
+
+DNAl12 = (transl11, 1) >> DNAl12    
+       + (transl12, 1) << DNAl12 ;   
+
+DNAl13 = (transl12, 1) >> DNAl13    
+       + (transl13, 1) << DNAl13 ;   
+ 
+DNAl14 = (transl13, 1) >> DNAl14    
+       + (transl14, 1) << DNAl14 ;   
+
+DNAl15 = (transl14, 1) >> DNAl15    
+       + (transl15, 1) << DNAl15 ;   
+
+DNAl16 = (transl15, 1) >> DNAl16    
+       + (transl16, 1) << DNAl16 ;   
+
+DNAl17 = (transl16, 1) >> DNAl17    
+       + (transl17, 1) (.) DNAl17 ;   
+
+DNAp27SAl1 = (delay2,1) >> DNAp27SAl1 
+           + (trans27SA2l1, 1) << DNAp27SAl1 ;  
+
+DNAp27SAl2 = (trans27SA2l1, 1) >> DNAp27SAl2  
+           + (trans27SA2l2, 1) << DNAp27SAl2 ; 
+
+DNAp27SAl3 = (trans27SA2l2, 1) >> DNAp27SAl3  
+           + (trans27SA2l3, 1) << DNAp27SAl3 ;
+
+DNAp27SAl4 = (trans27SA2l3, 1) >> DNAp27SAl4  
+           + (trans27SA2l4, 1) << DNAp27SAl4 ;
+
+DNAp27SAl5 = (trans27SA2l4, 1) >> DNAp27SAl5 
+           + (trans27SA2l5, 1) << DNAp27SAl5 ;
+
+DNAp27SAl6 = (trans27SA2l5, 1) >> DNAp27SAl6  
+           + (trans27SA2l6, 1) << DNAp27SAl6 ;
+
+DNAp27SAl7 = (trans27SA2l6, 1) >> DNAp27SAl7 
+           + (trans27SA2l7, 1) << DNAp27SAl7 ;
+
+DNAp27SAl8 = (trans27SA2l7, 1) >> DNAp27SAl8 
+           + (trans27SA2l8, 1) << DNAp27SAl8 ;
+
+DNAp27SAl9 = (trans27SA2l8, 1) >> DNAp27SAl9 
+           + (trans27SA2l9, 1) << DNAp27SAl9 ;
+
+DNAp27SAl10 = (trans27SA2l9, 1) >> DNAp27SAl10  
+            + (trans27SA2l10, 1) << DNAp27SAl10 
+            + (transCOTCl1, 1) >> DNAp27SAl10   
+            + (transCOTCl2, 1) >> DNAp27SAl10   
+            + (transCOTCl3, 1) >> DNAp27SAl10   
+            + (transCOTCl4, 1) >> DNAp27SAl10   
+            + (transCOTCl5, 1) >> DNAp27SAl10   
+            + (transCOTCl6, 1) >> DNAp27SAl10   
+            + (transCOTCl7, 1) >> DNAp27SAl10 ;  
+
+DNACOTCl1 = (delay3, 1) >> DNACOTCl1            
+          + (transCOTCl1, 1) << DNACOTCl1 ;      
+
+DNACOTCl2 = (transCOTCl1, 1) >> DNACOTCl2        
+          + (transCOTCl2, 1) << DNACOTCl2 ;      
+
+DNACOTCl3 = (transCOTCl2, 1) >> DNACOTCl3       
+          + (transCOTCl3, 1) << DNACOTCl3 ;      
+
+DNACOTCl4 = (transCOTCl3, 1) >> DNACOTCl4      
+          + (transCOTCl4, 1) << DNACOTCl4 ;      
+
+DNACOTCl5 = (transCOTCl4, 1) >> DNACOTCl5       
+          + (transCOTCl5, 1) << DNACOTCl5 ;      
+
+DNACOTCl6 = (transCOTCl5, 1) >> DNACOTCl6       
+          + (transCOTCl6, 1) << DNACOTCl6 ;      
+
+DNACOTCl7 = (transCOTCl6, 1) >> DNACOTCl7       
+          + (transCOTCl7, 1) (.) DNACOTCl7 ;     
+
+
+// System Equation
+
+DNAl1init <*> DNAp27SAl1init <*> DNACOTCl1Init
+El35Sl1 <*> El27SBl1 <*> El27SA2l1 <*>  El23Su <*>  El23Sl1 <*> 
+El23Sl2 <*> El23Sl3 <*> El23Sl4 <*> El23Sl5 <*> El23Sl6 <*>  
+El20Su <*> El20Sl1 <*> El20Sl2 <*> El20Sl3 <*> El20Sl4 <*> 
+El20Sl5 <*> El20Sl6 <*> El35Sl2 <*> El27SBl2 <*> El27SA2l2 <*> 
+El35Sl3 <*> El27SBl3 <*> El27SA2l3 <*> El35Sl4 <*> El27SBl4 <*> 
+El27SA2l4 <*> El35Sl5 <*> El27SBl5 <*> El27SA2l5 <*> 
+El35Sl6 <*> El27SBl6 <*> El27SA2l6 <*> El35Sl7 <*> El27SBl7 <*> 
+El27SA2l7 <*> El35Sl8 <*> El27SBl8 <*> El27SA2l8 <*> 
+El35Sl9 <*> El27SBl9 <*> El27SA2l9 <*> El35Sl10 <*> 
+El27SBl10 <*> El27SA2l10 <*> El35Sl11 <*> El35Sl12 <*> 
+El35Sl13 <*>  El35Sl14 <*> El35Sl15 <*> El35Sl16 <*> 
+El35Sl17 <*> El18Su <*> El18Sl1 <*> El18Sl2 <*> El18Sl3 <*> 
+El18Sl4 <*> El18Sl5 <*> El18Sl6 <*> ElS7Su <*> ElS7Sl1 <*> 
+El25Sl1 <*> El25Sl2 <*> El25Sl3 <*> El25Sl4 <*> El25Sl5 <*> 
+El25Sl6 <*> El25Sl7 <*> El25Sl8 <*> El25Sl9 <*> ElS58Su <*> 
+ElS58Sl1 <*> DNAl1 <*> DNAl2 <*> DNAl3 <*> DNAl4 <*> 
+DNAl5 <*> DNAl6 <*> DNAl7 <*> DNAl8 <*> DNAl9 <*> DNAl10 <*> 
+DNAl11 <*> DNAl12 <*> DNAl13 <*> DNAl14 <*> DNAl15 <*> 
+DNAl16 <*> DNAl17 <*> DNAp27SAl1 <*> DNAp27SAl2 <*> 
+DNAp27SAl3 <*> DNAp27SAl4 <*> DNAp27SAl5 <*> DNAp27SAl6 <*> 
+DNAp27SAl7 <*> DNAp27SAl8 <*> DNAp27SAl9 <*> DNAp27SAl10 <*> 
+DNACOTCl1 <*> DNACOTCl2 <*> DNACOTCl3 <*> DNACOTCl4 <*> 
+DNACOTCl5 <*> DNACOTCl6 <*> DNACOTCl7

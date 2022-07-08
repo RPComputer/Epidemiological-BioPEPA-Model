@@ -1,0 +1,76 @@
+/* This file was automatically generated
+   by the Bio-PEPA Workbench.            */
+digraph example_classes {
+
+Sy -> contactyy;
+contactyy -> Iy;
+
+Sy -> contactym;
+contactym -> Iy;
+
+Sy -> contactyo;
+contactyo -> Iy;
+
+Sm -> contactmy;
+contactmy -> Im;
+
+Sm -> contactmm;
+contactmm -> Im;
+
+Sm -> contactmo;
+contactmo -> Im;
+
+So -> contactoy;
+contactoy -> Io;
+
+So -> contactom;
+contactom -> Io;
+
+So -> contactoo;
+contactoo -> Io;
+
+Iy -> recoveryy;
+recoveryy -> Ry;
+
+Im -> recoverym;
+recoverym -> Rm;
+
+Io -> recoveryo;
+recoveryo -> Ro;
+
+Iy -> deathy;
+deathy -> D;
+
+Im -> deathm;
+deathm -> D;
+
+Io -> deatho;
+deatho -> D;
+
+contactyy [shape=box,fontsize=10,height=.2,label="contactyy"];
+contactym [shape=box,fontsize=10,height=.2,label="contactym"];
+contactyo [shape=box,fontsize=10,height=.2,label="contactyo"];
+contactmy [shape=box,fontsize=10,height=.2,label="contactmy"];
+contactmm [shape=box,fontsize=10,height=.2,label="contactmm"];
+contactmo [shape=box,fontsize=10,height=.2,label="contactmo"];
+contactoy [shape=box,fontsize=10,height=.2,label="contactoy"];
+contactom [shape=box,fontsize=10,height=.2,label="contactom"];
+contactoo [shape=box,fontsize=10,height=.2,label="contactoo"];
+recoveryy [shape=box,fontsize=10,height=.2,label="recoveryy"];
+recoverym [shape=box,fontsize=10,height=.2,label="recoverym"];
+recoveryo [shape=box,fontsize=10,height=.2,label="recoveryo"];
+deathy [shape=box,fontsize=10,height=.2,label="deathy"];
+deathm [shape=box,fontsize=10,height=.2,label="deathm"];
+deatho [shape=box,fontsize=10,height=.2,label="deatho"];
+Iy [style=bold,label="Iy"];
+Im [style=bold,label="Im"];
+Io [style=bold,label="Io"];
+Sy [style=bold,label="Sy"];
+Sm [style=bold,label="Sm"];
+So [style=bold,label="So"];
+Ry [style=bold,label="Ry"];
+Rm [style=bold,label="Rm"];
+Ro [style=bold,label="Ro"];
+D [style=bold,label="D"];
+
+}

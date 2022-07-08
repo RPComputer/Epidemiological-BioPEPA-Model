@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+<model name="model">
+<listOfUnitDefinitions>
+<unitDefinition name="volume">
+<listOfUnits>
+<unit kind="dimensionless"/>
+</listOfUnits>
+</unitDefinition>
+<unitDefinition name="substance">
+<listOfUnits>
+<unit kind="item"/>
+</listOfUnits>
+</unitDefinition>
+</listOfUnitDefinitions>
+<listOfCompartments>
+<compartment name="univ" volume="1.0"/>
+</listOfCompartments>
+<listOfSpecies>
+<species boundaryCondition="false" compartment="univ" initialAmount="1.0" name="DNA3"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="1.0" name="DNA4"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="1.0" name="DNA80"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G3D_G80D"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G3D_free"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G3_RNA"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G3_protein"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G4D_DNA3"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G4D_DNA4"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G4D_DNA80"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G4D_free"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G4_RNA"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="10.0" name="G4_protein"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G80D_G4D_DNA3"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G80D_G4D_DNA4"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G80D_G4D_DNA80"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G80D_free"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G80_RNA"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="0.0" name="G80_protein"/>
+<species boundaryCondition="false" compartment="univ" initialAmount="1.0" name="galactose"/>
+</listOfSpecies>
+<listOfParameters>
+<parameter name="kf" value="1.0"/>
+<parameter name="kr" value="0.1"/>
+<parameter name="kt" value="1.0"/>
+<parameter name="ktrans" value="0.1"/>
+<parameter name="numViewPoints" value="50.0"/>
+<parameter name="startTime" value="0.0"/>
+<parameter name="stopTime" value="200.0"/>
+</listOfParameters>
+<listOfRules/>
+<listOfReactions>
+<reaction name="G3D_G80D_complexing" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G3D_free" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G3D_G80D" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_free*G3D_free">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G3D_G80D_decomplexing" reversible="false">
+<listOfReactants>
+<speciesReference species="G3D_G80D" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G3D_free" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G3D_G80D">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G3_dedimerization" reversible="false">
+<listOfReactants>
+<speciesReference species="G3D_free" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G3_protein" stoichiometry="2"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G3D_free">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G3_dimerization" reversible="false">
+<listOfReactants>
+<speciesReference species="G3_protein" stoichiometry="2"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G3D_free" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G3_protein^2">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G3_transcription" reversible="false">
+<listOfReactants>
+<speciesReference species="galactose" stoichiometry="1"/>
+<speciesReference species="G4D_DNA3" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G3_RNA" stoichiometry="1"/>
+<speciesReference species="galactose" stoichiometry="1"/>
+<speciesReference species="G4D_DNA3" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*galactose*G4D_DNA3">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G3_translation" reversible="false">
+<listOfReactants>
+<speciesReference species="G3_RNA" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G3_protein" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G3_RNA">
+<listOfParameters>
+<parameter name="__RATE__" value="0.05"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dedimerization" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4_protein" stoichiometry="2"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_free">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimer_binding_at_DNA3" reversible="false">
+<listOfReactants>
+<speciesReference species="DNA3" stoichiometry="1"/>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4D_DNA3" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*DNA3*G4D_free">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimer_binding_at_DNA4" reversible="false">
+<listOfReactants>
+<speciesReference species="DNA4" stoichiometry="1"/>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4D_DNA4" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*DNA4*G4D_free">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimer_binding_at_DNA80" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+<speciesReference species="DNA80" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4D_DNA80" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_free*DNA80">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimer_debinding_at_DNA3" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_DNA3" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="DNA3" stoichiometry="1"/>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_DNA3">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimer_debinding_at_DNA4" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_DNA4" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="DNA4" stoichiometry="1"/>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_DNA4">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimer_debinding_at_DNA80" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_DNA80" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+<speciesReference species="DNA80" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_DNA80">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_dimerization" reversible="false">
+<listOfReactants>
+<speciesReference species="G4_protein" stoichiometry="2"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4D_free" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4_protein^2">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_transcription" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_DNA4" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4_RNA" stoichiometry="1"/>
+<speciesReference species="G4D_DNA4" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_DNA4">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G4_translation" reversible="false">
+<listOfReactants>
+<speciesReference species="G4_RNA" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G4_protein" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4_RNA">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dedimerization" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80_protein" stoichiometry="2"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_free">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimer_binding_at_DNA3" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G4D_DNA3" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_G4D_DNA3" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_free*G4D_DNA3">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimer_binding_at_DNA4" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G4D_DNA4" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_G4D_DNA4" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_free*G4D_DNA4">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimer_binding_at_DNA80" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G4D_DNA80" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_G4D_DNA80" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_free*G4D_DNA80">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimer_debinding_at_DNA3" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_G4D_DNA3" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G4D_DNA3" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_G4D_DNA3">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimer_debinding_at_DNA4" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_G4D_DNA4" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G4D_DNA4" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_G4D_DNA4">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimer_debinding_at_DNA80" reversible="false">
+<listOfReactants>
+<speciesReference species="G80D_G4D_DNA80" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+<speciesReference species="G4D_DNA80" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80D_G4D_DNA80">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_dimerization" reversible="false">
+<listOfReactants>
+<speciesReference species="G80_protein" stoichiometry="2"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80D_free" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80_protein^2">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_transcription" reversible="false">
+<listOfReactants>
+<speciesReference species="G4D_DNA80" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80_RNA" stoichiometry="1"/>
+<speciesReference species="G4D_DNA80" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G4D_DNA80">
+<listOfParameters>
+<parameter name="__RATE__" value="1.0"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="G80_translation" reversible="false">
+<listOfReactants>
+<speciesReference species="G80_RNA" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="G80_protein" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="__RATE__*G80_RNA">
+<listOfParameters>
+<parameter name="__RATE__" value="0.05"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+<reaction name="create_galactose" reversible="false">
+<listOfReactants/>
+<listOfProducts>
+<speciesReference species="galactose" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw formula="10.0*(exp((-20.0*(time-startTime))/(stopTime-startTime)))"/>
+</reaction>
+<reaction name="destroy_galactose" reversible="false">
+<listOfReactants>
+<speciesReference species="galactose" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts/>
+<kineticLaw formula="__RATE__*galactose">
+<listOfParameters>
+<parameter name="__RATE__" value="0.1"/>
+</listOfParameters>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>

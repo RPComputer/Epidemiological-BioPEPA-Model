@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "cvode.h": "c",
+        "math.h": "c",
+        "nvector_serial.h": "c",
+        "cvode_dense.h": "c",
+        "sundials_types.h": "c"
+    }
+}

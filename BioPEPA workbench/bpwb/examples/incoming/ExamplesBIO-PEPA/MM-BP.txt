@@ -1,0 +1,37 @@
+//MICHAELIS-MENTEN 
+// S->{E;f_MM} P, where E is the enzyme
+
+
+//Volume (default value)
+//We could avoid to consider it, when not necessary....
+
+V = 1;
+
+//Components properties. 
+// C: H, N, M_0,M,V, where H is the step, N the maximum number of levels
+// M_0 the initial concetration, M the max concentration and V is the compartment
+//the first three components are mandatory, the others optional
+
+S: 0.01, 1, 0.01, 0.01, V;
+E: 0.001, 1, 0.001, 0.001, V; 
+P: 0.01, 1, 0.0, 0.01, V;
+
+//constants
+v_M = 1;
+K_M = 0.01;
+
+//kinetic laws
+//the predifined function fMM is used
+//f(alpha) = [(v_M*E*S)/(K_M+S)];
+f(alpha) = fMM(v_M, K_M);
+
+//Sequential components
+S = (alpha,1) >> S;
+P = (alpha,1) << P;
+E = (alpha,1) (+)E;
+
+//model component
+
+((S(1) <alpha> E(1))<alpha>P(0)
+
+ 

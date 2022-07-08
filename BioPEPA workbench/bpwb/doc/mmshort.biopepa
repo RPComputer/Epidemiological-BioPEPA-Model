@@ -1,0 +1,15 @@
+% Bio-PEPA model of Michaelis-Menten kinetics
+
+% Species are altered by reactions with stoichiometry
+% coefficients
+
+r1 = [k1 * E * S];
+rm1 = [km1 * E:S];
+r2 = [k2 * E:S];
+
+E = r1<< +  rm1>>  +  r2>> ;
+S = r1<<  +  rm1>> ;
+E:S = r1>>  +  rm1<<  +  r2<< ;
+P = r2>> ;
+
+(E <r1, rm1, r2> (S <r1, rm1> (E:S <r2> P)))

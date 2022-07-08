@@ -1,0 +1,246 @@
+#!/bin/bash
+# TO BE CONFIGURED BY THE USER:
+export PATH=/cygdrive/c/cygwin/bin:$PATH
+export BPWB=.
+export STOCHKITTEST=../stochkit/test/
+export STOCHKIT=${STOCHKITTEST}/BIOPEPA/DM
+export DIZZY=/home/stg/pub/Dizzy/dizzycvs/dizzy/
+export INSTALL_DIR=/home/stg/pub/Dizzy/dizzycvs/dizzy/
+export MOSMLWIN=/cygdrive/c/mosml/bin/camlrunm
+export GNUPLOT=/home/stg/bin/gnuplot/
+
+# Simulator options:  mandatory
+# Choose one of the following
+#export SIMULATOR="-simulator ODEtoJava-dopr54-adaptive"
+#export SIMULATOR="-simulator ODEtoJava-imex443-stiff"
+#export SIMULATOR="-simulator SDE-EulerMaruyama"
+#export SIMULATOR="-simulator gibson-bruck"
+export SIMULATOR="-simulator gillespie-direct"
+#export SIMULATOR="-simulator hybrid-method"
+#export SIMULATOR="-simulator logarithmic-direct"
+#export SIMULATOR="-simulator optimized-direct"
+#export SIMULATOR="-simulator sorting-direct"
+#export SIMULATOR="-simulator tauleap-complex"
+#export SIMULATOR="-simulator tauleap-simple"
+
+# Stoptime option: mandatory
+export STOPTIME="-stopTime 299"
+
+# Ensemble size: optional
+#export ENSEMBLE=""
+export ENSEMBLE="-ensembleSize 1"
+
+# Change parameter: optional
+# You can change a parameter only in a stochastic simulation
+#[-changeParameter <param> <begin> <end> <step> <symbols>]: 
+# changes the initial value of a species or rates <param> from <begin> to <end>, 
+# with <step> steps in the middle. Symbols <symbols> are plotted: more symbols are 
+# separated by a "-" without blank spaces, ie. E-X-ES ..
+export PARAMS=""
+#export PARAMS="-changeParameter  k  0.1  1.0  8  E-S-C-P"
+
+rm -f biopepawb.err
+for i in *.dat ; do  
+    rm -v $i
+done 2> /dev/null
+
+for i in *.gnu ; do  
+    rm -v $i
+done 2> /dev/null
+
+for i in *.biopepa ; do  
+    b=$(basename ${i} .biopepa)
+    if test -e ${b}.csv 
+    then dos2unix ${b}.csv > /dev/null 2> /dev/null
+    fi
+    if test -e ${b}.parameters
+    then dos2unix ${b}.parameters > /dev/null 2> /dev/null
+    fi
+    rm -f `basename $i .biopepa`.pdf 
+    chmod +x ${BPWB}/bin/biopepawb
+    if test -e ${MOSMLWIN} 
+    then ${MOSMLWIN} ${BPWB}/bin/biopepawb $i 
+    else ${BPWB}/bin/biopepawb $i 
+    fi 
+
+
+if test -e biopepawb.err 
+then exit
+fi
+
+for i in *.cpp ; do
+  mv biopepa.h stochkit 2> /dev/null
+  cp -v $i stochkit/ProblemDefinition.cpp
+  mkdir -p ${STOCHKITTEST}/BIOPEPA
+  mkdir -p ${STOCHKITTEST}/BIOPEPA/DM
+  cp -R stochkit/* ${STOCHKIT}
+  echo "Compiling simulator."
+  ( cd ${STOCHKIT} ; make > /dev/null )
+  if test -e ${STOCHKIT}/stochkit 
+  then 
+     echo "Running simulator."
+     c=$(basename $i .cpp)
+     ${STOCHKIT}/stochkit ${c} 2> ${c}.endtimes
+     sort -n ${c}*.dat > ${c}_stochkit_results_0.dat
+     awk '{ print $5 }' ${c}.endtimes | sort -n | cat -n > ${c}_endtimes.dat
+     rm -f ${c}.endtimes
+  else
+     echo "C++ compilation failed.  Exiting."
+     exit
+  fi 
+done
+
+#for i in *.dizzy ; do  
+#    echo Running $i 
+#    chmod +x runmodel.sh 
+#    ./runmodel.sh  ${STOPTIME} ${SIMULATOR} ${PARAMS} ${ENSEMBLE} -modelFile $i -outputFile $i.results 2> $i.log 
+#    grep -v warning $i.log | grep -v exception
+#done
+
+
+for i in *.gnu ; do  
+    echo Plotting $i
+    if test -e ${GNUPLOT}/gnuplot
+    then 
+	${GNUPLOT}/gnuplot $i
+    else
+      if test -e /usr/bin/gnuplot
+      then 
+	cat $i | /usr/bin/gnuplot
+      else
+	gnuplot $i
+      fi
+    fi
+done
+
+#if grep -v "\#" biopepa.cfg | egrep --silent "png|pbm"
+#then
+#   echo "You've got graphs."
+#   if gthumb . 2> /dev/null
+#   then 
+#       echo "Those were the graphs."
+#   else
+#       echo "Why don't you have a look at them sometime?"
+#   fi
+#fi
+
+for i in *.eps
+do  
+    echo Converting $i
+    chmod +x ./eps2pdf 
+    ./eps2pdf -f -x $i > $i.log 
+    grep ok $i.log 
+done 2> /dev/null
+
+
+(mkdir -p cpp ; mv *.cpp cpp 2> /dev/null)
+(mkdir -p dizzy ; mv *.dizzy dizzy 2> /dev/null)
+
+if grep -v "\#" biopepa.cfg | grep "keep.data.files" | grep --silent "true" 
+then
+  mkdir -p dat 
+  for i in *.dat ; do  
+      mv $i dat
+  done 2> /dev/null
+  echo "Results in DAT format in the 'dat' folder."
+else
+  for i in *.dat ; do  
+      rm $i 
+  done 2> /dev/null
+fi
+
+(mkdir -p eps ; mv *.eps eps 2> /dev/null)
+(mkdir -p pdf ; mv *.pdf pdf 2> /dev/null)
+
+(rm -f *.plt)
+
+if grep -v "\#" biopepa.cfg | grep --silent "png"
+then 
+  if grep -v "\#" biopepa.cfg | grep "thumbnails" | grep --silent "true"
+  then
+    mkdir -p thumbnails
+    for f in *.png
+    do
+      convert $f -thumbnail 100x100 thumbnails/`basename $f .png`.gif
+    done
+    echo "Thumbnails in the 'thumbnails' folder."
+  fi
+  mkdir -p png
+  for i in *.png 
+  do  
+    mv $i png
+  done 2> /dev/null
+  echo "Results in PNG format in the 'png' folder."
+fi
+
+if grep -v "\#" biopepa.cfg | grep --silent "pbm"
+then 
+  mkdir -p pbm
+  for i in *.pbm ; do  
+    mv $i pbm
+  done 2> /dev/null
+  echo "Results in PBM format in the 'pbm' folder."
+fi
+
+if grep -v "\#" biopepa.cfg | grep --silent "svg"
+then 
+  mkdir -p svg
+  for i in *.svg ; do  
+    mv $i svg
+  done 2> /dev/null
+  echo "Results in SVG format in the 'svg' folder."
+fi
+
+#if test -e /usr/bin/pdfjoin
+#then
+#  for i in *.biopepa ; do 
+#    b=$(basename $i .biopepa)
+#    if test -e ${b}.pdfjoin
+#    then 
+#      echo "Writing ${b}.pdf" 
+#      mv ${b}.pdfjoin ${b}.pdf
+#    fi
+#  done
+#fi
+
+chmod +x ${BPWB}/bin/biopeparep
+for i in *.biopepa
+do 
+    if test -e ${MOSMLWIN} 
+    then ${MOSMLWIN} ${BPWB}/bin/biopeparep $i
+    else ${BPWB}/bin/biopeparep $i
+    fi 
+done
+
+if test -s $b.tex
+then
+  pdflatex $b > /dev/null
+  echo "Report in $b.pdf"
+else
+   echo "No LaTeX report written."
+fi
+
+if test -s $b.html
+then
+  echo "Webpage in $b.html"
+else
+  echo "No webpage written."
+fi
+
+mkdir -p log 
+for i in *.log
+do
+   mv $i log
+done
+
+mkdir -p gnu 
+for i in *.gnu
+do
+   mv $i gnu
+done
+
+done
+
+echo "Exiting Bio-PEPA workbench."
+
+

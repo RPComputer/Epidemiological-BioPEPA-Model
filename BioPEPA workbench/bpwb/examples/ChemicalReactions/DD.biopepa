@@ -1,0 +1,36 @@
+% Bio-PEPA model of dimer decay
+
+%    k1
+% S1 --> 0
+%
+%       k2
+% 2 S1 <--> S2
+%       k3
+%
+%    k4
+% S2 --> S3
+
+% ODEs:
+%
+% dS1/dt = -k1 S1 - 2 k2 S1^2 + 2 k3 S2
+% dS2/dt =            k2 S1^2 -   k3 S2 - k4 S2
+% dS3/dt =                                k4 S2
+%
+% r1 = k1 S1
+% r2 = k2 S1^2
+% r3 = k3 S2
+% r4 = k4 S2
+
+
+r1 = [k1 * S1];
+r2 = [(k2 / 2) * S1 (S1 - 1)];
+r3 = [k3 * S2];
+r4 = [k4 * S2];
+
+S1   = r1<< + (r2, 2)<< + (r3, 2)>> ;
+S2   =         r2    >> +  r3    << + r4<< ;
+S3   =                                r4>> ;
+Null = r1<< ;
+%Null = r1== ;
+
+(S1 <> (S2 <> (S3 <> Null)))

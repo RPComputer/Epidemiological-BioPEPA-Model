@@ -1,0 +1,45 @@
+// CSL formulae generated for PRISM model compiled from Bio-PEPA input file "time" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+// Constants:
+const double T; // time instant
+const int i; // number of molecules
+const int rew; // reward variable
+
+// Probability of there being i molecules of species S at time T?
+P=? [ true U[T,T] _S=i ]
+
+// What is the probability of reaching the maximum number of molecules of species S at time T?
+P=? [ true U[T,T] "_S_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species S at time T or before?
+P=? [ true U<=T "_S_at_maximum" ]
+
+// Expected number of S molecules at time T?
+R{"_S"}=? [ I=T ]
+
+// Expected long-run number of S molecules?
+R{"_S"}=? [ S ]
+
+// Stability of species S in the steady-state?
+S=? [(_S >= (i - 1)) & (_S <= (i + 1)) ]
+
+
+// Expected value of model component rew at time T?
+R{"rew"}=? [ I=T ]
+
+// Expected long-run value of model component rew?
+R{"rew"}=? [ S ]
+
+// Expected number of occurrences of reaction contact1 at time T?
+R{"_contact1"}=? [ C<=T ]
+
+
+// Is species S depleted?
+label "_S_depleted" = _S = 0;
+
+// Is species S at its maximum value?
+label "_S_at_maximum" = _S = MAX;
+
+
+// End CSL formulae model compiled from time

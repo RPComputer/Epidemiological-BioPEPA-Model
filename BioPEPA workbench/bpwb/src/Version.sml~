@@ -1,0 +1,14 @@
+(* 
+  File: Version.sml
+
+  Version information for this release of the BioPEPA Workbench
+*)
+
+structure Version :> Version  =
+struct 
+
+  val version = "0.9.9 \"Chad Smith\"";
+  val compiled = "25-August-2008";
+  val banner = "Bio-PEPA Workbench Version "^ version ^ " [" ^ compiled ^ "]"
+
+end;

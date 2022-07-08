@@ -1,0 +1,17 @@
+//Michaelis-Menten
+
+//parameters
+v_M = 1;
+K_M = 0.01 ;
+
+//species 
+
+S = 0.01;
+E = 0.001;
+P = 0;
+
+//reaction 
+
+
+r_alpha, S + E -> P + E, [(v_M*E*S)/(K_M+S)];
+

@@ -1,0 +1,6 @@
+s/val//g
+s/version//g
+s/=//g
+s/"//g
+s/ \\/ ``/g
+s/\\;/''%/g

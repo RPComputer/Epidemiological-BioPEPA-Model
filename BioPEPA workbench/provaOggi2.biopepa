@@ -1,0 +1,15 @@
+%biopepa.independent.replications: 1
+%biopepa.simulation.stoptime: 40
+%biopepa.show.all.replications: true
+%stochkit.opt.progress.interval: 1
+
+infect = [(k1/(S+I+R))*S*I];
+recover = [k2*I];
+death = [k3*I];
+
+S = (infect)<<S;
+I = (infect)>>I + (recover)<<I + (death)<<I;
+R = (recover)>>R;
+D = (death)>>D;
+
+(S <> I <> R <> D)

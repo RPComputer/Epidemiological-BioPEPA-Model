@@ -1,0 +1,6 @@
+latex $1
+bibtex $1
+latex $1
+dvips -o $1.ps $1.dvi
+ps2pdf $1.ps $1.pdf
+gv $1.ps &

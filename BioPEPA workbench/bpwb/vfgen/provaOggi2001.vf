@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- VFgen model compiled from Bio-PEPA input file "provaOggi2" by
+ Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+-->
+<VectorField Name="provaOggi2001">
+
+<Parameter Name="k1_"
+           Description="k1"
+           Latex="k_1"
+           DefaultValue="2" />
+<Parameter Name="k2_"
+           Description="k2"
+           Latex="k_2"
+           DefaultValue="0.4" />
+<Parameter Name="k3_"
+           Description="k3"
+           Latex="k_3"
+           DefaultValue="0.1" />
+
+<Expression Name="infect_"
+            Description="infect"
+            Latex="\mathit{infect}"
+            Formula="(k1_/(S_+I_+R_))*S_*I_"/>
+<Expression Name="recover_"
+            Description="recover"
+            Latex="\mathit{recover}"
+            Formula="k2_*I_"/>
+<Expression Name="death_"
+            Description="death"
+            Latex="\mathit{death}"
+            Formula="k3_*I_"/>
+
+<StateVariable Name="S_"
+               Description="S"
+               Latex="S"
+               DefaultInitialCondition="10000"
+               Formula=" - infect_"/>
+
+<StateVariable Name="I_"
+               Description="I"
+               Latex="I"
+               DefaultInitialCondition="5"
+               Formula="infect_ - recover_ - death_"/>
+
+<StateVariable Name="R_"
+               Description="R"
+               Latex="R"
+               DefaultInitialCondition="0"
+               Formula="recover_"/>
+
+<StateVariable Name="D_"
+               Description="D"
+               Latex="D"
+               DefaultInitialCondition="0"
+               Formula="death_"/>
+
+<!-- End VFgen model compiled from provaOggi2
+-->
+</VectorField>

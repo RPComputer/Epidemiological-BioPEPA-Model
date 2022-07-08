@@ -1,0 +1,114 @@
+// PRISM model compiled from Bio-PEPA input file "provaOggi2" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+ctmc
+
+const double _k1 = 2;
+const double _k2 = 0.4;
+const double _k3 = 0.1;
+
+module Rates
+
+  [_infect] (((_k1/(_S+_I+_R))*_S*_I) > 0) -> ((_k1/(_S+_I+_R))*_S*_I) : true;
+  [_recover] ((_k2*_I) > 0) -> (_k2*_I) : true;
+  [_death] ((_k3*_I) > 0) -> (_k3*_I) : true;
+
+endmodule
+
+// Species: _S, _I, _R, _D
+
+const int MAX = 10000 + 5 + 0 + 0;
+
+module _S
+
+  _S : [0..MAX] init 10000;
+
+  [_infect] (_S >= 1) -> 1 : (_S' = _S - 1);
+
+endmodule
+
+module _I
+
+  _I : [0..MAX] init 5;
+
+  [_infect] (_I + 1 <= MAX) -> 1 : (_I' = _I + 1);
+  [_recover] (_I >= 1) -> 1 : (_I' = _I - 1);
+  [_death] (_I >= 1) -> 1 : (_I' = _I - 1);
+
+endmodule
+
+module _R
+
+  _R : [0..MAX] init 0;
+
+  [_recover] (_R + 1 <= MAX) -> 1 : (_R' = _R + 1);
+
+endmodule
+
+module _D
+
+  _D : [0..MAX] init 0;
+
+  [_death] (_D + 1 <= MAX) -> 1 : (_D' = _D + 1);
+
+endmodule
+
+
+// count rewards: "number of occurrences of infect"
+rewards "_infect"
+  [_infect] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of recover"
+rewards "_recover"
+  [_recover] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of death"
+rewards "_death"
+  [_death] true : 1;
+endrewards
+
+// rewards: "number of S molecules present"
+rewards "_S"
+  true : _S;
+endrewards
+
+// rewards: "square of number of S molecules present (used to calculate standard derivation)"
+rewards "_S_squared"
+  true : _S * _S;
+endrewards
+
+// rewards: "number of I molecules present"
+rewards "_I"
+  true : _I;
+endrewards
+
+// rewards: "square of number of I molecules present (used to calculate standard derivation)"
+rewards "_I_squared"
+  true : _I * _I;
+endrewards
+
+// rewards: "number of R molecules present"
+rewards "_R"
+  true : _R;
+endrewards
+
+// rewards: "square of number of R molecules present (used to calculate standard derivation)"
+rewards "_R_squared"
+  true : _R * _R;
+endrewards
+
+// rewards: "number of D molecules present"
+rewards "_D"
+  true : _D;
+endrewards
+
+// rewards: "square of number of D molecules present (used to calculate standard derivation)"
+rewards "_D_squared"
+  true : _D * _D;
+endrewards
+
+
+
+// End PRISM model compiled from provaOggi2

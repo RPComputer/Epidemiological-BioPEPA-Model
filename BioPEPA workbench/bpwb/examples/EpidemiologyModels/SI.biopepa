@@ -1,0 +1,22 @@
+% Bio-PEPA model of SIR processes
+
+%              k1
+% Susceptible <--> Infectious
+%              k2
+
+% ODEs:
+%
+% dS/dt = -k1 S I + k2 I
+% dI/dt =  K1 S I - k2 I
+%
+% infect  = k1 S I
+% recover = k2 I
+
+
+infect = [k1 * S * I];
+recover = [k2 * I];
+
+S = infect<< + recover>> ;
+I = infect>> + recover<< ;
+
+(S <infect, recover> I)

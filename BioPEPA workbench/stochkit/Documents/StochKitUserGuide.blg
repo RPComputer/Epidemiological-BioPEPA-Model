@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (Web2C 7.3.1)
+The top-level auxiliary file: StochKitUserGuide.aux
+The style file: plain.bst
+Database file #1: StochKitUserGuide.bib.bib
+You've used 35 entries,
+            2118 wiz_defined-function locations,
+            712 strings with 9119 characters,
+and the built_in function-call counts, 9803 in all, are:
+= -- 943
+> -- 485
+< -- 1
++ -- 201
+- -- 160
+* -- 632
+:= -- 1726
+add.period$ -- 103
+call.type$ -- 35
+change.case$ -- 176
+chr.to.int$ -- 0
+cite$ -- 35
+duplicate$ -- 360
+empty$ -- 759
+format.name$ -- 160
+if$ -- 2013
+int.to.chr$ -- 0
+int.to.str$ -- 35
+missing$ -- 27
+newline$ -- 175
+num.names$ -- 66
+pop$ -- 174
+preamble$ -- 1
+purify$ -- 152
+quote$ -- 0
+skip$ -- 239
+stack$ -- 0
+substring$ -- 481
+swap$ -- 47
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 130
+warning$ -- 0
+while$ -- 80
+width$ -- 37
+write$ -- 369
