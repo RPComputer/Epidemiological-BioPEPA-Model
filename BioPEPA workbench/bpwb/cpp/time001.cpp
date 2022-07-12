@@ -48,7 +48,7 @@ Vector Propensity (const Vector& ___discreteSpeciesCount)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      contact1 = [k1*((time+1)*S)] */
+  /*      contact1 = [k1*((t+1)*S)] */
   ___propensity(___contact1) = (k1*((t+1)*S));
   return ___propensity;
 }

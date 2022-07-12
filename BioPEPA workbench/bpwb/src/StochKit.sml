@@ -129,7 +129,7 @@ structure StochKit :> StochKit
 
   fun propensity C = 
       let val reactionDefs = getReactionDefs C 
-       in "\nVector Propensity (const Vector& ___discreteSpeciesCount)\n" ^
+       in "\nVector Propensity (const Vector& ___discreteSpeciesCount, double t)\n" ^
           "{\n" ^
           "  Vector ___propensity(___REACTIONS);\n" ^
           propensityEntries(reactionDefs) ^ 

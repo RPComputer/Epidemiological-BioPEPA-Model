@@ -31,7 +31,7 @@ namespace CSE {
   namespace StochRxn {
 
     // Some useful typedefs
-    typedef Vector (*PropensityFunc)(const Vector& x);
+    typedef Vector (*PropensityFunc)(const Vector& x, double t = 0);
     typedef Vector (*PartialPropensityFunc)(int RIndex, const Vector& x, const Matrix& dg, Vector& a, double& a0);
     typedef Matrix (*PropensityJacobianFunc)(const Vector& x);
     typedef void (*EquilibriumFunc)(Vector& x, Vector& a, int rxn);
