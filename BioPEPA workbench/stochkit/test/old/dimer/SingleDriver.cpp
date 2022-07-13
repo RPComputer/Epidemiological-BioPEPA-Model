@@ -51,7 +51,7 @@ using namespace CSE::StochRxn;
 Vector Initialize();
 Matrix Stoichiometry();
 Matrix DependentGrapth();
-Vector Propensity(const Vector& x);
+Vector Propensity(const Vector& x, double t);
 Vector PartialProp(int RIndex, const Vector& x, const Matrix& dg, double& a0);
 Matrix PropensityJacobian(const Vector& x);
 void Equilibrium(Vector& x, Vector& a, int rxn);

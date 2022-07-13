@@ -59,6 +59,7 @@ struct
       if s = "or" then "| " else
       if s = "begin" then "(" else
       if s = "end" then ")" else
+      if s = "time" then "t" else
          s
 
   fun VFgenId i = 

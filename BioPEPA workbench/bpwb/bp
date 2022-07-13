@@ -130,7 +130,7 @@ do
     mv ${b}_cvdemo.c sundials
     mv Makefile-${b}_cvdemo sundials
     (cd sundials ; make -f  Makefile-${b}_cvdemo )
-    (./sundials/${b}_cvdemo > sundials/$b_sundials_results.dat)
+    (./sundials/${b}_cvdemo > sundials/${b}_sundials_results.dat)
     mv $i vfgen
 done
 

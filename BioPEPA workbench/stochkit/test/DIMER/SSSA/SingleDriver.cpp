@@ -40,7 +40,7 @@ using namespace CSE::StochRxn;
 
 Vector Initialize();
 Matrix Stoichiometry();
-Vector Propensity(const Vector& x);
+Vector Propensity(const Vector& x, double t);
 void Equilibrium(Vector& x, Vector& a, int rxn);
 
 int main(int argc, const char* argv[])

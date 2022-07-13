@@ -42,7 +42,7 @@ using namespace CSE::StochRxn;
 
 Vector Initialize();
 Matrix Stoichiometry();
-Vector Propensity(const Vector& x);
+Vector Propensity(const Vector& x, double t);
 Matrix PropensityJacobian(const Vector& x);
 
 int main(int argc, const char* argv[])

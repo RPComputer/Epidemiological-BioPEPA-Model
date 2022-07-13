@@ -44,11 +44,11 @@ Vector Initialize ()
 
 #include "KineticFunctions.cpp"
 
-Vector Propensity (const Vector& ___discreteSpeciesCount)
+Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      contact1 = [k1*((t+1)*S)] */
+  /*      contact1 = [k1*((time+1)*S)] */
   ___propensity(___contact1) = (k1*((t+1)*S));
   return ___propensity;
 }

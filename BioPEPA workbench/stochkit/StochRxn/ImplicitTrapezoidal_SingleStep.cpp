@@ -62,7 +62,7 @@ namespace CSE {
       while (!converged && iterations < 10) {
         xPlusDelx = x+ delx;
         AA = I - 0.5*tau * nu * propJacFunc(xPlusDelx);
-        BB = E + 0.5*tau * nu * propFunc(xPlusDelx) - delx;
+        BB = E + 0.5*tau * nu * propFunc(xPlusDelx, t) - delx;
         SolveGEIP(AA, deldelx, BB);
 
         converged = (deldelx.Norm2() <= rel_tol * delx.Norm2() + abs_tol);
@@ -76,7 +76,7 @@ namespace CSE {
                   << " without convergence!\n";
       }
 
-      K = (0.5*(propFunc(x + delx) - a) * tau + p);
+      K = (0.5*(propFunc(x + delx, t) - a) * tau + p);
       p = Round(K); 
     }
     

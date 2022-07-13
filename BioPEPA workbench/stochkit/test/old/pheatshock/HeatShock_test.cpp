@@ -14,7 +14,7 @@ using namespace CSE::Math;
 using namespace CSE::StochRxn;
 
 
-Vector Propensity(const Vector& x);
+Vector Propensity(const Vector& x, double t);
 Matrix PropensityJacobian(const Vector& x);
 
 Vector rates(61, 0.0);

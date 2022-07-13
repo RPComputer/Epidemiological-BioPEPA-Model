@@ -7,7 +7,7 @@ const double _k1 = 0.035;
 
 module Rates
 
-  [_contact1] ((_k1*((func(Time, )+1)*_S)) > 0) -> (_k1*((func(Time, )+1)*_S)) : true;
+  [_contact1] ((_k1*((_time+1)*_S)) > 0) -> (_k1*((_time+1)*_S)) : true;
 
 endmodule
 

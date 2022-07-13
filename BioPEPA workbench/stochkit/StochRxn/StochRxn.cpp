@@ -131,7 +131,7 @@ namespace CSE
         int rxn = 0;
         if (takeStep == MSSA_SingleStep)
         {
-          a = propensity(x);
+          a = propensity(x, t);
           equilibrium(x, a, -1);
         }
         a = propensity(x, t);
@@ -201,7 +201,7 @@ namespace CSE
               a = partialPropensity(rxn, x, dg, a, a0);
             }
             else
-              a = propensity(x);
+              a = propensity(x, t);
           }
 
           for (int i = 0; i < x0.Size(); ++i)
@@ -220,7 +220,7 @@ namespace CSE
 
         while (!finished)
         {
-          a = propensity(x);
+          a = propensity(x, t);
           a0 = a.Sum();
           if ((t >= tf) || (Math::AlmostZero(a0, 1e-15)))
           {

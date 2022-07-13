@@ -5,4 +5,4 @@
 k1 = 0.035;
 S = 450;
 
-"contact1", S -> , [k1*((Time()+1)*S)] ;
+"contact1", S -> , [k1*((time+1)*S)] ;
