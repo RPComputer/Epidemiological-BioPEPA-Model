@@ -4,8 +4,6 @@ export PATH=/cygdrive/c/cygwin/bin:$PATH
 export BPWB=.
 export STOCHKITTEST=../stochkit/test/
 export STOCHKIT=${STOCHKITTEST}/BIOPEPA/DM
-export DIZZY=/home/roberto/Dizzy/bin
-export INSTALL_DIR=/home/roberto/Dizzy/bin
 export MOSMLWIN=/cygdrive/c/mosml/bin/camlrunm
 export GNUPLOT=/usr/bin/
 export GNUPLOTWIN=/cygdrive/c/gnuplot/bin
@@ -22,12 +20,6 @@ fi
 #Solver selection
 str="$(grep -v "\#" biopepa.cfg | grep 'biopepa.simulator')"
 SOLVER=$(cut -d ':' -f2- <<< $str)
-
-#Dizzy parameters
-export STOPTIMEPARAM="-stopTime$STOPTIME"
-export SIMULATORODE="-simulator ODEtoJava-dopr54-adaptive"
-export SIMULATORGILLESPIE="-simulator gillespie-direct"
-export PARAMS="-outputFormat CSV-gnuplot"
 
 rm -f biopepawb.err
 for i in *.dat
@@ -65,44 +57,28 @@ if test -e biopepawb.err
 then exit
 fi
 
-if [[ "$SOLVER" == " stochkit" ]]
-then
-  for i in *.cpp ; do
-    mv biopepa.h stochkit 2> /dev/null
-    cp -v $i stochkit/ProblemDefinition.cpp
-    mkdir -p ${STOCHKITTEST}/BIOPEPA
-    mkdir -p ${STOCHKITTEST}/BIOPEPA/DM
-    cp -R stochkit/* ${STOCHKIT}
-    echo "Compiling simulator."
-    ( cd ${STOCHKIT} ; make > /dev/null )
-    if test -e ${STOCHKIT}/stochkit 
-    then 
-      echo "Running simulator."
-      c=$(basename $i .cpp)
-      ${STOCHKIT}/stochkit ${c} 
-      ${STOCHKIT}/stochkit ${c} 2> ${c}.endtimes
-      sort -n ${c}*.dat > ${c}_stochkit_results_0.dat
-  #     awk '{ print $5 }' ${c}.endtimes | sort -n | cat -n > ${c}_endtimes.dat
-  #     rm -f ${c}.endtimes
-    else
-      echo "C++ compilation failed.  Exiting."
-      exit
-    fi 
-  done
-else
-  for i in *.dizzy ; do  
-      echo Running $i 
-      chmod +x runmodel.sh 
-      name=$(cut -d '.' -f1 <<< $i)
-      resName="${name}_dizzy"
-      echo ./runmodel.sh  ${STOPTIMEPARAM} ${SIMULATORODE} ${PARAMS} ${ENSEMBLE} -modelFile $i -outputFile ${resName}_results_0.dat 2> $i.log 
-      ./runmodel.sh  ${STOPTIMEPARAM} ${SIMULATORODE} ${PARAMS} ${ENSEMBLE} -modelFile $i -outputFile ${resName}_results_0.dat 2> $i.log 
-      grep -v warning $i.log | grep -v exception
-      echo ./runmodel.sh  ${STOPTIMEPARAM} ${SIMULATORGILLESPIE} ${PARAMS} ${ENSEMBLE} -modelFile $i -outputFile ${resName}_results_1.dat 2> $i.log 
-      ./runmodel.sh  ${STOPTIMEPARAM} ${SIMULATORGILLESPIE} ${PARAMS} ${ENSEMBLE} -modelFile $i -outputFile ${resName}_results_1.dat 2> $i.log 
-      grep -v warning $i.log | grep -v exception
-  done
-fi
+for i in *.cpp ; do
+  mv biopepa.h stochkit 2> /dev/null
+  cp -v $i stochkit/ProblemDefinition.cpp
+  mkdir -p ${STOCHKITTEST}/BIOPEPA
+  mkdir -p ${STOCHKITTEST}/BIOPEPA/DM
+  cp -R stochkit/* ${STOCHKIT}
+  echo "Compiling simulator."
+  ( cd ${STOCHKIT} ; make > /dev/null )
+  if test -e ${STOCHKIT}/stochkit 
+  then 
+    echo "Running simulator."
+    c=$(basename $i .cpp)
+    ${STOCHKIT}/stochkit ${c} 
+    ${STOCHKIT}/stochkit ${c} 2> ${c}.endtimes
+    sort -n ${c}*.dat > ${c}_stochkit_results_0.dat
+#     awk '{ print $5 }' ${c}.endtimes | sort -n | cat -n > ${c}_endtimes.dat
+#     rm -f ${c}.endtimes
+  else
+    echo "C++ compilation failed.  Exiting."
+    exit
+  fi 
+done
 
 mkdir -p matlab
 mkdir -p sundials
@@ -130,7 +106,8 @@ do
     mv ${b}_cvdemo.c sundials
     mv Makefile-${b}_cvdemo sundials
     (cd sundials ; make -f  Makefile-${b}_cvdemo )
-    (./sundials/${b}_cvdemo > sundials/${b}_sundials_results.dat)
+    (./sundials/${b}_cvdemo > sundials/${b}_sundials_results_0.dat)
+    mv ./sundials/*.dat ./
     mv $i vfgen
 done
 
@@ -205,6 +182,9 @@ if grep -v "\#" biopepa.cfg | grep "keep.data.files" | grep --silent "true"
 then
   mkdir -p dat 
   for i in *.dat ; do  
+      mv $i dat
+  done
+  for i in ./sundials/*.dat ; do  
       mv $i dat
   done 2> /dev/null
   echo "Results in DAT format in the 'dat' folder."
