@@ -1,6 +1,8 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
-        "time001_cv.h": "c"
+        "time001_cv.h": "c",
+        "iostream": "cpp",
+        "iosfwd": "cpp"
     }
 }
