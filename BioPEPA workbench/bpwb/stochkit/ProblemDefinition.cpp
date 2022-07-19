@@ -38,7 +38,7 @@ Vector Initialize ()
   k1 = 0.035;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
-  ___initialSpeciesCount(___S) = 450;
+  ___initialSpeciesCount(___S) = 10000;
   return ___initialSpeciesCount;
 }
 
@@ -48,7 +48,7 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      contact1 = [k1*((time+1)*S)] */
-  ___propensity(___contact1) = (k1*((t+1)*S));
+  /*      contact1 = [k1*(testReadFile(time,"TST_stochkit_results_1.dat")*S)] */
+  ___propensity(___contact1) = (k1*(testReadFile(t,"TST_stochkit_results_1.dat")*S));
   return ___propensity;
 }

@@ -12,12 +12,12 @@
 <Expression Name="contact1_"
             Description="contact1"
             Latex="\mathit{contact1}"
-            Formula="k1_*((t+1)*S_)"/>
+            Formula="k1_*(func(testReadFile, t,"TST_stochkit_results_1_.dat_")*S_)"/>
 
 <StateVariable Name="S_"
                Description="S"
                Latex="S"
-               DefaultInitialCondition="450"
+               DefaultInitialCondition="10000"
                Formula=" - contact1_"/>
 
 <!-- End VFgen model compiled from time
