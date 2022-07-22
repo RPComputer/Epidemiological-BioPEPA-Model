@@ -1,5 +1,6 @@
 /* A kinetic functions file used by the Bio-PEPA Workbench */
 
+
 double fMA(double rate, double Species1, double Species2)
 {
   return rate * Species1 * Species2;
@@ -50,11 +51,14 @@ double theta(double pArg)
   return (retVal);
 }
 
+
 /* Add your own functions here.  Have fun. */
 #include <string>
+#include <vector>
+#include <cmath>
+#include <sstream>
 #include <iostream>
 #include <fstream>
-
 
 double testTime(double t)
 {
@@ -63,20 +67,40 @@ double testTime(double t)
   return 0.1;
 }
 
-double testReadFile(double t, const char* filename)
+std::vector<double> RtValues;
+
+double readRt(double t, const char *filename)
 {
-  std::string myText;
-  // Read from the text file
-  std::ifstream MyReadFile(filename);
-
-  // Use a while loop together with the getline() function to read the file line by line
-  while (std::getline(MyReadFile, myText))
+  /*
+    1 first execution: read the whole file in a vector of Rt values. The index of the vector is equal to the daytime of the value
+    2 access vector at index t and get the element
+  */
+  if (RtValues.empty())
   {
-    // Output the text from the file
-    std::cout << myText;
-  }
+    std::string myText;
+    // Read from the text file
+    std::ifstream MyReadFile(filename);
+    std::getline(MyReadFile, myText); //ignore header line
+    double readvalue;
+    // Use a while loop together with the getline() function to read the file line by line
+    while (std::getline(MyReadFile, myText))
+    {
+      std::vector<std::string> line;
+      std::stringstream sstream(myText); //create string stream from the string
+      while(sstream.good()) {
+          std::string substr;
+          std::getline(sstream, substr, ','); //get first string delimited by comma
+          line.push_back(substr);
+      }
+      readvalue = atof(line.at(2).c_str());
+      RtValues.push_back(readvalue);
+      line.clear();
+    }
 
-  // Close the file
-  MyReadFile.close();
-  return 0.1;
+    // Close the file
+    MyReadFile.close();
+  }
+  double result;
+  result = RtValues.at(round(t));
+  return result;
 }

@@ -1,0 +1,6 @@
+
+contact1 = [k1*(delay())*S];
+
+S = (contact1,1)<<;
+
+(S)

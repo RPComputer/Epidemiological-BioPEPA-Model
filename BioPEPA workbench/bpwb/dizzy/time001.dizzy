@@ -5,4 +5,4 @@
 k1 = 0.035;
 S = 10000;
 
-"contact1", S -> , [k1*(testReadFile(time,"TST_stochkit_results_1.dat")*S)] ;
+"contact1", S -> , [k1*(delay())*S] ;

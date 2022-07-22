@@ -48,7 +48,7 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      contact1 = [k1*(testReadFile(time,"TST_stochkit_results_1.dat")*S)] */
-  ___propensity(___contact1) = (k1*(testReadFile(t,"TST_stochkit_results_1.dat")*S));
+  /*      contact1 = [k1*(delay())*S] */
+  ___propensity(___contact1) = (k1*(delay())*S);
   return ___propensity;
 }

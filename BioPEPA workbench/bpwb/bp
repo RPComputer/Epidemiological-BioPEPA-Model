@@ -80,36 +80,36 @@ for i in *.cpp ; do
   fi 
 done
 
-mkdir -p matlab
-mkdir -p sundials
-mkdir -p vfgen
-for i in *.vf 
-do
-    b=$(basename ${i} .vf)
-    echo "Running VFgen on $b for Matlab"
-    if test -x vfgen.exe
-    then
-      ./vfgen.exe matlab:func=yes,demo=yes $i
-    else
-      vfgen matlab:func=yes,demo=yes $i
-    fi
-    mv *.m matlab
-    echo "Running VFgen on $b for Sundials"
-    if test -x vfgen.exe
-    then
-      ./vfgen.exe cvode:func=yes,demo=yes $i
-    else
-      vfgen cvode:func=yes,demo=yes,version=2.5.0 $i
-    fi
-    mv ${b}_cv.h sundials
-    mv ${b}_cv.c sundials
-    mv ${b}_cvdemo.c sundials
-    mv Makefile-${b}_cvdemo sundials
-    (cd sundials ; make -f  Makefile-${b}_cvdemo )
-    (./sundials/${b}_cvdemo "stoptime=${STOPTIME}" > sundials/${b}_sundials_results_0.dat)
-    mv ./sundials/*.dat ./
-    mv $i vfgen
-done
+# mkdir -p matlab
+# mkdir -p sundials
+# mkdir -p vfgen
+# for i in *.vf 
+# do
+#     b=$(basename ${i} .vf)
+#     echo "Running VFgen on $b for Matlab"
+#     if test -x vfgen.exe
+#     then
+#       ./vfgen.exe matlab:func=yes,demo=yes $i
+#     else
+#       vfgen matlab:func=yes,demo=yes $i
+#     fi
+#     mv *.m matlab
+#     echo "Running VFgen on $b for Sundials"
+#     if test -x vfgen.exe
+#     then
+#       ./vfgen.exe cvode:func=yes,demo=yes $i
+#     else
+#       vfgen cvode:func=yes,demo=yes,version=2.5.0 $i
+#     fi
+#     mv ${b}_cv.h sundials
+#     mv ${b}_cv.c sundials
+#     mv ${b}_cvdemo.c sundials
+#     mv Makefile-${b}_cvdemo sundials
+#     (cd sundials ; make -f  Makefile-${b}_cvdemo )
+#     (./sundials/${b}_cvdemo "stoptime=${STOPTIME}" > sundials/${b}_sundials_results_0.dat)
+#     mv ./sundials/*.dat ./
+#     mv $i vfgen
+# done
 
 for i in *.gnu ; do  
     echo Plotting $i

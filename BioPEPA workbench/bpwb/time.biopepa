@@ -1,6 +1,0 @@
-
-contact1 = [k1*(testReadFile(time,"TST_stochkit_results_1.dat")*S)];
-
-S = (contact1,1)<<;
-
-(S)

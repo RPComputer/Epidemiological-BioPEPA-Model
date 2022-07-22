@@ -2,10 +2,10 @@ Workbench requirements:
 
 dizzy edimburg
 sundials 2.3.0  ok
-cvode 6.1.1                 problematic to install
+cvode 6.1.1                 problematic to install, sundials seems to install cvode needed
 mxml 3.3        ok          needed for vfgen
 ginac 1.8.3     ok          needed for vfgen
 cln 1.3.6       ok          needed for ginaic
 vfgen           ok          need others first, needed to compile simulator
 libc
-sprng to be compiled from inside stochkit folder
+sprng to be compiled from inside stochkit folder!
