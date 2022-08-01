@@ -59,6 +59,7 @@ double theta(double pArg)
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include "ProblemDefinition.h"
 
 double testTime(double t)
 {
@@ -69,7 +70,7 @@ double testTime(double t)
 
 std::vector<double> RtValues;
 
-double readRt(double t, const char *filename)
+double readRt(double t, const char *filename, double x)
 {
   /*
     1 first execution: read the whole file in a vector of Rt values. The index of the vector is equal to the daytime of the value
@@ -102,5 +103,22 @@ double readRt(double t, const char *filename)
   }
   double result;
   result = RtValues.at(round(t));
+  std::ofstream ControlFile("simulation_control.dat", std::ios_base::app | std::ios_base::out);
+  ControlFile << t;
+  ControlFile << "\t\t";
+  ControlFile << result;
+  ControlFile << "\t\t";
+  ControlFile << x;
+  ControlFile << "\t\t";
+  if (x < 12000 && result < 1.0)
+  {
+    ControlFile << 1.0;
+    ControlFile << "\n";
+    ControlFile.close();
+    return 1.0;
+  }
+  ControlFile << "NOT";
+  ControlFile << "\n";
+  ControlFile.close();
   return result;
 }

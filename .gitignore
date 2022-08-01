@@ -150,6 +150,7 @@ dmypy.json
 #Folders
 **/bin
 **/thumbnails
+**/dat
 
 #Log
 *.log

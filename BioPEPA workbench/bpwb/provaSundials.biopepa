@@ -1,4 +1,4 @@
-infect = [(k1/(S+I+R))*readRt(time,"fakeRt.csv")*S*I];
+infect = [(S*I/(S+I+R))*S*I*placeholder];
 recover = [k2*I];
 death = [k3*I];
 

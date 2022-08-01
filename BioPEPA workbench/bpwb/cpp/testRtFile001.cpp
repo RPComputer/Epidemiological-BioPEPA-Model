@@ -26,9 +26,9 @@
 
 /* Reaction constants */
 double
-    k1 = 2,
-    k2 = 0.4,
-    k3 = 0.1;
+    k1 = 10,
+    delta = 0.07,
+    gamma1 = 0.01;
 
 
 Matrix Stoichiometry ()
@@ -56,13 +56,13 @@ Vector Initialize ()
 {
 
   /* Reaction constant initialisation */
-  k1 = 2;
-  k2 = 0.4;
-  k3 = 0.1;
+  k1 = 10;
+  delta = 0.07;
+  gamma1 = 0.01;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
-  ___initialSpeciesCount(___S) = 1000000;
-  ___initialSpeciesCount(___I) = 5;
+  ___initialSpeciesCount(___S) = 6000000;
+  ___initialSpeciesCount(___I) = 120;
   ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;
   return ___initialSpeciesCount;
@@ -74,13 +74,13 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      infect = [(k1/(S+I+R))*readRt(time,"fakeRt.csv")*S*I] */
-  ___propensity(___infect) = ((k1/(S+I+R))*readRt(t,"fakeRt.csv")*S*I);
+  /*      infect = [(S*I/(S+I+R))*delta*readRt(time,"Rt.csv", I)] */
+  ___propensity(___infect) = ((S*I/(S+I+R))*delta*readRt(t,"Rt.csv", I));
 
-  /*      recover = [k2*I] */
-  ___propensity(___recover) = (k2*I);
+  /*      recover = [delta*I] */
+  ___propensity(___recover) = (delta*I);
 
-  /*      death = [k3*I] */
-  ___propensity(___death) = (k3*I);
+  /*      death = [gamma1*I] */
+  ___propensity(___death) = (gamma1*I);
   return ___propensity;
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<!-- VFgen model compiled from Bio-PEPA input file "testRtFile" by
+<!-- VFgen model compiled from Bio-PEPA input file "provaSundials" by
  Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
 -->
-<VectorField Name="testRtFile001">
+<VectorField Name="provaSundials001">
 
-<Parameter Name="k1_"
-           Description="k1"
-           Latex="k_1"
-           DefaultValue="2" />
+<Parameter Name="placeholder_"
+           Description="placeholder"
+           Latex="\mathit{placeholder}"
+           DefaultValue="1" />
 <Parameter Name="k2_"
            Description="k2"
            Latex="k_2"
@@ -20,7 +20,7 @@
 <Expression Name="infect_"
             Description="infect"
             Latex="\mathit{infect}"
-            Formula="(k1_/(S_+I_+R_))*func(readRt, t,"fakeRt_.csv_")*S_*I_"/>
+            Formula="(S_*I_/(S_+I_+R_))*S_*I_*placeholder_"/>
 <Expression Name="recover_"
             Description="recover"
             Latex="\mathit{recover}"
@@ -33,7 +33,7 @@
 <StateVariable Name="S_"
                Description="S"
                Latex="S"
-               DefaultInitialCondition="1000000"
+               DefaultInitialCondition="10000"
                Formula=" - infect_"/>
 
 <StateVariable Name="I_"
@@ -54,6 +54,6 @@
                DefaultInitialCondition="0"
                Formula="death_"/>
 
-<!-- End VFgen model compiled from testRtFile
+<!-- End VFgen model compiled from provaSundials
 -->
 </VectorField>
