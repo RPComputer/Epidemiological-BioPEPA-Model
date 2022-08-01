@@ -1,6 +1,6 @@
-infect = [(S*I/(S+I+R))*S*I*placeholder];
-recover = [k2*I];
-death = [k3*I];
+infect = [(S*I/(S+I+R))*delta*placeholder];
+recover = [delta*I];
+death = [gamma1*I];
 
 S = (infect)<<S;
 I = (infect)>>I + (recover)<<I + (death)<<I;

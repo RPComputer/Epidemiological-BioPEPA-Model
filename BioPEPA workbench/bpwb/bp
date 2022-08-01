@@ -17,14 +17,14 @@ else
   STOPTIME=" 100"
 fi
 
-if grep -v "\#" biopepa.cfg | grep --silent "use.custom.functions: true"
+if grep -v "\#" biopepa.cfg | grep "use.custom.functions: true"
 then
   CUSTOMFUNCTIONS= true
 else
   CUSTOMFUNCTIONS= false
 fi
 
-if grep -v "\#" biopepa.cfg | grep --silent "use.custom.functions.filename"
+if grep -v "\#" biopepa.cfg | grep "use.custom.functions.filename"
 then
   str="$(grep -v "\#" biopepa.cfg | grep 'use.custom.functions.filename')"
   CUSTOMFUNCTIONSCONFIG=$(cut -d ':' -f2- <<< $str)
@@ -95,6 +95,7 @@ do
     mv ${b}_cv.c sundials
     mv ${b}_cvdemo.c sundials
 done
+echo "Complete run of VFgen on $b for Sundials"
 
 if $CUSTOMFUNCTIONS
 then

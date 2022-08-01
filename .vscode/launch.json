@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "args": ["-c", "/home/roberto/Repository/Epidemiological-BioPEPA-Model/BioPEPA workbench/bpwb/custom_functions_config.json"],
+            "name": "Python: script modifica",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${fileDirname}",
+            "justMyCode": true
+        }
+    ]
+}

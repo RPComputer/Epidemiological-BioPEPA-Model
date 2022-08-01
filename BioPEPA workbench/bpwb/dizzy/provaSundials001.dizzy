@@ -3,13 +3,13 @@
 #model "provaSundials001";
 
 placeholder = 1;
-k2 = 0.4;
-k3 = 0.1;
-S = 10000;
-I = 5;
+delta = 0.07;
+gamma1 = 0.01;
+S = 6000000;
+I = 120;
 R = 0;
 D = 0;
 
-"infect", S -> I, [(S*I/(S+I+R))*S*I*placeholder] ;
-"recover", I -> R, [k2*I] ;
-"death", I -> D, [k3*I] ;
+"infect", S -> I, [(S*I/(S+I+R))*delta*placeholder] ;
+"recover", I -> R, [delta*I] ;
+"death", I -> D, [gamma1*I] ;

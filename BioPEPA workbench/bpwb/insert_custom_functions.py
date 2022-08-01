@@ -1,11 +1,8 @@
 #Imports
 from distutils.command.config import config
+from os import getcwd
 import sys, getopt
 import json
-
-
-global OUTFILECONTENT
-OUTFILECONTENT = []
 
 #Loading data
 def usage():
@@ -55,10 +52,14 @@ def parseconfiguration():
     configuration = json.load(pfile)
     checkconfiguration(configuration)
     
+#Needed for stochkit replace
+def rreplace(s, old, new, occurrence):
+    li = s.rsplit(old, occurrence)
+    return new.join(li)
 
 def writefiles():
-    #Stochkit modification
-    with open('/stochkit/ProblemDefinition.cpp', 'r') as file :
+    #STOCHKIT modification
+    with open('./stochkit/ProblemDefinition.cpp', 'r') as file :
         filedata = file.read()
     #Compute function call
     functionCall = configuration["custom_function_c++_name"] + "("
@@ -73,20 +74,22 @@ def writefiles():
         else:
             functionCall += ", " + v
     functionCall += ")"
+    
     # Replace the target string
-    filedata = filedata.replace(configuration["placeholder_variable"], functionCall)
-
+    #filedata = filedata.replace(configuration["placeholder_variable"], functionCall)
+    filedata = rreplace(filedata, configuration["placeholder_variable"], functionCall, filedata.count(configuration["placeholder_variable"]) - 2) #skip first 2 occurences for rates declaration
+    
     # Write the file out again
-    with open('/stochkit/ProblemDefinition.cpp', 'w') as file:
+    with open('./stochkit/ProblemDefinition.cpp', 'w') as file:
         file.write(filedata)
     
-    #Sundials modification
-    filepath = '/sundials/' + configuration["biopepa_file_name"] + '001_cv.c'
+    #SUNDIALS modification
+    filepath = './sundials/' + configuration["biopepa_file_name"] + '001_cv.c'
     with open(filepath, 'r') as file :
-        filedata = file.read()
+        filedata = file.readlines()
     #Add custom function include
-    index = filedata.find('#include')
-    sundialsResult = filedata[:index] + '#include "CustomFunction.c"\n' + filedata[index:]
+    index = filedata.index('#include <math.h>\n')
+    filedata.insert(index, '#include "CustomFunctions.c"\n')
     #Compute function call
     functionCall = configuration["custom_function_c_name"] + "("
     first = True
@@ -94,6 +97,8 @@ def writefiles():
         functionCall += "t"
         first = False
     for v in configuration["input_parameters"].values():
+        if '"' not in v:
+            v = v + '_'
         if first:
             functionCall += v
             first = False
@@ -102,11 +107,14 @@ def writefiles():
     functionCall += ")"
     # Replace the target string
     placeholder = configuration["placeholder_variable"] + "_"
-    sundialsResult = sundialsResult.replace(placeholder, functionCall)
-
+    for i in range(len(filedata)):
+        if placeholder in filedata[i]:
+            if filedata[i].find('=') < filedata[i].find(placeholder) and 'realtype' not in filedata[i]:
+                filedata[i] = filedata[i].replace(placeholder, functionCall)
+    filedata = ''.join(filedata)
     # Write the file out again
     with open(filepath, 'w') as file:
-        file.write(sundialsResult)
+        file.write(filedata)
 
 #Main
 def main(argv):
