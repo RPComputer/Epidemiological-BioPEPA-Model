@@ -2,7 +2,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "args": ["-c", "/home/roberto/Repository/Epidemiological-BioPEPA-Model/BioPEPA workbench/bpwb/custom_functions_config.json"],
+            "name": "gcc build and debug active c file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/BioPEPA workbench/bpwb/sundials/${fileBasenameNoExtension}",
+            "args": ["stoptime=700"],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}/BioPEPA workbench/bpwb/sundials/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "args": [
+                "-c",
+                "/home/roberto/Repository/Epidemiological-BioPEPA-Model/BioPEPA workbench/bpwb/custom_functions_config.json"
+            ],
             "name": "Python: script modifica",
             "type": "python",
             "request": "launch",
