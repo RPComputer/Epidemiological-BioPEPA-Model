@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- VFgen model compiled from Bio-PEPA input file "provaSundials" by
+ Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+-->
+<VectorField Name="provaSundials001">
+
+<Parameter Name="placeholder_"
+           Description="placeholder"
+           Latex="\mathit{placeholder}"
+           DefaultValue="1" />
+<Parameter Name="delta_"
+           Description="delta"
+           Latex="\delta"
+           DefaultValue="0.07" />
+<Parameter Name="gamma1_"
+           Description="gamma1"
+           Latex="\mathit{gamma1}"
+           DefaultValue="0.01" />
+
+<Expression Name="infect_"
+            Description="infect"
+            Latex="\mathit{infect}"
+            Formula="(S_*I_/(S_+I_+R_))*delta_*placeholder_"/>
+<Expression Name="recover_"
+            Description="recover"
+            Latex="\mathit{recover}"
+            Formula="delta_*I_"/>
+<Expression Name="death_"
+            Description="death"
+            Latex="\mathit{death}"
+            Formula="gamma1_*I_"/>
+
+<StateVariable Name="S_"
+               Description="S"
+               Latex="S"
+               DefaultInitialCondition="6000000"
+               Formula=" - infect_"/>
+
+<StateVariable Name="I_"
+               Description="I"
+               Latex="I"
+               DefaultInitialCondition="120"
+               Formula="infect_ - recover_ - death_"/>
+
+<StateVariable Name="R_"
+               Description="R"
+               Latex="R"
+               DefaultInitialCondition="0"
+               Formula="recover_"/>
+
+<StateVariable Name="D_"
+               Description="D"
+               Latex="D"
+               DefaultInitialCondition="0"
+               Formula="death_"/>
+
+<!-- End VFgen model compiled from provaSundials
+-->
+</VectorField>

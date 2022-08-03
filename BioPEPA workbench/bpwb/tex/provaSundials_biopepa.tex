@@ -1,0 +1,11 @@
+\begin{eqnarray*}
+\mathit{infect} & = & [(S\times I/(S+I+R))\times \delta\times \mathit{placeholder}]\\%
+\mathit{recover} & = & [\delta\times I]\\%
+\mathit{death} & = & [\mathit{gamma1}\times I]\\%
+%
+S & = & (\mathit{infect}){\downarrow}S\\%
+I & = & (\mathit{infect}){\uparrow}I + (\mathit{recover}){\downarrow}I + (\mathit{death}){\downarrow}I\\%
+R & = & (\mathit{recover}){\uparrow}R\\%
+D & = & (\mathit{death}){\uparrow}D\\%
+%
+(S {\parallel} I {\parallel} R {\parallel} D)\end{eqnarray*}

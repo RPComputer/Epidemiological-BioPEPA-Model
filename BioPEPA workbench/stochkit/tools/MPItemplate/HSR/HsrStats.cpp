@@ -46,7 +46,7 @@ using namespace CSE::StochRxn;
 
 Vector Initialize();
 Matrix Stoichiometry();
-Vector Propensity(const Vector& x);
+Vector Propensity(const Vector& x, double t);
 
 
 int HsrStats(int iterations, char* outFile)

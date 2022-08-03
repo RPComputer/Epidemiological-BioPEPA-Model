@@ -127,3 +127,30 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Compiled files
+#Files without extension
+*
+!/**/
+!*.*
+!Makefile*
+!bp
+!LICENSE
+!README
+!eps2pdf
+!sedfile
+
+#Ml
+*.ui
+*.uo
+
+#C++
+*.o
+
+#Folders
+**/bin
+**/thumbnails
+**/dat
+
+#Log
+*.log

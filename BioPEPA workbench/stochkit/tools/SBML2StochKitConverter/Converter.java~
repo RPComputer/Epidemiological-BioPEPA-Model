@@ -428,7 +428,7 @@ public class Converter
         s32 = s32 + "Vector Initialize();\n";
         s32 = s32 + "Matrix Stoichiometry();\n";
         s32 = s32 + "Matrix DependentGrapth();\n";
-        s32 = s32 + "Vector Propensity(const Vector& x);\n";
+        s32 = s32 + "Vector Propensity(const Vector& x, double t);\n";
         s32 = s32 + "Vector PartialProp(int RIndex, const Vector& x, const Matrix& dg,  double& a0);\n";
         s32 = s32 + "Matrix PropensityJacobian(const Vector& x);\n";
         s32 = s32 + "void Equilibrium(Vector& x, Vector& a, int rxn);\n\n";

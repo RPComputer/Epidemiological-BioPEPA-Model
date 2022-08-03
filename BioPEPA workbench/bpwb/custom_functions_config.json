@@ -1,0 +1,12 @@
+{
+    "biopepa_file_name": "provaSundials",
+    "placeholder_variable": "placeholder",
+    "custom_function_c++_name": "readRt",
+    "custom_function_c_name": "readRt",
+    "input_time_variable": true,
+    "input_parameters":
+    {
+        "0": "\"Rt.csv\"",
+        "1": "I"
+    }
+}

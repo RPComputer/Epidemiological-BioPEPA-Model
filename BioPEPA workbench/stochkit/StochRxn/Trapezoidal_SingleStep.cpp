@@ -49,7 +49,7 @@ namespace CSE {
       
       p = PoissonRandom(a * tau);
       x1 = x + nu*p; 
-      a1 = propFunc(x1); 
+      a1 = propFunc(x1, t); 
       p = Round( 0.5*tau*(a1 - a) + p) ; 
     }
     

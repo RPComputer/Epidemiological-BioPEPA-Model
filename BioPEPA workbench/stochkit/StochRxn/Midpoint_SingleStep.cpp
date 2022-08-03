@@ -69,14 +69,14 @@ namespace CSE {
       while (!converged && iterations < 10) {
         xPlusDelx = x+ delx;
         AA = I - 0.5*tau * nu * propJacFunc(xPlusDelx);
-        BB = E + 0.5*tau * nu * propFunc(xPlusDelx) - delx;
+        BB = E + 0.5*tau * nu * propFunc(xPlusDelx, t) - delx;
         SolveGE(AA, deldelx, BB);
 
         converged = (Norm(deldelx, 2) <= rel_tol * Norm(delx, 2) + abs_tol);
         delx += deldelx;
         ++iterations;
       }
-      a1 = propFunc(x + delx); 
+      a1 = propFunc(x + delx, t); 
       a1 = 0.5*(a + a1)*tau; 
       p = PoissonRandom(a1);
     }

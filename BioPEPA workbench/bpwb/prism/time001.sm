@@ -7,17 +7,17 @@ const double _k1 = 0.035;
 
 module Rates
 
-  [_contact1] ((_k1*((func(Time, )+1)*_S)) > 0) -> (_k1*((func(Time, )+1)*_S)) : true;
+  [_contact1] ((_k1*(func(delay, ))*_S) > 0) -> (_k1*(func(delay, ))*_S) : true;
 
 endmodule
 
 // Species: _S
 
-const int MAX = 450;
+const int MAX = 10000;
 
 module _S
 
-  _S : [0..MAX] init 450;
+  _S : [0..MAX] init 10000;
 
   [_contact1] (_S >= 1) -> 1 : (_S' = _S - 1);
 

@@ -1,29 +1,36 @@
 /* A kinetic functions file used by the Bio-PEPA Workbench */
 
-double fMA(double rate, double Species1, double Species2) {
+
+double fMA(double rate, double Species1, double Species2)
+{
   return rate * Species1 * Species2;
 }
 
-double fMA_TODO_FIXME(double rate) {
+double fMA_TODO_FIXME(double rate)
+{
   return rate;
 }
 
-double fMM(double v_M, double K_M, double Enzyme, double Substrate) {
+double fMM(double v_M, double K_M, double Enzyme, double Substrate)
+{
   return (v_M * Enzyme * Substrate) / (K_M + Substrate);
 }
 
-double fH(double v, double K, double n, double Species) {
+double fH(double v, double K, double n, double Species)
+{
   return (v * pow(Species, n)) / (K + pow(Species, n));
 }
 
-double min(double x, double y) {
-  if (x < y) 
+double min(double x, double y)
+{
+  if (x < y)
     return x;
   else
     return y;
 }
 
-double max(double x, double y) {
+double max(double x, double y)
+{
   if (x > y)
     return x;
   else
@@ -37,12 +44,81 @@ double max(double x, double y) {
 double theta(double pArg)
 {
   double retVal = 0.0;
-  if(pArg > 0.0)
-    {
-      retVal = 1.0;
-    }
-  return(retVal);
+  if (pArg > 0.0)
+  {
+    retVal = 1.0;
+  }
+  return (retVal);
 }
 
 
 /* Add your own functions here.  Have fun. */
+#include <string>
+#include <vector>
+#include <cmath>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+#include "ProblemDefinition.h"
+
+double testTime(double t)
+{
+  if (t < 10)
+    return 10;
+  return 0.1;
+}
+
+std::vector<double> RtValues;
+
+double readRt(double t, const char *filename, double x)
+{
+  /*
+    1 first execution: read the whole file in a vector of Rt values. The index of the vector is equal to the daytime of the value
+    2 access vector at index t and get the element
+  */
+  if (RtValues.empty())
+  {
+    std::string myText;
+    // Read from the text file
+    std::ifstream MyReadFile(filename);
+    std::getline(MyReadFile, myText); //ignore header line
+    double readvalue;
+    // Use a while loop together with the getline() function to read the file line by line
+    while (std::getline(MyReadFile, myText))
+    {
+      std::vector<std::string> line;
+      std::stringstream sstream(myText); //create string stream from the string
+      while(sstream.good()) {
+          std::string substr;
+          std::getline(sstream, substr, ','); //get first string delimited by comma
+          line.push_back(substr);
+      }
+      readvalue = atof(line.at(2).c_str());
+      RtValues.push_back(readvalue);
+      line.clear();
+    }
+
+    // Close the file
+    MyReadFile.close();
+  }
+  double result;
+  result = RtValues.at(round(t));
+  std::ofstream ControlFile("simulation_control.dat", std::ios_base::app | std::ios_base::out);
+  ControlFile << t;
+  ControlFile << "\t\t";
+  ControlFile << result;
+  ControlFile << "\t\t";
+  ControlFile << x;
+  ControlFile << "\t\t";
+  if (x < 12000 && result < 1.0)
+  {
+    ControlFile << 1.0;
+    ControlFile << "\n";
+    ControlFile.close();
+    return 1.0;
+  }
+  ControlFile << "NOT";
+  ControlFile << "\n";
+  ControlFile.close();
+  return result;
+}

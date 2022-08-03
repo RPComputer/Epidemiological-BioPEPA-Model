@@ -1,3 +1,0 @@
-mv $1 x.dat
-R --slave < max.r
-rm x.dat

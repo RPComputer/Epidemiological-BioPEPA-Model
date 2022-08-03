@@ -41,7 +41,7 @@ using namespace CSE::StochRxn;
 Vector Initialize();
 Matrix Stoichiometry();
 Matrix DependentGrapth();
-Vector Propensity(const Vector& x);
+Vector Propensity(const Vector& x, double t);
 Vector PartialProp(int RIndex, const Vector& x, const Matrix& dg);
 
 int main(int argc, const char* argv[])

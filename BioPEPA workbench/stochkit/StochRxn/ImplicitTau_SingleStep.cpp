@@ -81,7 +81,7 @@ namespace CSE {
       while (!converged && iterations < 10) {
 	xPlusDelx = x+ delx; 
         AA = I - tau * nu * propJacFunc(xPlusDelx);
-        BB = E + tau * nu * propFunc(xPlusDelx) - delx;
+        BB = E + tau * nu * propFunc(xPlusDelx, t) - delx;
         SolveGEIP(AA, deldelx, BB); // AA gets changed if using LAPACK linear solver
 	// SolveGE(AA, deldelx, BB); // AA doesn't get changed 
 
@@ -96,7 +96,7 @@ namespace CSE {
                   << " without convergence!\n";
       }
 
-      p = Round((propFunc(x + delx) - a) * tau + p);
+      p = Round((propFunc(x + delx, t) - a) * tau + p);
     } 
 
     void ImplicitTau_New_SingleStep(Vector& x,
@@ -124,7 +124,7 @@ namespace CSE {
       while (!converged && iterations < 10) {
         xPlusDelx = x+ delx;
         AA = I - tau * nu * propJacFunc(xPlusDelx);
-        BB = tau * nu * propFunc(xPlusDelx) - delx;
+        BB = tau * nu * propFunc(xPlusDelx, t) - delx;
         SolveGE(AA, deldelx, BB);
 
         converged = (deldelx.Norm2() <= rel_tol * delx.Norm2() + abs_tol);
@@ -137,7 +137,7 @@ namespace CSE {
         std::cerr << "Warning:  ImplicitTau_kround_SingleStep: 10 iterations"
                   << " without convergence!\n";
       }
-      p = PoissonRandom(propFunc(xPlusDelx) * tau);;
+      p = PoissonRandom(propFunc(xPlusDelx, t) * tau);;
     }
 
 
