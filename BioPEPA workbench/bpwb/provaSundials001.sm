@@ -17,11 +17,11 @@ endmodule
 
 // Species: _S, _I, _R, _D
 
-const int MAX = 6000000 + 120 + 0 + 0;
+const int MAX = 60000000 + 120 + 0 + 0;
 
 module _S
 
-  _S : [0..MAX] init 6000000;
+  _S : [0..MAX] init 60000000;
 
   [_infect] (_S >= 1) -> 1 : (_S' = _S - 1);
 

@@ -103,22 +103,5 @@ double readRt(double t, const char *filename, double x)
   }
   double result;
   result = RtValues.at(round(t));
-  std::ofstream ControlFile("simulation_control.dat", std::ios_base::app | std::ios_base::out);
-  ControlFile << t;
-  ControlFile << "\t\t";
-  ControlFile << result;
-  ControlFile << "\t\t";
-  ControlFile << x;
-  ControlFile << "\t\t";
-  if (x < 12000 && result < 1.0)
-  {
-    ControlFile << 1.0;
-    ControlFile << "\n";
-    ControlFile.close();
-    return 1.0;
-  }
-  ControlFile << "NOT";
-  ControlFile << "\n";
-  ControlFile.close();
   return result;
 }
