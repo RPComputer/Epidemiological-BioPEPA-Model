@@ -6,8 +6,12 @@ from modelImplementation import ModelImplementation
 
 #WRITER: ModelImplementation
 
-global OUTFILECONTENT
+global OUTFILECONTENT, OUTVALUESFILECONTENT
 OUTFILECONTENT = []
+OUTVALUESFILECONTENT = []
+global headerline, valuesline
+headerline = ""
+valuesline = ""
 
 #Loading data
 def usage():
@@ -52,7 +56,7 @@ def checkparameters(param):
     #Base checks
     if param["state_number"] != len(param["states"]):
         error("States not match declared states number")
-    if param["model_calsses_number"] != len(param["model_classes"]):
+    if param["model_classes_number"] != len(param["model_classes"]):
         error("Classes not match declared classes number")
     #Model checks
     if "starting_state" not in param or len(param["starting_state"]) == 0:
@@ -78,7 +82,7 @@ def checkparameters(param):
     #Initial state check
     sum = 0
     for s in param["initial_state"].values():
-        if len(param["initial_state"].values()) != param["model_calsses_number"]:
+        if len(param["initial_state"].values()) != param["model_classes_number"]:
             error("Error in initial state definition")
         for p in s:
             sum += p
@@ -117,36 +121,48 @@ def parsematrix():
 def compute_functionalrates():
     #must use imported specifi model functions
     result = WRITER.computeTransmissionRates(coordinates,matrix)
+    if type(result) is not tuple:
+        error("Model implementation - computeTransmissionRates method result is not compatible")
+    elif type(result[0]) is not list or type(result[1]) is not dict:
+        error("Model implementation - computeTransmissionRates method result is not compatible")
     #add to OUTFILECONTENT
-    OUTFILECONTENT.append("//Parameters\n//-Functional rates")
-    OUTFILECONTENT.extend(result)
+    OUTFILECONTENT.append("//-Functional rates")
+    OUTFILECONTENT.extend(result[0])
+    global headerline
+    global valuesline
+    for k,v in result[1].items():
+        headerline += str('"'+k+'"') + ','
+        valuesline += str(v) + ','
 
 def model_builder():
+    csvcontent = dict()
     #prepare initial state lines, competence of this script, add to OUTFILECONTENT
-    classedStates = []
     statesToClass = set(parameters["states"]) - set(parameters["classless_states"])
     for s in statesToClass:
         for c in parameters["model_classes"]:
             initalNum = parameters["initial_state"][c][parameters["states"].index(s)]
-            line = "" + s + c + "0 = " + str(initalNum) + ";"
-            classedStates.append(line)
-    classlessStates = []
+            csvcontent[s + c] = str(initalNum)
     for s in parameters["classless_states"]:
         stateNum = 0
         for c in parameters["model_classes"]:
             stateNum += parameters["initial_state"][c][parameters["states"].index(s)]
-        line = "" + s + "0 = " + str(stateNum) + ";"
-        classlessStates.append(line)
+        csvcontent[s] = str(stateNum)
+    global headerline
+    global valuesline
+    for k,v in csvcontent.items():
+        headerline += str('"'+k+'"') + ','
+        valuesline += str(v) + ','
+    headerline.strip(',')
+    valuesline.strip(',')
+    OUTVALUESFILECONTENT.append(headerline)
+    OUTVALUESFILECONTENT.append(valuesline)
     #must use imported specifi model functions
-    result = WRITER.computeModelDefinitions()
+    modelDefinition = WRITER.computeModelDefinitions()
     #compute system equation
     systemEquation = WRITER.computeSystemEquation()
     #add to OUTFILECONTENT everything
-    OUTFILECONTENT.append("//-Initial state")
-    OUTFILECONTENT.extend(classedStates)
-    OUTFILECONTENT.extend(classlessStates)
     OUTFILECONTENT.append("//Model")
-    OUTFILECONTENT.extend(result)
+    OUTFILECONTENT.extend(modelDefinition)
     OUTFILECONTENT.append("//System equation")
     OUTFILECONTENT.extend(systemEquation)
 
@@ -155,6 +171,13 @@ def writefile():
     print("Writing output file: ", outputfilename, "...")
     file = open(outputfilename, 'w')
     for l in OUTFILECONTENT:
+        file.write(l)
+        file.write("\n")
+    file.close()
+    outputvaluesfilename = outputfilename.split('.')[0] + '.csv'
+    print("Writing output file: ", outputvaluesfilename, "...")
+    file = open(outputvaluesfilename, 'w')
+    for l in OUTVALUESFILECONTENT:
         file.write(l)
         file.write("\n")
     file.close()

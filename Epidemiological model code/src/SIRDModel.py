@@ -41,20 +41,24 @@ class SIRDmodel (ModelImplementation):
         return Tmatrix
 
     def defineTransmissionFormula(self, Tmatrix, coord, c1, c2, ratename):
+        coefficients = dict()
         coefficient = Tmatrix[coord[c1],coord[c2]]
+        coefficientName = ratename + "rate"
+        coefficients[coefficientName] = coefficient
         elements = '*S' + c1 + '*I' + c2
         totSum = ""
         classedStates = set(self.parameters["transmission_states"]).union(set(self.parameters["internal_classed_states"]))
         for s in classedStates:
             totSum += s+c2 + " + "
         totSum = totSum.strip('+ ')
-        rate = "(" + str(coefficient) + "/(" + totSum + "))" + elements
-        return ratename + " = [" + rate + "];"
+        rate = "(" + str(coefficientName) + "/(" + totSum + "))" + elements #update with readRt function placeholder
+        action = ratename + " = [" + rate + "];"
+        return (action, coefficients)
 
     def computeTransmissionRates(self, coord, matrix):
         Tmatrix = self.contactToTransmissionMatrix(matrix, self.parameters["disease_rates_by_class"].values())
         diseaseRates = self.parameters["disease_rates_by_class"]
-        result = []
+        result = ([],dict())
         #compute actions linked to classes that have to be rated
         classedActionsToRate = [self.taction]
         for e,act in self.parameters["states_description"].items():
@@ -68,7 +72,9 @@ class SIRDmodel (ModelImplementation):
             if a == self.taction:
                 for c in product(self.classes, repeat=2):
                     ratename = a + c[0] + c[1]
-                    result.append(self.defineTransmissionFormula(Tmatrix, coord, c[0], c[1], ratename))
+                    transmissionInfo = self.defineTransmissionFormula(Tmatrix, coord, c[0], c[1], ratename)
+                    result[0].append(transmissionInfo[0])
+                    result[1].update(transmissionInfo[1])
                     for s in self.transmissionStatesToClass:
                         for t in self.parameters["states_description"][s]:
                             if t[0] == a:
@@ -80,8 +86,11 @@ class SIRDmodel (ModelImplementation):
                         if k1 == a:
                             ratename = a+k
                             coefficient = v1
+                            coefficientName = a+k+"rate"
                             elements = '*I' + k
-                            result.append(ratename + " = [" + str(coefficient) + elements + "];")
+                            action = ratename + " = [" + str(coefficientName) + elements + "];"
+                            result[0].append(action)
+                            result[1][coefficientName] = coefficient
                             for s in self.parameters["internal_classed_states"]:
                                 for s1,a1 in self.parameters["states_description"].items():
                                     for t in a1:
@@ -95,8 +104,11 @@ class SIRDmodel (ModelImplementation):
                 if k1 not in classedActionsToRate:
                     ratename = k1+k
                     coefficient = v1
+                    coefficientName = k1+k+"rate"
                     elements = '*I' + k
-                    result.append(ratename + " = [" + str(coefficient) + elements + "];")
+                    action = ratename + " = [" + str(coefficientName) + elements + "];"
+                    result[0].append(action)
+                    result[1][coefficientName] = coefficient
                     for s in self.parameters["classless_states"]:
                         for s1,a1 in self.parameters["states_description"].items():
                             for t in a1:
@@ -176,16 +188,17 @@ class SIRDmodel (ModelImplementation):
     
     def computeSystemEquation(self):
         systemEquation = []
-        line = ""
+        line = "("
         for s in self.transmissionStatesToClass:
             for c in self.classes:
-                line += s + c + "[" + s + c +"0] <*> "
+                line += s + c + " <> "
         for s in self.parameters["internal_classed_states"]:
             for c in self.classes:
-                line += s + c + "[" + s + c +"0] <*> "
+                line += s + c + " <> "
         for s in self.parameters["classless_states"]:
-            line += s + "[" + s +"0]"
+            line += s
             if not s == self.parameters["classless_states"][-1]:
-                line += " <*> "
+                line += " <> "
+        line += ")"
         systemEquation.append(line)
         return systemEquation

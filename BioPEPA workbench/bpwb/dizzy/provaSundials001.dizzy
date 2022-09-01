@@ -3,10 +3,10 @@
 #model "provaSundials001";
 
 placeholder = 1;
-delta = 0.07;
+delta = 0.2;
 gamma1 = 0.01;
 S = 60000000;
-I = 120;
+I = 20000;
 R = 0;
 D = 0;
 

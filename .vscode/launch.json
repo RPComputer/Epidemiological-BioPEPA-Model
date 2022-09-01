@@ -2,6 +2,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "args": ["-m", "SIRDModel", "-c", "SIRDmodel", "-p", "./config-italy-call.json", "-i", "./material/italy_contacts.csv", "-o", "italy_sird_scaled.biopepa"],
+            "name": "Italy_contacts2",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}/Epidemiological model code/",
+            "console": "integratedTerminal"
+        },
+        {
+            "args": ["-m", "SIRDModel", "-c", "SIRDmodel", "-p", "./config-example2.json", "-i", "./material/example_matrix2.csv", "-o", "example2_sird.biopepa"],
+            "name": "Example2",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}/Epidemiological model code/",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "gcc build and debug active c file",
             "type": "cppdbg",
             "request": "launch",
@@ -27,6 +45,15 @@
                 "/home/roberto/Repository/Epidemiological-BioPEPA-Model/BioPEPA workbench/bpwb/custom_functions_config.json"
             ],
             "name": "Python: script modifica",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${fileDirname}",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: launch on wd",
             "type": "python",
             "request": "launch",
             "program": "${file}",

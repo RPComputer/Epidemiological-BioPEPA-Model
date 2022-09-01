@@ -11,7 +11,7 @@
     "transmission_states": ["S", "I"],
     "internal_classed_states": ["R"],
     "classless_states":["D"],
-    "model_calsses_number": 16,
+    "model_classes_number": 16,
     "model_classes": ["X1a","X2a","X3a","X4a","X5a","X6a","X7a","X8a","X9a","X10a","X11a","X12a","X13a","X14a","X15a","X16a"],
     "disease_rates_by_class":
     {

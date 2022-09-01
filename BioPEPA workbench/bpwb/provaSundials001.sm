@@ -4,7 +4,7 @@
 ctmc
 
 const double _placeholder = 1;
-const double _delta = 0.07;
+const double _delta = 0.2;
 const double _gamma1 = 0.01;
 
 module Rates
@@ -17,7 +17,7 @@ endmodule
 
 // Species: _S, _I, _R, _D
 
-const int MAX = 60000000 + 120 + 0 + 0;
+const int MAX = 60000000 + 20000 + 0 + 0;
 
 module _S
 
@@ -29,7 +29,7 @@ endmodule
 
 module _I
 
-  _I : [0..MAX] init 120;
+  _I : [0..MAX] init 20000;
 
   [_infect] (_I + 1 <= MAX) -> 1 : (_I' = _I + 1);
   [_recover] (_I >= 1) -> 1 : (_I' = _I - 1);

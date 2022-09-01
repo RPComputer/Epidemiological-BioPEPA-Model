@@ -27,7 +27,7 @@
 /* Reaction constants */
 double
     placeholder = 1,
-    delta = 0.07,
+    delta = 0.2,
     gamma1 = 0.01;
 
 
@@ -57,12 +57,12 @@ Vector Initialize ()
 
   /* Reaction constant initialisation */
   placeholder = 1;
-  delta = 0.07;
+  delta = 0.2;
   gamma1 = 0.01;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
   ___initialSpeciesCount(___S) = 60000000;
-  ___initialSpeciesCount(___I) = 120;
+  ___initialSpeciesCount(___I) = 20000;
   ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;
   return ___initialSpeciesCount;
@@ -74,8 +74,8 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      infect = [(S*I/(S+I+R))*delta*readRt(t, "Rt.csv", I)] */
-  ___propensity(___infect) = ((S*I/(S+I+R))*delta*readRt(t, "Rt.csv", I));
+  /*      infect = [(S*I/(S+I+R))*delta*readRt(t, "Rt1.csv", I)] */
+  ___propensity(___infect) = ((S*I/(S+I+R))*delta*readRt(t, "Rt1.csv", I));
 
   /*      recover = [delta*I] */
   ___propensity(___recover) = (delta*I);
