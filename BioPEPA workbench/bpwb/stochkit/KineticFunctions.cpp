@@ -1,6 +1,5 @@
 /* A kinetic functions file used by the Bio-PEPA Workbench */
 
-
 double fMA(double rate, double Species1, double Species2)
 {
   return rate * Species1 * Species2;
@@ -51,7 +50,6 @@ double theta(double pArg)
   return (retVal);
 }
 
-
 /* Add your own functions here.  Have fun. */
 #include <string>
 #include <vector>
@@ -70,7 +68,7 @@ double testTime(double t)
 
 std::vector<double> RtValues;
 
-double readRt(double t, const char *filename, double x)
+double readRt(double t, const char *filename)
 {
   /*
     1 first execution: read the whole file in a vector of Rt values. The index of the vector is equal to the daytime of the value
@@ -81,17 +79,18 @@ double readRt(double t, const char *filename, double x)
     std::string myText;
     // Read from the text file
     std::ifstream MyReadFile(filename);
-    std::getline(MyReadFile, myText); //ignore header line
+    std::getline(MyReadFile, myText); // ignore header line
     double readvalue;
     // Use a while loop together with the getline() function to read the file line by line
     while (std::getline(MyReadFile, myText))
     {
       std::vector<std::string> line;
-      std::stringstream sstream(myText); //create string stream from the string
-      while(sstream.good()) {
-          std::string substr;
-          std::getline(sstream, substr, ','); //get first string delimited by comma
-          line.push_back(substr);
+      std::stringstream sstream(myText); // create string stream from the string
+      while (sstream.good())
+      {
+        std::string substr;
+        std::getline(sstream, substr, ','); // get first string delimited by comma
+        line.push_back(substr);
       }
       readvalue = atof(line.at(2).c_str());
       RtValues.push_back(readvalue);
@@ -103,5 +102,68 @@ double readRt(double t, const char *filename, double x)
   }
   double result;
   result = RtValues.at(round(t));
+  return result;
+}
+
+/*--------------------*/
+
+std::vector<std::vector<double>> datatableValues;
+std::vector<std::string> datatableHeader;
+
+int getClassIndex(std::string className){
+  for (int i = 0; i < datatableHeader.size(); ++i){
+    if(datatableHeader.at(i) == className)
+      return i;
+  }
+  return 0;
+}
+
+double readDatatable(double t, const char *filename, std::string className)
+{
+  /*
+    1 first execution: read the whole file in a vector of Rt values. The index of the vector is equal to the daytime of the value
+    2 access vector at index t and get the element
+  */
+  if (datatableValues.empty())
+  {
+    std::string myText;
+    // Read from the text file
+    std::ifstream MyReadFile(filename);
+    std::getline(MyReadFile, myText);  // get header line
+    std::stringstream sstream(myText); // create string stream from the string
+    while (sstream.good())
+    {
+      std::string substr;
+      std::getline(sstream, substr, ','); // get first string delimited by comma
+      datatableHeader.push_back(substr);
+    }
+    double readvalue;
+    // Use a while loop together with the getline() function to read the file line by line
+    while (std::getline(MyReadFile, myText))
+    {
+      std::vector<std::string> line;
+      std::stringstream sstream(myText); // create string stream from the string
+      while (sstream.good())
+      {
+        std::string substr;
+        std::getline(sstream, substr, ','); // get first string delimited by comma
+        line.push_back(substr);
+      }
+      std::vector<double> tableRow;
+      for (auto value : line)
+      {
+        readvalue = atof(value.c_str());
+        tableRow.push_back(readvalue);
+      }
+      datatableValues.push_back(tableRow);
+      line.clear();
+      tableRow.clear();
+    }
+    // Close the file
+    MyReadFile.close();
+  }
+  double result;
+  int index = getClassIndex(className);
+  result = datatableValues.at(round(t)).at(index);
   return result;
 }
