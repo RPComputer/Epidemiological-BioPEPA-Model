@@ -1,0 +1,312 @@
+// CSL formulae generated for PRISM model compiled from Bio-PEPA input file "example_sird_vaccinations" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+// Constants:
+const double T; // time instant
+const int i; // number of molecules
+const int rew; // reward variable
+
+// Probability of there being i molecules of species Sy at time T?
+P=? [ true U[T,T] _Sy=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Sy at time T?
+P=? [ true U[T,T] "_Sy_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Sy at time T or before?
+P=? [ true U<=T "_Sy_at_maximum" ]
+
+// Expected number of Sy molecules at time T?
+R{"_Sy"}=? [ I=T ]
+
+// Expected long-run number of Sy molecules?
+R{"_Sy"}=? [ S ]
+
+// Stability of species Sy in the steady-state?
+S=? [(_Sy >= (i - 1)) & (_Sy <= (i + 1)) ]
+
+// Probability of there being i molecules of species Sm at time T?
+P=? [ true U[T,T] _Sm=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Sm at time T?
+P=? [ true U[T,T] "_Sm_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Sm at time T or before?
+P=? [ true U<=T "_Sm_at_maximum" ]
+
+// Expected number of Sm molecules at time T?
+R{"_Sm"}=? [ I=T ]
+
+// Expected long-run number of Sm molecules?
+R{"_Sm"}=? [ S ]
+
+// Stability of species Sm in the steady-state?
+S=? [(_Sm >= (i - 1)) & (_Sm <= (i + 1)) ]
+
+// Probability of there being i molecules of species So at time T?
+P=? [ true U[T,T] _So=i ]
+
+// What is the probability of reaching the maximum number of molecules of species So at time T?
+P=? [ true U[T,T] "_So_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species So at time T or before?
+P=? [ true U<=T "_So_at_maximum" ]
+
+// Expected number of So molecules at time T?
+R{"_So"}=? [ I=T ]
+
+// Expected long-run number of So molecules?
+R{"_So"}=? [ S ]
+
+// Stability of species So in the steady-state?
+S=? [(_So >= (i - 1)) & (_So <= (i + 1)) ]
+
+// Probability of there being i molecules of species Iy at time T?
+P=? [ true U[T,T] _Iy=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Iy at time T?
+P=? [ true U[T,T] "_Iy_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Iy at time T or before?
+P=? [ true U<=T "_Iy_at_maximum" ]
+
+// Expected number of Iy molecules at time T?
+R{"_Iy"}=? [ I=T ]
+
+// Expected long-run number of Iy molecules?
+R{"_Iy"}=? [ S ]
+
+// Stability of species Iy in the steady-state?
+S=? [(_Iy >= (i - 1)) & (_Iy <= (i + 1)) ]
+
+// Probability of there being i molecules of species Im at time T?
+P=? [ true U[T,T] _Im=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Im at time T?
+P=? [ true U[T,T] "_Im_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Im at time T or before?
+P=? [ true U<=T "_Im_at_maximum" ]
+
+// Expected number of Im molecules at time T?
+R{"_Im"}=? [ I=T ]
+
+// Expected long-run number of Im molecules?
+R{"_Im"}=? [ S ]
+
+// Stability of species Im in the steady-state?
+S=? [(_Im >= (i - 1)) & (_Im <= (i + 1)) ]
+
+// Probability of there being i molecules of species Io at time T?
+P=? [ true U[T,T] _Io=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Io at time T?
+P=? [ true U[T,T] "_Io_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Io at time T or before?
+P=? [ true U<=T "_Io_at_maximum" ]
+
+// Expected number of Io molecules at time T?
+R{"_Io"}=? [ I=T ]
+
+// Expected long-run number of Io molecules?
+R{"_Io"}=? [ S ]
+
+// Stability of species Io in the steady-state?
+S=? [(_Io >= (i - 1)) & (_Io <= (i + 1)) ]
+
+// Probability of there being i molecules of species Ry at time T?
+P=? [ true U[T,T] _Ry=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Ry at time T?
+P=? [ true U[T,T] "_Ry_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Ry at time T or before?
+P=? [ true U<=T "_Ry_at_maximum" ]
+
+// Expected number of Ry molecules at time T?
+R{"_Ry"}=? [ I=T ]
+
+// Expected long-run number of Ry molecules?
+R{"_Ry"}=? [ S ]
+
+// Stability of species Ry in the steady-state?
+S=? [(_Ry >= (i - 1)) & (_Ry <= (i + 1)) ]
+
+// Probability of there being i molecules of species Rm at time T?
+P=? [ true U[T,T] _Rm=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Rm at time T?
+P=? [ true U[T,T] "_Rm_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Rm at time T or before?
+P=? [ true U<=T "_Rm_at_maximum" ]
+
+// Expected number of Rm molecules at time T?
+R{"_Rm"}=? [ I=T ]
+
+// Expected long-run number of Rm molecules?
+R{"_Rm"}=? [ S ]
+
+// Stability of species Rm in the steady-state?
+S=? [(_Rm >= (i - 1)) & (_Rm <= (i + 1)) ]
+
+// Probability of there being i molecules of species Ro at time T?
+P=? [ true U[T,T] _Ro=i ]
+
+// What is the probability of reaching the maximum number of molecules of species Ro at time T?
+P=? [ true U[T,T] "_Ro_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species Ro at time T or before?
+P=? [ true U<=T "_Ro_at_maximum" ]
+
+// Expected number of Ro molecules at time T?
+R{"_Ro"}=? [ I=T ]
+
+// Expected long-run number of Ro molecules?
+R{"_Ro"}=? [ S ]
+
+// Stability of species Ro in the steady-state?
+S=? [(_Ro >= (i - 1)) & (_Ro <= (i + 1)) ]
+
+// Probability of there being i molecules of species D at time T?
+P=? [ true U[T,T] _D=i ]
+
+// What is the probability of reaching the maximum number of molecules of species D at time T?
+P=? [ true U[T,T] "_D_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species D at time T or before?
+P=? [ true U<=T "_D_at_maximum" ]
+
+// Expected number of D molecules at time T?
+R{"_D"}=? [ I=T ]
+
+// Expected long-run number of D molecules?
+R{"_D"}=? [ S ]
+
+// Stability of species D in the steady-state?
+S=? [(_D >= (i - 1)) & (_D <= (i + 1)) ]
+
+
+// Expected value of model component rew at time T?
+R{"rew"}=? [ I=T ]
+
+// Expected long-run value of model component rew?
+R{"rew"}=? [ S ]
+
+// Expected number of occurrences of reaction contactyy at time T?
+R{"_contactyy"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactym at time T?
+R{"_contactym"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactyo at time T?
+R{"_contactyo"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactmy at time T?
+R{"_contactmy"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactmm at time T?
+R{"_contactmm"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactmo at time T?
+R{"_contactmo"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactoy at time T?
+R{"_contactoy"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactom at time T?
+R{"_contactom"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction contactoo at time T?
+R{"_contactoo"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction vaccinatey at time T?
+R{"_vaccinatey"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction vaccinatem at time T?
+R{"_vaccinatem"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction vaccinateo at time T?
+R{"_vaccinateo"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction recoveryy at time T?
+R{"_recoveryy"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction recoverym at time T?
+R{"_recoverym"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction recoveryo at time T?
+R{"_recoveryo"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction deathy at time T?
+R{"_deathy"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction deathm at time T?
+R{"_deathm"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction deatho at time T?
+R{"_deatho"}=? [ C<=T ]
+
+
+// Is species Sy depleted?
+label "_Sy_depleted" = _Sy = 0;
+
+// Is species Sy at its maximum value?
+label "_Sy_at_maximum" = _Sy = MAX;
+
+// Is species Sm depleted?
+label "_Sm_depleted" = _Sm = 0;
+
+// Is species Sm at its maximum value?
+label "_Sm_at_maximum" = _Sm = MAX;
+
+// Is species So depleted?
+label "_So_depleted" = _So = 0;
+
+// Is species So at its maximum value?
+label "_So_at_maximum" = _So = MAX;
+
+// Is species Iy depleted?
+label "_Iy_depleted" = _Iy = 0;
+
+// Is species Iy at its maximum value?
+label "_Iy_at_maximum" = _Iy = MAX;
+
+// Is species Im depleted?
+label "_Im_depleted" = _Im = 0;
+
+// Is species Im at its maximum value?
+label "_Im_at_maximum" = _Im = MAX;
+
+// Is species Io depleted?
+label "_Io_depleted" = _Io = 0;
+
+// Is species Io at its maximum value?
+label "_Io_at_maximum" = _Io = MAX;
+
+// Is species Ry depleted?
+label "_Ry_depleted" = _Ry = 0;
+
+// Is species Ry at its maximum value?
+label "_Ry_at_maximum" = _Ry = MAX;
+
+// Is species Rm depleted?
+label "_Rm_depleted" = _Rm = 0;
+
+// Is species Rm at its maximum value?
+label "_Rm_at_maximum" = _Rm = MAX;
+
+// Is species Ro depleted?
+label "_Ro_depleted" = _Ro = 0;
+
+// Is species Ro at its maximum value?
+label "_Ro_at_maximum" = _Ro = MAX;
+
+// Is species D depleted?
+label "_D_depleted" = _D = 0;
+
+// Is species D at its maximum value?
+label "_D_at_maximum" = _D = MAX;
+
+
+// End CSL formulae model compiled from example_sird_vaccinations

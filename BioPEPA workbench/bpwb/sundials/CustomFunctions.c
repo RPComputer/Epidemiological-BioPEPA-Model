@@ -122,7 +122,7 @@ double readDatatable(double t, const char *filename, const char *calssName)
     {
       datatableHeader[i] = (char *)malloc(maxClassNameLenght * sizeof(char));
     }
-    datatableValues = (double *)malloc(datatableLines * sizeof(double *));
+    datatableValues = (double **)malloc(datatableLines * sizeof(double *));
     // read the file
     FILE *fp = fopen(filename, "r");
     int j;

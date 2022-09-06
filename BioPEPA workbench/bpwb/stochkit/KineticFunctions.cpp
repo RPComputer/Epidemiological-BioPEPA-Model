@@ -107,12 +107,14 @@ double readRt(double t, const char *filename)
 
 /*--------------------*/
 
-std::vector<std::vector<double>> datatableValues;
+std::vector<std::vector<double> > datatableValues;
 std::vector<std::string> datatableHeader;
 
-int getClassIndex(std::string className){
-  for (int i = 0; i < datatableHeader.size(); ++i){
-    if(datatableHeader.at(i) == className)
+int getClassIndex(std::string className)
+{
+  for (long unsigned int i = 0; i < datatableHeader.size(); ++i)
+  {
+    if (datatableHeader.at(i) == className)
       return i;
   }
   return 0;
@@ -150,9 +152,9 @@ double readDatatable(double t, const char *filename, std::string className)
         line.push_back(substr);
       }
       std::vector<double> tableRow;
-      for (auto value : line)
+      for (long unsigned int i = 0; i < line.size(); ++i)
       {
-        readvalue = atof(value.c_str());
+        readvalue = atof(line.at(i).c_str());
         tableRow.push_back(readvalue);
       }
       datatableValues.push_back(tableRow);

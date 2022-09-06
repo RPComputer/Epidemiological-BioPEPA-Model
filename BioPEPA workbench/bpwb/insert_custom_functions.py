@@ -37,10 +37,10 @@ def checkconfiguration(config):
     if "substitutions" not in config or len(config["substitutions"]) == 0:
         error("substitutions missing")
     for substituion in config["substitutions"]:
-        if "placeholder_variable" not in substituion or len(substituion["placeholder_variable"]) == 0:
-            error("placeholder_variable missing")
-        if "custom_function_c++_name" not in substituion or len(substituion["custom_function_c++_name"]) == 0:
-            error("custom_function_c++_name missing")
+        if "placeholderVariable" not in substituion or len(substituion["placeholderVariable"]) == 0:
+            error("placeholderVariable missing")
+        if "custom_function_cpp_name" not in substituion or len(substituion["custom_function_cpp_name"]) == 0:
+            error("custom_function_cpp_name missing")
         if "custom_function_c_name" not in substituion or len(substituion["custom_function_c_name"]) == 0:
             error("custom_function_c_name missing")
         if "input_time_variable" not in substituion:
@@ -66,7 +66,7 @@ def writefiles():
         with open('./stochkit/ProblemDefinition.cpp', 'r') as file :
             filedata = file.read()
         #Compute function call
-        functionCall = substituion["custom_function_c++_name"] + "("
+        functionCall = substituion["custom_function_cpp_name"] + "("
         first = True
         if substituion["input_time_variable"] == True:
             functionCall += "t"
@@ -80,18 +80,19 @@ def writefiles():
         functionCall += ")"
         
         # Replace the target string
-        #filedata = filedata.replace(substituion["placeholder_variable"], functionCall)
-        filedata = rreplace(filedata, substituion["placeholder_variable"], functionCall, filedata.count(substituion["placeholder_variable"]) - 2) #skip first 2 occurences for rates declaration
+        #filedata = filedata.replace(substituion["placeholderVariable"], functionCall)
+        filedata = rreplace(filedata, substituion["placeholderVariable"], functionCall, filedata.count(substituion["placeholderVariable"]) - 2) #skip first 2 occurences for rates declaration
         
     # Write the file out again
     with open('./stochkit/ProblemDefinition.cpp', 'w') as file:
         file.write(filedata)
     include = True
+
     #SUNDIALS modification
     filepath = './sundials/' + configuration["biopepa_file_name"] + '001_cv.c'
-    for substituion in configuration["substitutions"]:
-        with open(filepath, 'r') as file :
+    with open(filepath, 'r') as file :
             filedata = file.readlines()
+    for substituion in configuration["substitutions"]:
         #Add custom function include
         if include:
             index = filedata.index('#include <math.h>\n')
@@ -113,7 +114,7 @@ def writefiles():
                 functionCall += ", " + v
         functionCall += ")"
         # Replace the target string
-        placeholder = substituion["placeholder_variable"] + "_"
+        placeholder = substituion["placeholderVariable"] + "_"
         for i in range(len(filedata)):
             if placeholder in filedata[i]:
                 if filedata[i].find('=') < filedata[i].find(placeholder) and 'realtype' not in filedata[i]:

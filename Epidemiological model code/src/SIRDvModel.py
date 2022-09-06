@@ -57,7 +57,7 @@ class SIRDvmodel (SIRDmodel):
                             action = ratename + " = [" + str(coefficientName) + elements + "];"
                             result[0].append(action)
                             result[1][coefficientName] = 1
-                            functionCallInfo = SubstitutionInfo(placeholderVariable=coefficientName,inputParameters=["vaccinations.csv",k])
+                            functionCallInfo = SubstitutionInfo(placeholderVariable=coefficientName,inputParameters=["\"vaccinations.csv\"","\"" + k + "\""])
                             self.substitutions.append(functionCallInfo)
                             for s in self.parameters["internal_classed_states"]:
                                 for s1,a1 in self.parameters["states_description"].items():

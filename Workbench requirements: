@@ -1,8 +1,7 @@
 Workbench requirements:
 
-dizzy edimburg
+
 sundials 2.3.0  ok
-cvode 6.1.1                 problematic to install, sundials seems to install cvode needed
 mxml 3.3        ok          needed for vfgen
 ginac 1.8.3     ok          needed for vfgen
 cln 1.3.6       ok          needed for ginaic

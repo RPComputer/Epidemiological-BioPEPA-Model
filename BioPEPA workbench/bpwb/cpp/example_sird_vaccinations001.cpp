@@ -218,8 +218,8 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
   /*      vaccinatem = [vaccinatemrate*Sm] */
   ___propensity(___vaccinatem) = (vaccinatemrate*Sm);
 
-  /*      vaccinateo = [readDatatable(t, "vaccinations.csv", "o")*So] */
-  ___propensity(___vaccinateo) = (readDatatable(t, "vaccinations.csv", "o")*So);
+  /*      vaccinateo = [vaccinateorate*So] */
+  ___propensity(___vaccinateo) = (vaccinateorate*So);
 
   /*      recoveryy = [recoveryyrate*Iy] */
   ___propensity(___recoveryy) = (recoveryyrate*Iy);
