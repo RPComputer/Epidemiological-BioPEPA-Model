@@ -3,6 +3,14 @@ import sys, getopt, importlib
 import json, numpy
 from modelImplementation import ModelImplementation
 
+#Substitutions auxiliary class
+class SubstitutionsData:
+    def __init__(self):
+        self.biopepa_file_name = ""
+        self.substitutions = []
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
 
 #WRITER: ModelImplementation
 
@@ -168,19 +176,28 @@ def model_builder():
 
 
 def writefile():
+    filename = outputfilename.split('.')[0]
     print("Writing output file: ", outputfilename, "...")
-    file = open(outputfilename, 'w')
-    for l in OUTFILECONTENT:
-        file.write(l)
-        file.write("\n")
-    file.close()
-    outputvaluesfilename = outputfilename.split('.')[0] + '.csv'
+    with open(outputfilename, 'w') as file:
+        for l in OUTFILECONTENT:
+            file.write(l)
+            file.write("\n")
+
+    outputvaluesfilename = filename + '.csv'
     print("Writing output file: ", outputvaluesfilename, "...")
-    file = open(outputvaluesfilename, 'w')
-    for l in OUTVALUESFILECONTENT:
-        file.write(l)
-        file.write("\n")
-    file.close()
+    with open(outputvaluesfilename, 'w') as file:
+        for l in OUTVALUESFILECONTENT:
+            file.write(l)
+            file.write("\n")
+
+    filecontent = SubstitutionsData()
+    filecontent.biopepa_file_name = filename
+    filecontent.substitutions = WRITER.getSubstitutions()
+    print("Writing output file: ", "custom_functions_config.json", "...")
+    with open("custom_functions_config.json", 'w') as file:
+        file.write(filecontent.toJSON())
+
+
 
 #Main
 def main(argv):

@@ -1,6 +1,7 @@
 #Imports
 from modelImplementation import ModelImplementation
 from transition import Transition
+from substituionsInfo import SubstitutionInfo
 from itertools import product
 import numpy as np
 
@@ -11,7 +12,7 @@ class SIRDmodel (ModelImplementation):
         self.classes = self.parameters["model_classes"]
         self.transmissionStatesToClass = set(self.parameters["transmission_states"])
         self.taction = parameters["transmission_action"]
-        self.transitions = []
+        self.substitutions.append(SubstitutionInfo(placeholderVariable="placeholder", custom_function_c_name="readRt", custom_function_cpp_name="readRt", inputParameters=["\"Rt1.csv\""]))
 
     def contactToTransmissionMatrix(self, contactMatrix, diseaseRates):
         diseaseRates = list(diseaseRates)

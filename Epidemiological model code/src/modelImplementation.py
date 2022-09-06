@@ -5,6 +5,10 @@ class ModelImplementation:
     def __init__(self, parameters):
         self.parameters = parameters
         self.ratesComputed = False
+        self.transitions = []
+        self.substitutions = []
+
+    def getSubstitutions(self): return self.substitutions
 
     def computeTransmissionRates(self,matrix):
         pass

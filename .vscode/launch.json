@@ -20,6 +20,15 @@
             "console": "integratedTerminal"
         },
         {
+            "args": ["-m", "SIRDvModel", "-c", "SIRDvmodel", "-p", "./config-example-vaccination.json", "-i", "./material/example_matrix2.csv", "-o", "example_sird_vaccinations.biopepa"],
+            "name": "Example_vaccinations",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}/Epidemiological model code/",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "gcc build and debug active c file",
             "type": "cppdbg",
             "request": "launch",

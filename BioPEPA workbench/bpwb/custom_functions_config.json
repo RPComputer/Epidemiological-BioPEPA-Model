@@ -6,10 +6,7 @@
             "custom_function_c++_name": "readRt",
             "custom_function_c_name": "readRt",
             "input_time_variable": true,
-            "input_parameters":
-            {
-                "0": "\"Rt1.csv\""
-            }
+            "input_parameters":["\"Rt1.csv\""]
         },
         {
             "placeholder_variable": "placeholder1",
