@@ -20,6 +20,15 @@
             "console": "integratedTerminal"
         },
         {
+            "args": ["-m", "models.SIRDModel", "-c", "SIRDmodel", "-p", "./SEIRDtest.json", "-i", "./material/example_matrix2.csv", "-o", "seirdTest.biopepa"],
+            "name": "SEIRDtest",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${workspaceFolder}/Epidemiological model code/",
+            "console": "integratedTerminal"
+        },
+        {
             "args": ["-m", "SIRDvModel", "-c", "SIRDvmodel", "-p", "./config-example-vaccination.json", "-i", "./material/example_matrix2.csv", "-o", "example_sird_vaccinations.biopepa"],
             "name": "Example_vaccinations",
             "type": "python",

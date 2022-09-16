@@ -1,0 +1,44 @@
+//-Functional rates
+contactyy = [(contactyyrate/(Sy + Ry + Ey + Iy))*Sy*Iy];
+contactym = [(contactymrate/(Sm + Rm + Em + Im))*Sy*Im];
+contactyo = [(contactyorate/(So + Ro + Eo + Io))*Sy*Io];
+contactmy = [(contactmyrate/(Sy + Ry + Ey + Iy))*Sm*Iy];
+contactmm = [(contactmmrate/(Sm + Rm + Em + Im))*Sm*Im];
+contactmo = [(contactmorate/(So + Ro + Eo + Io))*Sm*Io];
+contactoy = [(contactoyrate/(Sy + Ry + Ey + Iy))*So*Iy];
+contactom = [(contactomrate/(Sm + Rm + Em + Im))*So*Im];
+contactoo = [(contactoorate/(So + Ro + Eo + Io))*So*Io];
+contactyy = [(contactyyrate/(Sy + Ry + Ey + Iy))*Sy*Iy];
+contactym = [(contactymrate/(Sm + Rm + Em + Im))*Sy*Im];
+contactyo = [(contactyorate/(So + Ro + Eo + Io))*Sy*Io];
+contactmy = [(contactmyrate/(Sy + Ry + Ey + Iy))*Sm*Iy];
+contactmm = [(contactmmrate/(Sm + Rm + Em + Im))*Sm*Im];
+contactmo = [(contactmorate/(So + Ro + Eo + Io))*Sm*Io];
+contactoy = [(contactoyrate/(Sy + Ry + Ey + Iy))*So*Iy];
+contactom = [(contactomrate/(Sm + Rm + Em + Im))*So*Im];
+contactoo = [(contactoorate/(So + Ro + Eo + Io))*So*Io];
+developy = [developyrate*Iy];
+developm = [developmrate*Im];
+developo = [developorate*Io];
+recoveryy = [recoveryyrate*Iy];
+recoverym = [recoverymrate*Im];
+recoveryo = [recoveryorate*Io];
+deathy = [deathyrate*Iy];
+deathm = [deathmrate*Im];
+deatho = [deathorate*Io];
+//Model
+Sy = (contactyy,1)<<Sy + (contactym,1)<<Sy + (contactyo,1)<<Sy + (contactyy,1)<<Sy + (contactym,1)<<Sy + (contactyo,1)<<Sy;
+Sm = (contactmy,1)<<Sm + (contactmm,1)<<Sm + (contactmo,1)<<Sm + (contactmy,1)<<Sm + (contactmm,1)<<Sm + (contactmo,1)<<Sm;
+So = (contactoy,1)<<So + (contactom,1)<<So + (contactoo,1)<<So + (contactoy,1)<<So + (contactom,1)<<So + (contactoo,1)<<So;
+Iy = (recoveryy,1)<<Iy + (deathy,1)<<Iy;
+Im = (recoverym,1)<<Im + (deathm,1)<<Im;
+Io = (recoveryo,1)<<Io + (deatho,1)<<Io;
+Ey = (contactyy,1)>>Ey + (contactym,1)>>Ey + (contactyo,1)>>Ey + (contactmy,1)(+) + (contactoy,1)(+) + (contactyy,1)>>Ey + (contactym,1)>>Ey + (contactyo,1)>>Ey + (contactmy,1)(+) + (contactoy,1)(+);
+Em = (contactym,1)(+) + (contactmy,1)>>Em + (contactmm,1)>>Em + (contactmo,1)>>Em + (contactom,1)(+) + (contactym,1)(+) + (contactmy,1)>>Em + (contactmm,1)>>Em + (contactmo,1)>>Em + (contactom,1)(+);
+Eo = (contactyo,1)(+) + (contactmo,1)(+) + (contactoy,1)>>Eo + (contactom,1)>>Eo + (contactoo,1)>>Eo + (contactyo,1)(+) + (contactmo,1)(+) + (contactoy,1)>>Eo + (contactom,1)>>Eo + (contactoo,1)>>Eo;
+Ry = (recoveryy,1)>>Ry;
+Rm = (recoverym,1)>>Rm;
+Ro = (recoveryo,1)>>Ro;
+D = (deathy,1)>>D + (deathm,1)>>D + (deatho,1)>>D;
+//System equation
+(Sy <> Sm <> So <> Iy <> Im <> Io <> Ey <> Em <> Eo <> Ry <> Rm <> Ro <> D)

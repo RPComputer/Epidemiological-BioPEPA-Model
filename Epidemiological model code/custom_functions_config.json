@@ -1,0 +1,14 @@
+{
+    "biopepa_file_name": "seirdTest",
+    "substitutions": [
+        {
+            "custom_function_c_name": "readRt",
+            "custom_function_cpp_name": "readRt",
+            "input_parameters": [
+                "\"Rt1.csv\""
+            ],
+            "input_time_variable": true,
+            "placeholderVariable": "placeholder"
+        }
+    ]
+}

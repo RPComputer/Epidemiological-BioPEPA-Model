@@ -1,0 +1,30 @@
+{
+    "state_number": 5,
+    "states": ["S", "E", "I", "R", "D"],
+    "starting_state": "S",
+    "states_description":
+    {
+        "S": [["contact","E"]],
+        "E": [["develop","I"]],
+        "I": [["recovery","R"],["death","D"]]
+    },
+    "transmission_action": "contact",
+    "transmission_states": ["S", "I"],
+    "internal_classed_states": ["E","R"],
+    "classless_states":["D"],
+    "model_classes_number": 3,
+    "model_classes": ["y", "m", "o"],
+    "disease_rates_by_class":
+    {
+        "y":{"develop":0.02,"recovery":0.005,"death":0.0001},
+        "m":{"develop":0.02,"recovery":0.0035,"death":0.00055},
+        "o":{"develop":0.02,"recovery":0.0025,"death":0.001}
+    },
+    "total_population": 2000,
+    "initial_state":
+    {
+        "y": [990,0,10,0,0],
+        "m": [490,0,10,0,0],
+        "o": [500,0,0,0,0]
+    }
+}

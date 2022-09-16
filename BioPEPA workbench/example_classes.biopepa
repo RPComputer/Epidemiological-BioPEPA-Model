@@ -1,7 +1,3 @@
-%biopepa.independent.replications: 1
-%biopepa.simulation.stoptime: 2000
-%biopepa.show.all.replications: true
-%stochkit.opt.progress.interval: 1
 //Parameters
 //-Functional rates
 contactyy = [(k1/(Ry + Ry + Iy + Iy + Sy + Sy))*Sy*Iy];
