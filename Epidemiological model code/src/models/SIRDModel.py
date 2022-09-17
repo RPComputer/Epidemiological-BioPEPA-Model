@@ -1,4 +1,5 @@
 #Imports
+from re import I
 from modelImplementation import ModelImplementation
 from transition import Transition
 from substituionsInfo import SubstitutionInfo
@@ -78,8 +79,9 @@ class SIRDmodel (ModelImplementation):
                     result[1].update(transmissionInfo[1])
                     for s in self.transmissionStatesToClass:
                         for t in self.parameters["states_description"][s]:
+                            infectiveState = self.parameters["transmission_states"][1]
                             if t[0] == a:
-                                trans = Transition(start_state=s,end_state=t[1],cat_state=t[1],start_category=c[0],end_category=c[0],cat_category=c[1],action=a,ratename=ratename)
+                                trans = Transition(start_state=s,end_state=t[1],cat_state=infectiveState,start_category=c[0],end_category=c[0],cat_category=c[1],action=a,ratename=ratename)
                                 self.transitions.append(trans)
             else:
                 for k,v in diseaseRates.items():
