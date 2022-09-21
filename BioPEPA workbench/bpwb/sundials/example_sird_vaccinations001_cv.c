@@ -8,6 +8,13 @@
  */
 
 #include "CustomFunctions.c"
+#include "CustomFunctions.c"
+#include "CustomFunctions.c"
+#include "CustomFunctions.c"
+#include "CustomFunctions.c"
+#include "CustomFunctions.c"
+#include "CustomFunctions.c"
+#include "CustomFunctions.c"
 #include <math.h>
 
 /* Include headers for CVODE 2.5.0 */

@@ -17,11 +17,27 @@ else
   STOPTIME=" 100"
 fi
 
-if grep -v "\#" biopepa.cfg | grep "use.custom.functions: true"
+if grep -v "\#" biopepa.cfg | grep "use.custom.functions: true" --silent
 then
   CUSTOMFUNCTIONS= true
 else
   CUSTOMFUNCTIONS= false
+fi
+
+if grep -v "\#" biopepa.cfg | grep "use.stochkit.simulator" --silent
+then
+  str="$(grep -v "\#" biopepa.cfg | grep 'use.stochkit.simulator')"
+  USESTOCHKIT=$(cut -d ':' -f2- <<< $str)
+else
+  USESTOCHKIT= true
+fi
+
+if grep -v "\#" biopepa.cfg | grep "use.sundials.simulator" --silent
+then
+  str="$(grep -v "\#" biopepa.cfg | grep 'use.sundials.simulator')"
+  USESUNDIALS=$(cut -d ':' -f2- <<< $str)
+else
+  USESUNDIALS= false
 fi
 
 if grep -v "\#" biopepa.cfg | grep "use.custom.functions.filename"
@@ -103,36 +119,48 @@ then
   python3 insert_custom_functions.py -c $CUSTOMFUNCTIONSCONFIG
 fi
 
-for i in *.cpp ; do
-  mkdir -p ${STOCHKITTEST}/BIOPEPA
-  mkdir -p ${STOCHKITTEST}/BIOPEPA/DM
-  cp -R stochkit/* ${STOCHKIT}
-  echo "Compiling stochkit simulator."
-  ( cd ${STOCHKIT} ; make > /dev/null )
-  if test -e ${STOCHKIT}/stochkit 
-  then 
-    echo "Running stochkit simulator."
-    c=$(basename $i .cpp)
-    ${STOCHKIT}/stochkit ${c} 
-    ${STOCHKIT}/stochkit ${c} 2> ${c}.endtimes
-    sort -n ${c}*.dat > ${c}_stochkit_results_0.dat
-#     awk '{ print $5 }' ${c}.endtimes | sort -n | cat -n > ${c}_endtimes.dat
-#     rm -f ${c}.endtimes
-  else
-    echo "C++ compilation failed.  Exiting."
-    exit
-  fi 
-done
+if $USESTOCHKIT
+then
+  for i in *.cpp ; do
+    mkdir -p ${STOCHKITTEST}/BIOPEPA
+    mkdir -p ${STOCHKITTEST}/BIOPEPA/DM
+    cp -R stochkit/* ${STOCHKIT}
+    echo "Compiling stochkit simulator."
+    ( cd ${STOCHKIT} ; make > /dev/null )
+    if test -e ${STOCHKIT}/stochkit 
+    then 
+      echo "Running stochkit simulator."
+      c=$(basename $i .cpp)
+      ${STOCHKIT}/stochkit ${c} 
+      ${STOCHKIT}/stochkit ${c} 2> ${c}.endtimes
+      sort -n ${c}*.dat > ${c}_stochkit_results_0.dat
+  #     awk '{ print $5 }' ${c}.endtimes | sort -n | cat -n > ${c}_endtimes.dat
+  #     rm -f ${c}.endtimes
+    else
+      echo "C++ compilation failed.  Exiting."
+      exit
+    fi 
+  done
+fi
 
-for i in *.vf 
-do
+if $USESUNDIALS
+then
+  for i in *.vf 
+  do
     mv Makefile-${b}_cvdemo sundials
     (cd sundials ; make -f  Makefile-${b}_cvdemo )
     echo "Running sundials simulator."
     (./sundials/${b}_cvdemo "stoptime=${STOPTIME}" > sundials/${b}_sundials_results_0.dat)
     mv ./sundials/*.dat ./
     mv $i vfgen
-done
+  done
+else
+  for i in *.vf 
+  do
+    mv $i vfgen
+  done
+fi
+
 
 for i in *.gnu ; do  
     echo Plotting $i
@@ -149,15 +177,15 @@ for i in *.gnu ; do
     fi
 done
 
-# mkdir -p prism 
-# for i in *.sm
-# do
-#     mv $i prism
-# done
-# for i in *.csl
-# do
-#     mv $i prism
-# done
+mkdir -p prism 
+for i in *.sm
+do
+    mv $i prism
+done
+for i in *.csl
+do
+    mv $i prism
+done
 
 #if grep -v "\#" biopepa.cfg | egrep --silent "png|pbm"
 #then
@@ -172,22 +200,22 @@ done
 
 for i in *.dot
 do
-    echo Running Dot over $i
-    b=$(basename ${i} .dot)
-    if test -e ${GRAPHVIZWIN}/dot
-    then 
-	${GRAPHVIZWIN}/dot -Tpng $i -o $b.png
-	${GRAPHVIZWIN}/dot -Tpdf $i -o $b.pdf
-    else
-        dot -Tpng $i -o $b.png
-        dot -Tps $i -o $b.eps
-        chmod +x ./eps2pdf 
-        ./eps2pdf -f -x $b.eps > $i.log 
-        grep ok $i.log
-    fi
-    mv $i dot
-    mv $b.eps dot
-    mv $b.pdf dot
+  echo Running Dot over $i
+  b=$(basename ${i} .dot)
+  if test -e ${GRAPHVIZWIN}/dot
+  then 
+    ${GRAPHVIZWIN}/dot -Tpng $i -o $b.png
+    ${GRAPHVIZWIN}/dot -Tpdf $i -o $b.pdf
+  else
+    dot -Tpng $i -o $b.png
+    dot -Tps $i -o $b.eps
+    chmod +x ./eps2pdf 
+    ./eps2pdf -f -x $b.eps > $i.log 
+    grep ok $i.log
+  fi
+  mv $i dot
+  mv $b.eps dot
+  mv $b.pdf dot
 done  2> /dev/null
 
 # for i in *.eps

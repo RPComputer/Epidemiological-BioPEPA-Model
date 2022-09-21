@@ -1,5 +1,5 @@
 #Imports
-from SIRDModel import SIRDmodel
+from models.SIRDModel import SIRDmodel
 from transition import Transition
 from substituionsInfo import SubstitutionInfo
 from itertools import product

@@ -1,0 +1,13 @@
+infect = [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+I+R+V)];
+recover = [gamma1*I];
+death = [alpha*I];
+vaccinateS = [S*vaccinerate/(S+R)];
+vaccinateR = [R*vaccinerate/(S+R)];
+
+S = (infect)<<S + (vaccinateS)<<S;
+I = (infect)>>I + (recover)<<I + (death)<<I;
+R = (recover)>>R + (vaccinateR)<<R;
+D = (death)>>D;
+V = (vaccinateS)>>V + (vaccinateR)>>V;
+
+(S <> I <> R <> D <> V)

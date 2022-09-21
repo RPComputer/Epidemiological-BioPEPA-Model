@@ -31,7 +31,7 @@ int countlines(const char *filename)
   return lines;
 }
 
-double readRt(double t, const char *filename, double x)
+double readRt(double t, const char *filename)
 {
   /*
     1 first execution: read the whole file in a vector of Rt values. The index of the vector is equal to the daytime of the value
@@ -75,6 +75,24 @@ char **datatableHeader;
 int datatableFirst = 1;
 int datatableLines = 0;
 int classNumber = 0;
+
+void removeChar(char *str, char charToRemmove)
+{
+  int i, j;
+  int len = strlen(str);
+  for (i = 0; i < len; i++)
+  {
+    if (str[i] == charToRemmove)
+    {
+      for (j = i; j < len; j++)
+      {
+        str[j] = str[j + 1];
+      }
+      len--;
+      i--;
+    }
+  }
+}
 
 int countNumber(const char *filename)
 {
@@ -129,7 +147,19 @@ double readDatatable(double t, const char *filename, const char *calssName)
     double value;
     if (fp == NULL)
       return 0;
-    fgets(buffer, 500, fp);                  // skip header line
+    fgets(buffer, 500, fp); // save header line
+    char headerbuffer[maxClassNameLenght];
+    char *token = strtok(buffer, ",");
+    int h = 0;
+    while (token)
+    {
+      strcpy(headerbuffer, token);
+      removeChar(headerbuffer, '"');
+      removeChar(headerbuffer, '\n');
+      strcpy(datatableHeader[h], headerbuffer);
+      token = strtok(NULL, ",");
+      h++;
+    }
     for (int i = 0; i < datatableLines; i++) // for each line parse the values and store in allocated array
     {
       datatableValues[i] = (double *)malloc(classNumber * sizeof(double));
@@ -149,7 +179,7 @@ double readDatatable(double t, const char *filename, const char *calssName)
   }
   int p = round(t);
   if (p > datatableLines)
-    return 1.0;
+    return 0;
   int c = findColumn(calssName);
   return datatableValues[p][c];
 }

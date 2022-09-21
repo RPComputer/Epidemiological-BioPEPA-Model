@@ -1,5 +1,4 @@
 #Imports
-from re import I
 from modelImplementation import ModelImplementation
 from transition import Transition
 from substituionsInfo import SubstitutionInfo

@@ -7,137 +7,58 @@
 
 
 /* Constants for reaction identifiers */
-#define ___contactyy 0
-#define ___contactym 1
-#define ___contactyo 2
-#define ___contactmy 3
-#define ___contactmm 4
-#define ___contactmo 5
-#define ___contactoy 6
-#define ___contactom 7
-#define ___contactoo 8
-#define ___vaccinatey 9
-#define ___vaccinatem 10
-#define ___vaccinateo 11
-#define ___recoveryy 12
-#define ___recoverym 13
-#define ___recoveryo 14
-#define ___deathy 15
-#define ___deathm 16
-#define ___deatho 17
-#define ___REACTIONS 18
+#define ___infect 0
+#define ___recover 1
+#define ___death 2
+#define ___vaccinateS 3
+#define ___vaccinateR 4
+#define ___REACTIONS 5
 
 
 /* Constants for species identifiers */
-#define ___Sy   0
-#define    Sy   ___discreteSpeciesCount(0)
-#define ___Sm   1
-#define    Sm   ___discreteSpeciesCount(1)
-#define ___So   2
-#define    So   ___discreteSpeciesCount(2)
-#define ___Iy   3
-#define    Iy   ___discreteSpeciesCount(3)
-#define ___Im   4
-#define    Im   ___discreteSpeciesCount(4)
-#define ___Io   5
-#define    Io   ___discreteSpeciesCount(5)
-#define ___Ry   6
-#define    Ry   ___discreteSpeciesCount(6)
-#define ___Rm   7
-#define    Rm   ___discreteSpeciesCount(7)
-#define ___Ro   8
-#define    Ro   ___discreteSpeciesCount(8)
-#define ___D   9
-#define    D   ___discreteSpeciesCount(9)
-#define ___SPECIES 10
+#define ___S   0
+#define    S   ___discreteSpeciesCount(0)
+#define ___I   1
+#define    I   ___discreteSpeciesCount(1)
+#define ___R   2
+#define    R   ___discreteSpeciesCount(2)
+#define ___D   3
+#define    D   ___discreteSpeciesCount(3)
+#define ___V   4
+#define    V   ___discreteSpeciesCount(4)
+#define ___SPECIES 5
 
 /* Reaction constants */
 double
-    contactyyrate = 0.0027714317627578586,
-    contactymrate = 0.027714317627578585,
-    contactyorate = 0.0027714317627578586,
-    contactmyrate = 0.002494288586482073,
-    contactmmrate = 0.0038800044678610015,
-    contactmorate = 0.0022171454102062867,
-    contactoyrate = 0.0013857158813789293,
-    contactomrate = 0.027714317627578585,
-    contactoorate = 0.0005542863525515717,
-    vaccinateyrate = 1,
-    vaccinatemrate = 1,
-    vaccinateorate = 1,
-    recoveryyrate = 0.005,
-    recoverymrate = 0.0035,
-    recoveryorate = 0.0025,
-    deathyrate = 0.0001,
-    deathmrate = 0.00055,
-    deathorate = 0.001;
+    placeholder = 1,
+    vaccinerate = 1,
+    gamma1 = 0.196,
+    alpha = 0.004;
 
 
 Matrix Stoichiometry ()
 {
   Matrix ___stoichiometry(___SPECIES, ___REACTIONS, 0.0);
 
-  /* Sy = (contactyy, 1) << Sy + (contactym, 1) << Sy + (contactyo, 1) << Sy + (vaccinatey, 1) << Sy */
-  ___stoichiometry(___Sy, ___contactyy) = -1;
-  ___stoichiometry(___Sy, ___contactym) = -1;
-  ___stoichiometry(___Sy, ___contactyo) = -1;
-  ___stoichiometry(___Sy, ___vaccinatey) = -1;
+  /* S = (infect, 1) << S + (vaccinateS, 1) << S */
+  ___stoichiometry(___S, ___infect) = -1;
+  ___stoichiometry(___S, ___vaccinateS) = -1;
 
-  /* Sm = (contactmy, 1) << Sm + (contactmm, 1) << Sm + (contactmo, 1) << Sm + (vaccinatem, 1) << Sm */
-  ___stoichiometry(___Sm, ___contactmy) = -1;
-  ___stoichiometry(___Sm, ___contactmm) = -1;
-  ___stoichiometry(___Sm, ___contactmo) = -1;
-  ___stoichiometry(___Sm, ___vaccinatem) = -1;
+  /* I = (infect, 1) >> I + (recover, 1) << I + (death, 1) << I */
+  ___stoichiometry(___I, ___infect) = +1;
+  ___stoichiometry(___I, ___recover) = -1;
+  ___stoichiometry(___I, ___death) = -1;
 
-  /* So = (contactoy, 1) << So + (contactom, 1) << So + (contactoo, 1) << So + (vaccinateo, 1) << So */
-  ___stoichiometry(___So, ___contactoy) = -1;
-  ___stoichiometry(___So, ___contactom) = -1;
-  ___stoichiometry(___So, ___contactoo) = -1;
-  ___stoichiometry(___So, ___vaccinateo) = -1;
+  /* R = (recover, 1) >> R + (vaccinateR, 1) << R */
+  ___stoichiometry(___R, ___recover) = +1;
+  ___stoichiometry(___R, ___vaccinateR) = -1;
 
-  /* Iy = (contactyy, 1) >> Iy + (contactym, 1) >> Iy + (contactyo, 1) >> Iy + (contactmy, 0) >> Iy + (contactoy, 0) >> Iy + (recoveryy, 1) << Iy + (deathy, 1) << Iy */
-  ___stoichiometry(___Iy, ___contactyy) = +1;
-  ___stoichiometry(___Iy, ___contactym) = +1;
-  ___stoichiometry(___Iy, ___contactyo) = +1;
-  ___stoichiometry(___Iy, ___contactmy) = +0;
-  ___stoichiometry(___Iy, ___contactoy) = +0;
-  ___stoichiometry(___Iy, ___recoveryy) = -1;
-  ___stoichiometry(___Iy, ___deathy) = -1;
+  /* D = (death, 1) >> D */
+  ___stoichiometry(___D, ___death) = +1;
 
-  /* Im = (contactym, 0) >> Im + (contactmy, 1) >> Im + (contactmm, 1) >> Im + (contactmo, 1) >> Im + (contactom, 0) >> Im + (recoverym, 1) << Im + (deathm, 1) << Im */
-  ___stoichiometry(___Im, ___contactym) = +0;
-  ___stoichiometry(___Im, ___contactmy) = +1;
-  ___stoichiometry(___Im, ___contactmm) = +1;
-  ___stoichiometry(___Im, ___contactmo) = +1;
-  ___stoichiometry(___Im, ___contactom) = +0;
-  ___stoichiometry(___Im, ___recoverym) = -1;
-  ___stoichiometry(___Im, ___deathm) = -1;
-
-  /* Io = (contactyo, 0) >> Io + (contactmo, 0) >> Io + (contactoy, 1) >> Io + (contactom, 1) >> Io + (contactoo, 1) >> Io + (recoveryo, 1) << Io + (deatho, 1) << Io */
-  ___stoichiometry(___Io, ___contactyo) = +0;
-  ___stoichiometry(___Io, ___contactmo) = +0;
-  ___stoichiometry(___Io, ___contactoy) = +1;
-  ___stoichiometry(___Io, ___contactom) = +1;
-  ___stoichiometry(___Io, ___contactoo) = +1;
-  ___stoichiometry(___Io, ___recoveryo) = -1;
-  ___stoichiometry(___Io, ___deatho) = -1;
-
-  /* Ry = (vaccinatey, 1) >> Ry + (recoveryy, 1) >> Ry */
-  ___stoichiometry(___Ry, ___vaccinatey) = +1;
-  ___stoichiometry(___Ry, ___recoveryy) = +1;
-
-  /* Rm = (vaccinatem, 1) >> Rm + (recoverym, 1) >> Rm */
-  ___stoichiometry(___Rm, ___vaccinatem) = +1;
-  ___stoichiometry(___Rm, ___recoverym) = +1;
-
-  /* Ro = (vaccinateo, 1) >> Ro + (recoveryo, 1) >> Ro */
-  ___stoichiometry(___Ro, ___vaccinateo) = +1;
-  ___stoichiometry(___Ro, ___recoveryo) = +1;
-
-  /* D = (deathy, 1) >> D + (deathm, 1) >> D + (deatho, 1) >> D */
-  ___stoichiometry(___D, ___deathy) = +1;
-  ___stoichiometry(___D, ___deathm) = +1;
-  ___stoichiometry(___D, ___deatho) = +1;
+  /* V = (vaccinateS, 1) >> V + (vaccinateR, 1) >> V */
+  ___stoichiometry(___V, ___vaccinateS) = +1;
+  ___stoichiometry(___V, ___vaccinateR) = +1;
 
   return ___stoichiometry;
 }
@@ -146,36 +67,17 @@ Vector Initialize ()
 {
 
   /* Reaction constant initialisation */
-  contactyyrate = 0.0027714317627578586;
-  contactymrate = 0.027714317627578585;
-  contactyorate = 0.0027714317627578586;
-  contactmyrate = 0.002494288586482073;
-  contactmmrate = 0.0038800044678610015;
-  contactmorate = 0.0022171454102062867;
-  contactoyrate = 0.0013857158813789293;
-  contactomrate = 0.027714317627578585;
-  contactoorate = 0.0005542863525515717;
-  vaccinateyrate = 1;
-  vaccinatemrate = 1;
-  vaccinateorate = 1;
-  recoveryyrate = 0.005;
-  recoverymrate = 0.0035;
-  recoveryorate = 0.0025;
-  deathyrate = 0.0001;
-  deathmrate = 0.00055;
-  deathorate = 0.001;
+  placeholder = 1;
+  vaccinerate = 1;
+  gamma1 = 0.196;
+  alpha = 0.004;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
-  ___initialSpeciesCount(___Sy) = 990;
-  ___initialSpeciesCount(___Sm) = 490;
-  ___initialSpeciesCount(___So) = 500;
-  ___initialSpeciesCount(___Iy) = 10;
-  ___initialSpeciesCount(___Im) = 10;
-  ___initialSpeciesCount(___Io) = 0;
-  ___initialSpeciesCount(___Ry) = 0;
-  ___initialSpeciesCount(___Rm) = 0;
-  ___initialSpeciesCount(___Ro) = 0;
+  ___initialSpeciesCount(___S) = 60000000;
+  ___initialSpeciesCount(___I) = 2;
+  ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;
+  ___initialSpeciesCount(___V) = 0;
   return ___initialSpeciesCount;
 }
 
@@ -185,58 +87,19 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      contactyy = [(contactyyrate/(Sy + Ry + Iy))*Sy*Iy] */
-  ___propensity(___contactyy) = ((contactyyrate/(Sy + Ry + Iy))*Sy*Iy);
+  /*      infect = [(I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt.csv"))/(S+I+R+V)] */
+  ___propensity(___infect) = ((I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt.csv"))/(S+I+R+V));
 
-  /*      contactym = [(contactymrate/(Sm + Rm + Im))*Sy*Im] */
-  ___propensity(___contactym) = ((contactymrate/(Sm + Rm + Im))*Sy*Im);
+  /*      recover = [gamma1*I] */
+  ___propensity(___recover) = (gamma1*I);
 
-  /*      contactyo = [(contactyorate/(So + Ro + Io))*Sy*Io] */
-  ___propensity(___contactyo) = ((contactyorate/(So + Ro + Io))*Sy*Io);
+  /*      death = [alpha*I] */
+  ___propensity(___death) = (alpha*I);
 
-  /*      contactmy = [(contactmyrate/(Sy + Ry + Iy))*Sm*Iy] */
-  ___propensity(___contactmy) = ((contactmyrate/(Sy + Ry + Iy))*Sm*Iy);
+  /*      vaccinateS = [S*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R)] */
+  ___propensity(___vaccinateS) = (S*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R));
 
-  /*      contactmm = [(contactmmrate/(Sm + Rm + Im))*Sm*Im] */
-  ___propensity(___contactmm) = ((contactmmrate/(Sm + Rm + Im))*Sm*Im);
-
-  /*      contactmo = [(contactmorate/(So + Ro + Io))*Sm*Io] */
-  ___propensity(___contactmo) = ((contactmorate/(So + Ro + Io))*Sm*Io);
-
-  /*      contactoy = [(contactoyrate/(Sy + Ry + Iy))*So*Iy] */
-  ___propensity(___contactoy) = ((contactoyrate/(Sy + Ry + Iy))*So*Iy);
-
-  /*      contactom = [(contactomrate/(Sm + Rm + Im))*So*Im] */
-  ___propensity(___contactom) = ((contactomrate/(Sm + Rm + Im))*So*Im);
-
-  /*      contactoo = [(contactoorate/(So + Ro + Io))*So*Io] */
-  ___propensity(___contactoo) = ((contactoorate/(So + Ro + Io))*So*Io);
-
-  /*      vaccinatey = [vaccinateyrate*Sy] */
-  ___propensity(___vaccinatey) = (vaccinateyrate*Sy);
-
-  /*      vaccinatem = [vaccinatemrate*Sm] */
-  ___propensity(___vaccinatem) = (vaccinatemrate*Sm);
-
-  /*      vaccinateo = [readDatatable(t, "vaccinations.csv", "o")*So] */
-  ___propensity(___vaccinateo) = (readDatatable(t, "vaccinations.csv", "o")*So);
-
-  /*      recoveryy = [recoveryyrate*Iy] */
-  ___propensity(___recoveryy) = (recoveryyrate*Iy);
-
-  /*      recoverym = [recoverymrate*Im] */
-  ___propensity(___recoverym) = (recoverymrate*Im);
-
-  /*      recoveryo = [recoveryorate*Io] */
-  ___propensity(___recoveryo) = (recoveryorate*Io);
-
-  /*      deathy = [deathyrate*Iy] */
-  ___propensity(___deathy) = (deathyrate*Iy);
-
-  /*      deathm = [deathmrate*Im] */
-  ___propensity(___deathm) = (deathmrate*Im);
-
-  /*      deatho = [deathorate*Io] */
-  ___propensity(___deatho) = (deathorate*Io);
+  /*      vaccinateR = [R*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R)] */
+  ___propensity(___vaccinateR) = (R*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R));
   return ___propensity;
 }

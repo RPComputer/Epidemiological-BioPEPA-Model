@@ -1,0 +1,10 @@
+infect = [(I*(S+R)*(alpha+gamma1)*placeholder)/(S+I+R)];
+recover = [gamma1*I];
+death = [alpha*I];
+
+S = (infect)<<S;
+I = (infect)>>I + (recover)<<I + (death)<<I;
+R = (recover)>>R;
+D = (death)>>D;
+
+(S <> I <> R <> D)

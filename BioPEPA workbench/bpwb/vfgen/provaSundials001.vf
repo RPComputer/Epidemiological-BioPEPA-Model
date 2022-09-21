@@ -8,27 +8,27 @@
            Description="placeholder"
            Latex="\mathit{placeholder}"
            DefaultValue="1" />
-<Parameter Name="delta_"
-           Description="delta"
-           Latex="\delta"
-           DefaultValue="0.2" />
 <Parameter Name="gamma1_"
            Description="gamma1"
            Latex="\mathit{gamma1}"
-           DefaultValue="0.01" />
+           DefaultValue="0.196" />
+<Parameter Name="alpha_"
+           Description="alpha"
+           Latex="\alpha"
+           DefaultValue="0.004" />
 
 <Expression Name="infect_"
             Description="infect"
             Latex="\mathit{infect}"
-            Formula="(S_*I_/(S_+I_+R_))*delta_*placeholder_"/>
+            Formula="(I_*(S_+R_)*(alpha_+gamma1_)*placeholder_)/(S_+I_+R_)"/>
 <Expression Name="recover_"
             Description="recover"
             Latex="\mathit{recover}"
-            Formula="delta_*I_"/>
+            Formula="gamma1_*I_"/>
 <Expression Name="death_"
             Description="death"
             Latex="\mathit{death}"
-            Formula="gamma1_*I_"/>
+            Formula="alpha_*I_"/>
 
 <StateVariable Name="S_"
                Description="S"
@@ -39,7 +39,7 @@
 <StateVariable Name="I_"
                Description="I"
                Latex="I"
-               DefaultInitialCondition="20000"
+               DefaultInitialCondition="5"
                Formula="infect_ - recover_ - death_"/>
 
 <StateVariable Name="R_"

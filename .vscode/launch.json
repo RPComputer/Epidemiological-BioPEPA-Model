@@ -29,7 +29,7 @@
             "console": "integratedTerminal"
         },
         {
-            "args": ["-m", "SIRDvModel", "-c", "SIRDvmodel", "-p", "./config-example-vaccination.json", "-i", "./material/example_matrix2.csv", "-o", "example_sird_vaccinations.biopepa"],
+            "args": ["-m", "models.SIRDvModel", "-c", "SIRDvmodel", "-p", "./config-example-vaccination.json", "-i", "./material/example_matrix2.csv", "-o", "example_sird_vaccinations.biopepa"],
             "name": "Example_vaccinations",
             "type": "python",
             "request": "launch",

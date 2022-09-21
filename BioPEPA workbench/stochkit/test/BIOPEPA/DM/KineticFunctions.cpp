@@ -101,7 +101,10 @@ double readRt(double t, const char *filename)
     MyReadFile.close();
   }
   double result;
-  result = RtValues.at(round(t));
+  if (t <= RtValues.size())
+    result = RtValues.at(round(t));
+  else
+    result = 1.0;
   return result;
 }
 
@@ -166,6 +169,9 @@ double readDatatable(double t, const char *filename, std::string className)
   }
   double result;
   int index = getClassIndex(className);
-  result = datatableValues.at(round(t)).at(index);
+  if (t <= RtValues.size())
+    result = datatableValues.at(round(t)).at(index);
+  else
+    result = 0;
   return result;
 }

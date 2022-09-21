@@ -61,10 +61,10 @@ def rreplace(s, old, new, occurrence):
     return new.join(li)
 
 def writefiles():
+    with open('./stochkit/ProblemDefinition.cpp', 'r') as file :
+        filedata = file.read()
     #STOCHKIT modification
     for substituion in configuration["substitutions"]:
-        with open('./stochkit/ProblemDefinition.cpp', 'r') as file :
-            filedata = file.read()
         #Compute function call
         functionCall = substituion["custom_function_cpp_name"] + "("
         first = True
@@ -119,7 +119,7 @@ def writefiles():
             if placeholder in filedata[i]:
                 if filedata[i].find('=') < filedata[i].find(placeholder) and 'realtype' not in filedata[i]:
                     filedata[i] = filedata[i].replace(placeholder, functionCall)
-        filedata = ''.join(filedata)
+    filedata = ''.join(filedata)
     # Write the file out again
     with open(filepath, 'w') as file:
         file.write(filedata)

@@ -27,8 +27,8 @@
 /* Reaction constants */
 double
     placeholder = 1,
-    delta = 0.2,
-    gamma1 = 0.01;
+    gamma1 = 0.196,
+    alpha = 0.004;
 
 
 Matrix Stoichiometry ()
@@ -57,12 +57,12 @@ Vector Initialize ()
 
   /* Reaction constant initialisation */
   placeholder = 1;
-  delta = 0.2;
-  gamma1 = 0.01;
+  gamma1 = 0.196;
+  alpha = 0.004;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
   ___initialSpeciesCount(___S) = 60000000;
-  ___initialSpeciesCount(___I) = 20000;
+  ___initialSpeciesCount(___I) = 5;
   ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;
   return ___initialSpeciesCount;
@@ -74,13 +74,13 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      infect = [(S*I/(S+I+R))*delta*placeholder] */
-  ___propensity(___infect) = ((S*I/(S+I+R))*delta*placeholder);
+  /*      infect = [(I*(S+R)*(alpha+gamma1)*placeholder)/(S+I+R)] */
+  ___propensity(___infect) = ((I*(S+R)*(alpha+gamma1)*placeholder)/(S+I+R));
 
-  /*      recover = [delta*I] */
-  ___propensity(___recover) = (delta*I);
+  /*      recover = [gamma1*I] */
+  ___propensity(___recover) = (gamma1*I);
 
-  /*      death = [gamma1*I] */
-  ___propensity(___death) = (gamma1*I);
+  /*      death = [alpha*I] */
+  ___propensity(___death) = (alpha*I);
   return ___propensity;
 }

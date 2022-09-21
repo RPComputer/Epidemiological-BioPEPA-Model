@@ -1,0 +1,32 @@
+//-Functional rates
+contactyy = [(contactyyrate/(Iy + Ry + Sy))*Sy*Iy];
+contactym = [(contactymrate/(Im + Rm + Sm))*Sy*Im];
+contactyo = [(contactyorate/(Io + Ro + So))*Sy*Io];
+contactmy = [(contactmyrate/(Iy + Ry + Sy))*Sm*Iy];
+contactmm = [(contactmmrate/(Im + Rm + Sm))*Sm*Im];
+contactmo = [(contactmorate/(Io + Ro + So))*Sm*Io];
+contactoy = [(contactoyrate/(Iy + Ry + Sy))*So*Iy];
+contactom = [(contactomrate/(Im + Rm + Sm))*So*Im];
+contactoo = [(contactoorate/(Io + Ro + So))*So*Io];
+vaccinatey = [vaccinateyrate*Sy];
+vaccinatem = [vaccinatemrate*Sm];
+vaccinateo = [vaccinateorate*So];
+recoveryy = [recoveryyrate*Iy];
+recoverym = [recoverymrate*Im];
+recoveryo = [recoveryorate*Io];
+deathy = [deathyrate*Iy];
+deathm = [deathmrate*Im];
+deatho = [deathorate*Io];
+//Model
+Iy = (contactyy,1)>>Iy + (contactym,1)>>Iy + (contactyo,1)>>Iy + (contactmy,1)(+) + (contactoy,1)(+) + (recoveryy,1)<<Iy + (deathy,1)<<Iy;
+Im = (contactym,1)(+) + (contactmy,1)>>Im + (contactmm,1)>>Im + (contactmo,1)>>Im + (contactom,1)(+) + (recoverym,1)<<Im + (deathm,1)<<Im;
+Io = (contactyo,1)(+) + (contactmo,1)(+) + (contactoy,1)>>Io + (contactom,1)>>Io + (contactoo,1)>>Io + (recoveryo,1)<<Io + (deatho,1)<<Io;
+Sy = (contactyy,1)<<Sy + (contactym,1)<<Sy + (contactyo,1)<<Sy + (vaccinatey,1)<<Sy;
+Sm = (contactmy,1)<<Sm + (contactmm,1)<<Sm + (contactmo,1)<<Sm + (vaccinatem,1)<<Sm;
+So = (contactoy,1)<<So + (contactom,1)<<So + (contactoo,1)<<So + (vaccinateo,1)<<So;
+Ry = (vaccinatey,1)>>Ry + (recoveryy,1)>>Ry;
+Rm = (vaccinatem,1)>>Rm + (recoverym,1)>>Rm;
+Ro = (vaccinateo,1)>>Ro + (recoveryo,1)>>Ro;
+D = (deathy,1)>>D + (deathm,1)>>D + (deatho,1)>>D;
+//System equation
+(Iy <> Im <> Io <> Sy <> Sm <> So <> Ry <> Rm <> Ro <> D)

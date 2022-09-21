@@ -1,0 +1,31 @@
+/* This file was automatically generated
+   by the Bio-PEPA Workbench.            */
+digraph SIRDV {
+
+S -> infect;
+infect -> I;
+
+I -> recover;
+recover -> R;
+
+I -> death;
+death -> D;
+
+S -> vaccinateS;
+vaccinateS -> V;
+
+R -> vaccinateR;
+vaccinateR -> V;
+
+infect [shape=box,fontsize=10,height=.2,label="infect"];
+recover [shape=box,fontsize=10,height=.2,label="recover"];
+death [shape=box,fontsize=10,height=.2,label="death"];
+vaccinateS [shape=box,fontsize=10,height=.2,label="vaccinateS"];
+vaccinateR [shape=box,fontsize=10,height=.2,label="vaccinateR"];
+S [style=bold,label="S"];
+I [style=bold,label="I"];
+R [style=bold,label="R"];
+D [style=bold,label="D"];
+V [style=bold,label="V"];
+
+}
