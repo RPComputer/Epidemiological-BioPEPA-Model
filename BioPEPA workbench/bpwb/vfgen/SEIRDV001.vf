@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!-- VFgen model compiled from Bio-PEPA input file "SEIRDV" by
+ Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+-->
+<VectorField Name="SEIRDV001">
+
+<Parameter Name="placeholder_"
+           Description="placeholder"
+           Latex="\mathit{placeholder}"
+           DefaultValue="1" />
+<Parameter Name="vaccinerate_"
+           Description="vaccinerate"
+           Latex="\mathit{vaccinerate}"
+           DefaultValue="1" />
+<Parameter Name="delta_"
+           Description="delta"
+           Latex="\delta"
+           DefaultValue="0.5" />
+<Parameter Name="gamma1_"
+           Description="gamma1"
+           Latex="\mathit{gamma1}"
+           DefaultValue="0.196" />
+<Parameter Name="alpha_"
+           Description="alpha"
+           Latex="\alpha"
+           DefaultValue="0.004" />
+
+<Expression Name="infect_"
+            Description="infect"
+            Latex="\mathit{infect}"
+            Formula="(I_*(S_+R_+V_)*(alpha_+gamma1_)*placeholder_)/(S_+E_+I_+R_+V_)"/>
+<Expression Name="incubate_"
+            Description="incubate"
+            Latex="\mathit{incubate}"
+            Formula="delta_*E_"/>
+<Expression Name="recover_"
+            Description="recover"
+            Latex="\mathit{recover}"
+            Formula="gamma1_*I_"/>
+<Expression Name="death_"
+            Description="death"
+            Latex="\mathit{death}"
+            Formula="alpha_*I_"/>
+<Expression Name="vaccinateS_"
+            Description="vaccinateS"
+            Latex="\mathit{vaccinateS}"
+            Formula="S_*vaccinerate_/(S_+R_)"/>
+<Expression Name="vaccinateR_"
+            Description="vaccinateR"
+            Latex="\mathit{vaccinateR}"
+            Formula="R_*vaccinerate_/(S_+R_)"/>
+
+<StateVariable Name="S_"
+               Description="S"
+               Latex="S"
+               DefaultInitialCondition="60000000"
+               Formula=" - infect_ - vaccinateS_"/>
+
+<StateVariable Name="E_"
+               Description="E"
+               Latex="E"
+               DefaultInitialCondition="5"
+               Formula="infect_ - incubate_"/>
+
+<StateVariable Name="I_"
+               Description="I"
+               Latex="I"
+               DefaultInitialCondition="0"
+               Formula="incubate_ - recover_ - death_"/>
+
+<StateVariable Name="R_"
+               Description="R"
+               Latex="R"
+               DefaultInitialCondition="0"
+               Formula="recover_ - vaccinateR_"/>
+
+<StateVariable Name="D_"
+               Description="D"
+               Latex="D"
+               DefaultInitialCondition="0"
+               Formula="death_"/>
+
+<StateVariable Name="V_"
+               Description="V"
+               Latex="V"
+               DefaultInitialCondition="0"
+               Formula="vaccinateS_ + vaccinateR_"/>
+
+<!-- End VFgen model compiled from SEIRDV
+-->
+</VectorField>

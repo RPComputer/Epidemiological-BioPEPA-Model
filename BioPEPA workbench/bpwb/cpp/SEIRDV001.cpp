@@ -98,8 +98,8 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      infect = [(I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt_SEIRDV.csv"))/(S+E+I+R+V)] */
-  ___propensity(___infect) = ((I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt_SEIRDV.csv"))/(S+E+I+R+V));
+  /*      infect = [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+E+I+R+V)] */
+  ___propensity(___infect) = ((I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+E+I+R+V));
 
   /*      incubate = [delta*E] */
   ___propensity(___incubate) = (delta*E);
@@ -110,10 +110,10 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
   /*      death = [alpha*I] */
   ___propensity(___death) = (alpha*I);
 
-  /*      vaccinateS = [S*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R)] */
-  ___propensity(___vaccinateS) = (S*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R));
+  /*      vaccinateS = [S*vaccinerate/(S+R)] */
+  ___propensity(___vaccinateS) = (S*vaccinerate/(S+R));
 
-  /*      vaccinateR = [R*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R)] */
-  ___propensity(___vaccinateR) = (R*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R));
+  /*      vaccinateR = [R*vaccinerate/(S+R)] */
+  ___propensity(___vaccinateR) = (R*vaccinerate/(S+R));
   return ___propensity;
 }

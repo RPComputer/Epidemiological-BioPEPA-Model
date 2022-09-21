@@ -8,30 +8,34 @@
 
 /* Constants for reaction identifiers */
 #define ___infect 0
-#define ___recover 1
-#define ___death 2
-#define ___vaccinateS 3
-#define ___vaccinateR 4
-#define ___REACTIONS 5
+#define ___incubate 1
+#define ___recover 2
+#define ___death 3
+#define ___vaccinateS 4
+#define ___vaccinateR 5
+#define ___REACTIONS 6
 
 
 /* Constants for species identifiers */
 #define ___S   0
 #define    S   ___discreteSpeciesCount(0)
-#define ___I   1
-#define    I   ___discreteSpeciesCount(1)
-#define ___R   2
-#define    R   ___discreteSpeciesCount(2)
-#define ___D   3
-#define    D   ___discreteSpeciesCount(3)
-#define ___V   4
-#define    V   ___discreteSpeciesCount(4)
-#define ___SPECIES 5
+#define ___E   1
+#define    E   ___discreteSpeciesCount(1)
+#define ___I   2
+#define    I   ___discreteSpeciesCount(2)
+#define ___R   3
+#define    R   ___discreteSpeciesCount(3)
+#define ___D   4
+#define    D   ___discreteSpeciesCount(4)
+#define ___V   5
+#define    V   ___discreteSpeciesCount(5)
+#define ___SPECIES 6
 
 /* Reaction constants */
 double
     placeholder = 1,
     vaccinerate = 1,
+    delta = 0.5,
     gamma1 = 0.196,
     alpha = 0.004;
 
@@ -44,8 +48,13 @@ Matrix Stoichiometry ()
   ___stoichiometry(___S, ___infect) = -1;
   ___stoichiometry(___S, ___vaccinateS) = -1;
 
-  /* I = (infect, 1) >> I + (recover, 1) << I + (death, 1) << I */
-  ___stoichiometry(___I, ___infect) = +1;
+  /* E = (infect, 1) >> E + (incubate, 1) << E */
+  ___stoichiometry(___E, ___infect) = +1;
+  ___stoichiometry(___E, ___incubate) = -1;
+
+  /* I = (infect, 0) >> I + (incubate, 1) >> I + (recover, 1) << I + (death, 1) << I */
+  ___stoichiometry(___I, ___infect) = +0;
+  ___stoichiometry(___I, ___incubate) = +1;
   ___stoichiometry(___I, ___recover) = -1;
   ___stoichiometry(___I, ___death) = -1;
 
@@ -69,12 +78,14 @@ Vector Initialize ()
   /* Reaction constant initialisation */
   placeholder = 1;
   vaccinerate = 1;
+  delta = 0.5;
   gamma1 = 0.196;
   alpha = 0.004;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
   ___initialSpeciesCount(___S) = 60000000;
-  ___initialSpeciesCount(___I) = 2;
+  ___initialSpeciesCount(___E) = 5;
+  ___initialSpeciesCount(___I) = 0;
   ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;
   ___initialSpeciesCount(___V) = 0;
@@ -87,8 +98,11 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 
-  /*      infect = [(I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt.csv"))/(S+I+R+V)] */
-  ___propensity(___infect) = ((I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt.csv"))/(S+I+R+V));
+  /*      infect = [(I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt_SEIRDV.csv"))/(S+E+I+R+V)] */
+  ___propensity(___infect) = ((I*(S+R+V)*(alpha+gamma1)*readRt(t, "Rt_SEIRDV.csv"))/(S+E+I+R+V));
+
+  /*      incubate = [delta*E] */
+  ___propensity(___incubate) = (delta*E);
 
   /*      recover = [gamma1*I] */
   ___propensity(___recover) = (gamma1*I);
@@ -96,10 +110,10 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
   /*      death = [alpha*I] */
   ___propensity(___death) = (alpha*I);
 
-  /*      vaccinateS = [S*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R)] */
-  ___propensity(___vaccinateS) = (S*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R));
+  /*      vaccinateS = [S*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R)] */
+  ___propensity(___vaccinateS) = (S*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R));
 
-  /*      vaccinateR = [R*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R)] */
-  ___propensity(___vaccinateR) = (R*readDatatable(t, "vacciniSIRDV.csv", "n")/(S+R));
+  /*      vaccinateR = [R*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R)] */
+  ___propensity(___vaccinateR) = (R*readDatatable(t, "vacciniSEIRDV.csv", "n")/(S+R));
   return ___propensity;
 }

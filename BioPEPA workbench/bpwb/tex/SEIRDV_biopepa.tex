@@ -1,0 +1,16 @@
+\begin{eqnarray*}
+\mathit{infect} & = & [(I\times (S+R+V)\times (\alpha+\mathit{gamma1})\times \mathit{placeholder})/(S+E+I+R+V)]\\%
+\mathit{incubate} & = & [\delta\times E]\\%
+\mathit{recover} & = & [\mathit{gamma1}\times I]\\%
+\mathit{death} & = & [\alpha\times I]\\%
+\mathit{vaccinateS} & = & [S\times \mathit{vaccinerate}/(S+R)]\\%
+\mathit{vaccinateR} & = & [R\times \mathit{vaccinerate}/(S+R)]\\%
+%
+S & = & (\mathit{infect}){\downarrow}S + (\mathit{vaccinateS}){\downarrow}S\\%
+E & = & (\mathit{infect}){\uparrow}E + (\mathit{incubate}){\downarrow}E\\%
+I & = & (\mathit{infect})\oplus  + (\mathit{incubate}){\uparrow}I + (\mathit{recover}){\downarrow}I + (\mathit{death}){\downarrow}I\\%
+R & = & (\mathit{recover}){\uparrow}R + (\mathit{vaccinateR}){\downarrow}R\\%
+D & = & (\mathit{death}){\uparrow}D\\%
+V & = & (\mathit{vaccinateS}){\uparrow}V + (\mathit{vaccinateR}){\uparrow}V\\%
+%
+(S {\parallel} E {\parallel} I {\parallel} R {\parallel} D {\parallel} V)\end{eqnarray*}

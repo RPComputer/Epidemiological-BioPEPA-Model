@@ -1,0 +1,175 @@
+// PRISM model compiled from Bio-PEPA input file "SEIRDV" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+ctmc
+
+const double _placeholder = 1;
+const double _vaccinerate = 1;
+const double _delta = 0.5;
+const double _gamma1 = 0.196;
+const double _alpha = 0.004;
+
+module Rates
+
+  [_infect] (((_I*(_S+_R+_V)*(_alpha+_gamma1)*_placeholder)/(_S+_E+_I+_R+_V)) > 0) -> ((_I*(_S+_R+_V)*(_alpha+_gamma1)*_placeholder)/(_S+_E+_I+_R+_V)) : true;
+  [_incubate] ((_delta*_E) > 0) -> (_delta*_E) : true;
+  [_recover] ((_gamma1*_I) > 0) -> (_gamma1*_I) : true;
+  [_death] ((_alpha*_I) > 0) -> (_alpha*_I) : true;
+  [_vaccinateS] ((_S*_vaccinerate/(_S+_R)) > 0) -> (_S*_vaccinerate/(_S+_R)) : true;
+  [_vaccinateR] ((_R*_vaccinerate/(_S+_R)) > 0) -> (_R*_vaccinerate/(_S+_R)) : true;
+
+endmodule
+
+// Species: _S, _E, _I, _R, _D, _V
+
+const int MAX = 60000000 + 5 + 0 + 0 + 0 + 0;
+
+module _S
+
+  _S : [0..MAX] init 60000000;
+
+  [_infect] (_S >= 1) -> 1 : (_S' = _S - 1);
+  [_vaccinateS] (_S >= 1) -> 1 : (_S' = _S - 1);
+
+endmodule
+
+module _E
+
+  _E : [0..MAX] init 5;
+
+  [_infect] (_E + 1 <= MAX) -> 1 : (_E' = _E + 1);
+  [_incubate] (_E >= 1) -> 1 : (_E' = _E - 1);
+
+endmodule
+
+module _I
+
+  _I : [0..MAX] init 0;
+
+  [_infect] (_I + 0 <= MAX) -> 1 : (_I' = _I + 0);
+  [_incubate] (_I + 1 <= MAX) -> 1 : (_I' = _I + 1);
+  [_recover] (_I >= 1) -> 1 : (_I' = _I - 1);
+  [_death] (_I >= 1) -> 1 : (_I' = _I - 1);
+
+endmodule
+
+module _R
+
+  _R : [0..MAX] init 0;
+
+  [_recover] (_R + 1 <= MAX) -> 1 : (_R' = _R + 1);
+  [_vaccinateR] (_R >= 1) -> 1 : (_R' = _R - 1);
+
+endmodule
+
+module _D
+
+  _D : [0..MAX] init 0;
+
+  [_death] (_D + 1 <= MAX) -> 1 : (_D' = _D + 1);
+
+endmodule
+
+module _V
+
+  _V : [0..MAX] init 0;
+
+  [_vaccinateS] (_V + 1 <= MAX) -> 1 : (_V' = _V + 1);
+  [_vaccinateR] (_V + 1 <= MAX) -> 1 : (_V' = _V + 1);
+
+endmodule
+
+
+// count rewards: "number of occurrences of infect"
+rewards "_infect"
+  [_infect] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of incubate"
+rewards "_incubate"
+  [_incubate] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of recover"
+rewards "_recover"
+  [_recover] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of death"
+rewards "_death"
+  [_death] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of vaccinateS"
+rewards "_vaccinateS"
+  [_vaccinateS] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of vaccinateR"
+rewards "_vaccinateR"
+  [_vaccinateR] true : 1;
+endrewards
+
+// rewards: "number of S molecules present"
+rewards "_S"
+  true : _S;
+endrewards
+
+// rewards: "square of number of S molecules present (used to calculate standard derivation)"
+rewards "_S_squared"
+  true : _S * _S;
+endrewards
+
+// rewards: "number of E molecules present"
+rewards "_E"
+  true : _E;
+endrewards
+
+// rewards: "square of number of E molecules present (used to calculate standard derivation)"
+rewards "_E_squared"
+  true : _E * _E;
+endrewards
+
+// rewards: "number of I molecules present"
+rewards "_I"
+  true : _I;
+endrewards
+
+// rewards: "square of number of I molecules present (used to calculate standard derivation)"
+rewards "_I_squared"
+  true : _I * _I;
+endrewards
+
+// rewards: "number of R molecules present"
+rewards "_R"
+  true : _R;
+endrewards
+
+// rewards: "square of number of R molecules present (used to calculate standard derivation)"
+rewards "_R_squared"
+  true : _R * _R;
+endrewards
+
+// rewards: "number of D molecules present"
+rewards "_D"
+  true : _D;
+endrewards
+
+// rewards: "square of number of D molecules present (used to calculate standard derivation)"
+rewards "_D_squared"
+  true : _D * _D;
+endrewards
+
+// rewards: "number of V molecules present"
+rewards "_V"
+  true : _V;
+endrewards
+
+// rewards: "square of number of V molecules present (used to calculate standard derivation)"
+rewards "_V_squared"
+  true : _V * _V;
+endrewards
+
+
+
+// End PRISM model compiled from SEIRDV
