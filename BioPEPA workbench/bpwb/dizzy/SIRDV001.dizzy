@@ -11,8 +11,10 @@ I = 2;
 R = 0;
 D = 0;
 V = 0;
+CUMI = 2;
 
 "infect", S -> I, [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+I+R+V)] ;
+"infectcount",  -> CUMI, [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+I+R+V)] ;
 "recover", I -> R, [gamma1*I] ;
 "death", I -> D, [alpha*I] ;
 "vaccinateS", S -> V, [S*vaccinerate/(S+R)] ;

@@ -11,6 +11,7 @@ const double _alpha = 0.004;
 module Rates
 
   [_infect] (((_I*(_S+_R+_V)*(_alpha+_gamma1)*_placeholder)/(_S+_I+_R+_V)) > 0) -> ((_I*(_S+_R+_V)*(_alpha+_gamma1)*_placeholder)/(_S+_I+_R+_V)) : true;
+  [_infectcount] (((_I*(_S+_R+_V)*(_alpha+_gamma1)*_placeholder)/(_S+_I+_R+_V)) > 0) -> ((_I*(_S+_R+_V)*(_alpha+_gamma1)*_placeholder)/(_S+_I+_R+_V)) : true;
   [_recover] ((_gamma1*_I) > 0) -> (_gamma1*_I) : true;
   [_death] ((_alpha*_I) > 0) -> (_alpha*_I) : true;
   [_vaccinateS] ((_S*_vaccinerate/(_S+_R)) > 0) -> (_S*_vaccinerate/(_S+_R)) : true;
@@ -18,9 +19,9 @@ module Rates
 
 endmodule
 
-// Species: _S, _I, _R, _D, _V
+// Species: _S, _I, _R, _D, _V, _CUMI
 
-const int MAX = 60000000 + 2 + 0 + 0 + 0;
+const int MAX = 60000000 + 2 + 0 + 0 + 0 + 2;
 
 module _S
 
@@ -67,10 +68,23 @@ module _V
 
 endmodule
 
+module _CUMI
+
+  _CUMI : [0..MAX] init 2;
+
+  [_infectcount] (_CUMI + 1 <= MAX) -> 1 : (_CUMI' = _CUMI + 1);
+
+endmodule
+
 
 // count rewards: "number of occurrences of infect"
 rewards "_infect"
   [_infect] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of infectcount"
+rewards "_infectcount"
+  [_infectcount] true : 1;
 endrewards
 
 // count rewards: "number of occurrences of recover"
@@ -141,6 +155,16 @@ endrewards
 // rewards: "square of number of V molecules present (used to calculate standard derivation)"
 rewards "_V_squared"
   true : _V * _V;
+endrewards
+
+// rewards: "number of CUMI molecules present"
+rewards "_CUMI"
+  true : _CUMI;
+endrewards
+
+// rewards: "square of number of CUMI molecules present (used to calculate standard derivation)"
+rewards "_CUMI_squared"
+  true : _CUMI * _CUMI;
 endrewards
 
 

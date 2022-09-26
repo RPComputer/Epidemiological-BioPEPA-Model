@@ -1,5 +1,6 @@
 \begin{eqnarray*}
 \mathit{infect} & = & [(I\times (S+R+V)\times (\alpha+\mathit{gamma1})\times \mathit{placeholder})/(S+I+R+V)]\\%
+\mathit{infectcount} & = & [(I\times (S+R+V)\times (\alpha+\mathit{gamma1})\times \mathit{placeholder})/(S+I+R+V)]\\%
 \mathit{recover} & = & [\mathit{gamma1}\times I]\\%
 \mathit{death} & = & [\alpha\times I]\\%
 \mathit{vaccinateS} & = & [S\times \mathit{vaccinerate}/(S+R)]\\%
@@ -11,4 +12,6 @@ R & = & (\mathit{recover}){\uparrow}R + (\mathit{vaccinateR}){\downarrow}R\\%
 D & = & (\mathit{death}){\uparrow}D\\%
 V & = & (\mathit{vaccinateS}){\uparrow}V + (\mathit{vaccinateR}){\uparrow}V\\%
 %
-(S {\parallel} I {\parallel} R {\parallel} D {\parallel} V)\end{eqnarray*}
+\mathit{CUMI} & = & (\mathit{infectcount}){\uparrow}\mathit{CUMI}\\%
+%
+(S {\parallel} \mathit{CUMI} {\parallel} I {\parallel} R {\parallel} D {\parallel} V)\end{eqnarray*}

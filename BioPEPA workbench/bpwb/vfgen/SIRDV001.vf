@@ -25,6 +25,10 @@
             Description="infect"
             Latex="\mathit{infect}"
             Formula="(I_*(S_+R_+V_)*(alpha_+gamma1_)*placeholder_)/(S_+I_+R_+V_)"/>
+<Expression Name="infectcount_"
+            Description="infectcount"
+            Latex="\mathit{infectcount}"
+            Formula="(I_*(S_+R_+V_)*(alpha_+gamma1_)*placeholder_)/(S_+I_+R_+V_)"/>
 <Expression Name="recover_"
             Description="recover"
             Latex="\mathit{recover}"
@@ -71,6 +75,12 @@
                Latex="V"
                DefaultInitialCondition="0"
                Formula="vaccinateS_ + vaccinateR_"/>
+
+<StateVariable Name="CUMI_"
+               Description="CUMI"
+               Latex="\mathit{CUMI}"
+               DefaultInitialCondition="2"
+               Formula="infectcount_"/>
 
 <!-- End VFgen model compiled from SIRDV
 -->

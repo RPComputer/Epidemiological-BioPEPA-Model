@@ -96,6 +96,24 @@ R{"_V"}=? [ S ]
 // Stability of species V in the steady-state?
 S=? [(_V >= (i - 1)) & (_V <= (i + 1)) ]
 
+// Probability of there being i molecules of species CUMI at time T?
+P=? [ true U[T,T] _CUMI=i ]
+
+// What is the probability of reaching the maximum number of molecules of species CUMI at time T?
+P=? [ true U[T,T] "_CUMI_at_maximum" ]
+
+// What is the probability of having reached the maximum number of molecules of species CUMI at time T or before?
+P=? [ true U<=T "_CUMI_at_maximum" ]
+
+// Expected number of CUMI molecules at time T?
+R{"_CUMI"}=? [ I=T ]
+
+// Expected long-run number of CUMI molecules?
+R{"_CUMI"}=? [ S ]
+
+// Stability of species CUMI in the steady-state?
+S=? [(_CUMI >= (i - 1)) & (_CUMI <= (i + 1)) ]
+
 
 // Expected value of model component rew at time T?
 R{"rew"}=? [ I=T ]
@@ -105,6 +123,9 @@ R{"rew"}=? [ S ]
 
 // Expected number of occurrences of reaction infect at time T?
 R{"_infect"}=? [ C<=T ]
+
+// Expected number of occurrences of reaction infectcount at time T?
+R{"_infectcount"}=? [ C<=T ]
 
 // Expected number of occurrences of reaction recover at time T?
 R{"_recover"}=? [ C<=T ]
@@ -148,6 +169,12 @@ label "_V_depleted" = _V = 0;
 
 // Is species V at its maximum value?
 label "_V_at_maximum" = _V = MAX;
+
+// Is species CUMI depleted?
+label "_CUMI_depleted" = _CUMI = 0;
+
+// Is species CUMI at its maximum value?
+label "_CUMI_at_maximum" = _CUMI = MAX;
 
 
 // End CSL formulae model compiled from SIRDV

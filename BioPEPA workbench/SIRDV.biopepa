@@ -1,4 +1,5 @@
 infect = [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+I+R+V)];
+infectcount = [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+I+R+V)];
 recover = [gamma1*I];
 death = [alpha*I];
 vaccinateS = [S*vaccinerate/(S+R)];
@@ -10,4 +11,6 @@ R = (recover)>>R + (vaccinateR)<<R;
 D = (death)>>D;
 V = (vaccinateS)>>V + (vaccinateR)>>V;
 
-(S <> I <> R <> D <> V)
+CUMI = (infectcount)>>CUMI;
+
+(S <> CUMI <> I <> R <> D <> V)

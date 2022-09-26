@@ -5,6 +5,8 @@ digraph SEIRDV {
 S -> infect;
 infect -> E;
 
+infectcount -> CUMI;
+
 E -> incubate;
 incubate -> I;
 
@@ -21,6 +23,7 @@ R -> vaccinateR;
 vaccinateR -> V;
 
 infect [shape=box,fontsize=10,height=.2,label="infect"];
+infectcount [shape=box,fontsize=10,height=.2,label="infectcount"];
 incubate [shape=box,fontsize=10,height=.2,label="incubate"];
 recover [shape=box,fontsize=10,height=.2,label="recover"];
 death [shape=box,fontsize=10,height=.2,label="death"];
@@ -32,5 +35,6 @@ I [style=bold,label="I"];
 R [style=bold,label="R"];
 D [style=bold,label="D"];
 V [style=bold,label="V"];
+CUMI [style=bold,label="CUMI"];
 
 }

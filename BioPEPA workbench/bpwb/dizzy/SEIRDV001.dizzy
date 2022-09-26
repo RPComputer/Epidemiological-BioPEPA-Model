@@ -8,13 +8,15 @@ delta = 0.5;
 gamma1 = 0.196;
 alpha = 0.004;
 S = 60000000;
-E = 5;
+E = 12;
 I = 0;
 R = 0;
 D = 0;
 V = 0;
+CUMI = 0;
 
 "infect", S -> E, [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+E+I+R+V)] ;
+"infectcount",  -> CUMI, [(I*(S+R+V)*(alpha+gamma1)*placeholder)/(S+E+I+R+V)] ;
 "incubate", E -> I, [delta*E] ;
 "recover", I -> R, [gamma1*I] ;
 "death", I -> D, [alpha*I] ;
