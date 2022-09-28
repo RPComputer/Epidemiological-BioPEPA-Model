@@ -6,4 +6,4 @@ set xlabel "Time "
 set ylabel "Number"
 set key bmargin left horizontal box
 
-plot     "../dat/SIRDV001_sundials_results_0.dat" using 1:2   title "S",     "../dat/SIRDV001_sundials_results_0.dat" using 1:3   title "I",     "../dat/SIRDV001_sundials_results_0.dat" using 1:4   title "R",     "../dat/SIRDV001_sundials_results_0.dat" using 1:5   title "D",     "../dat/SIRDV001_sundials_results_0.dat" using 1:6   title "V", "../dat/SIRDV001_sundials_results_0.dat" using 1:7   title "CUMI"
+plot     "SIRDV001_sundials_results_0.dat" using 1:2   title "S",     "SIRDV001_sundials_results_0.dat" using 1:3   title "I",     "SIRDV001_sundials_results_0.dat" using 1:4   title "R",     "SIRDV001_sundials_results_0.dat" using 1:5   title "D",     "SIRDV001_sundials_results_0.dat" using 1:6   title "V",     "SIRDV001_sundials_results_0.dat" using 1:7   title "CUMI"

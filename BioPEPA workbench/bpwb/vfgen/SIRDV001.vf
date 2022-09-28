@@ -49,7 +49,7 @@
 <StateVariable Name="S_"
                Description="S"
                Latex="S"
-               DefaultInitialCondition="60000000"
+               DefaultInitialCondition="59641488"
                Formula=" - infect_ - vaccinateS_"/>
 
 <StateVariable Name="I_"

@@ -11,12 +11,13 @@ class SIRDvmodel (SIRDmodel):
         Tmatrix = self.contactToTransmissionMatrix(matrix, self.parameters["disease_rates_by_class"].values())
         diseaseRates = self.parameters["disease_rates_by_class"]
         result = ([],dict())
+        result[1]['placeholder'] = 1
         #compute actions linked to classes that have to be rated
         classedActionsToRate = [self.taction]
         for e,act in self.parameters["states_description"].items():
             for s in self.parameters["internal_classed_states"]:
                 for a in act:
-                    if s == e or s == a[1]:
+                    if s == e or s == a[1] and a[0] not in classedActionsToRate:
                         classedActionsToRate.append(a[0])
                
         #compute rates for classed actions
@@ -53,7 +54,16 @@ class SIRDvmodel (SIRDmodel):
                         elif k1 == a and type(v1) is str:
                             ratename = a+k
                             coefficientName = a+k+"rate"
-                            elements = '*S' + k
+                            totSum = ""
+                            classedStates = ['S','R']
+                            for s in classedStates:
+                                for c in self.parameters["model_classes"]:
+                                    totSum += s+c + " + "
+                            totSum = totSum.strip('+ ')
+                            if 'S' in k1:
+                                elements = '*S' + k + "/(" + totSum + ")"
+                            else:
+                                elements = '*R' + k + "/(" + totSum + ")"
                             action = ratename + " = [" + str(coefficientName) + elements + "];"
                             result[0].append(action)
                             result[1][coefficientName] = 1

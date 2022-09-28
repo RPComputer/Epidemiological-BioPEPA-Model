@@ -89,8 +89,8 @@ Vector Initialize ()
   alpha = 0.004;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
-  ___initialSpeciesCount(___S) = 60000000;
-  ___initialSpeciesCount(___E) = 12;
+  ___initialSpeciesCount(___S) = 59641488;
+  ___initialSpeciesCount(___E) = 5;
   ___initialSpeciesCount(___I) = 0;
   ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;

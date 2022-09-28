@@ -1,31 +1,37 @@
 \begin{eqnarray*}
-\mathit{contactyy} & = & [(\mathit{contactyyrate}/(\mathit{Sy} + \mathit{Ry} + \mathit{Iy}))\times \mathit{Sy}\times \mathit{Iy}]\\%
-\mathit{contactym} & = & [(\mathit{contactymrate}/(\mathit{Sm} + \mathit{Rm} + \mathit{Im}))\times \mathit{Sy}\times \mathit{Im}]\\%
-\mathit{contactyo} & = & [(\mathit{contactyorate}/(\mathit{So} + \mathit{Ro} + \mathit{Io}))\times \mathit{Sy}\times \mathit{Io}]\\%
-\mathit{contactmy} & = & [(\mathit{contactmyrate}/(\mathit{Sy} + \mathit{Ry} + \mathit{Iy}))\times \mathit{Sm}\times \mathit{Iy}]\\%
-\mathit{contactmm} & = & [(\mathit{contactmmrate}/(\mathit{Sm} + \mathit{Rm} + \mathit{Im}))\times \mathit{Sm}\times \mathit{Im}]\\%
-\mathit{contactmo} & = & [(\mathit{contactmorate}/(\mathit{So} + \mathit{Ro} + \mathit{Io}))\times \mathit{Sm}\times \mathit{Io}]\\%
-\mathit{contactoy} & = & [(\mathit{contactoyrate}/(\mathit{Sy} + \mathit{Ry} + \mathit{Iy}))\times \mathit{So}\times \mathit{Iy}]\\%
-\mathit{contactom} & = & [(\mathit{contactomrate}/(\mathit{Sm} + \mathit{Rm} + \mathit{Im}))\times \mathit{So}\times \mathit{Im}]\\%
-\mathit{contactoo} & = & [(\mathit{contactoorate}/(\mathit{So} + \mathit{Ro} + \mathit{Io}))\times \mathit{So}\times \mathit{Io}]\\%
-\mathit{vaccinatey} & = & [\mathit{vaccinateyrate}\times \mathit{Sy}]\\%
-\mathit{vaccinatem} & = & [\mathit{vaccinatemrate}\times \mathit{Sm}]\\%
-\mathit{vaccinateo} & = & [\mathit{vaccinateorate}\times \mathit{So}]\\%
+\mathit{contactyy} & = & [((\mathit{Iy}\times \mathit{contactyyrate}\times (\mathit{Ry} + \mathit{Vy} + \mathit{Sy})\times (\mathit{recoveryyrate} + \mathit{deathyrate})\times \mathit{placeholder})/(\mathit{Ry} + \mathit{Vy} + \mathit{Iy} + \mathit{Sy}))]\\%
+\mathit{contactym} & = & [((\mathit{Im}\times \mathit{contactymrate}\times (\mathit{Rm} + \mathit{Vm} + \mathit{Sm})\times (\mathit{recoveryyrate} + \mathit{deathyrate})\times \mathit{placeholder})/(\mathit{Rm} + \mathit{Vm} + \mathit{Im} + \mathit{Sm}))]\\%
+\mathit{contactyo} & = & [((\mathit{Io}\times \mathit{contactyorate}\times (\mathit{Ro} + \mathit{Vo} + \mathit{So})\times (\mathit{recoveryyrate} + \mathit{deathyrate})\times \mathit{placeholder})/(\mathit{Ro} + \mathit{Vo} + \mathit{Io} + \mathit{So}))]\\%
+\mathit{contactmy} & = & [((\mathit{Iy}\times \mathit{contactmyrate}\times (\mathit{Ry} + \mathit{Vy} + \mathit{Sy})\times (\mathit{recoverymrate} + \mathit{deathmrate})\times \mathit{placeholder})/(\mathit{Ry} + \mathit{Vy} + \mathit{Iy} + \mathit{Sy}))]\\%
+\mathit{contactmm} & = & [((\mathit{Im}\times \mathit{contactmmrate}\times (\mathit{Rm} + \mathit{Vm} + \mathit{Sm})\times (\mathit{recoverymrate} + \mathit{deathmrate})\times \mathit{placeholder})/(\mathit{Rm} + \mathit{Vm} + \mathit{Im} + \mathit{Sm}))]\\%
+\mathit{contactmo} & = & [((\mathit{Io}\times \mathit{contactmorate}\times (\mathit{Ro} + \mathit{Vo} + \mathit{So})\times (\mathit{recoverymrate} + \mathit{deathmrate})\times \mathit{placeholder})/(\mathit{Ro} + \mathit{Vo} + \mathit{Io} + \mathit{So}))]\\%
+\mathit{contactoy} & = & [((\mathit{Iy}\times \mathit{contactoyrate}\times (\mathit{Ry} + \mathit{Vy} + \mathit{Sy})\times (\mathit{recoveryorate} + \mathit{deathorate})\times \mathit{placeholder})/(\mathit{Ry} + \mathit{Vy} + \mathit{Iy} + \mathit{Sy}))]\\%
+\mathit{contactom} & = & [((\mathit{Im}\times \mathit{contactomrate}\times (\mathit{Rm} + \mathit{Vm} + \mathit{Sm})\times (\mathit{recoveryorate} + \mathit{deathorate})\times \mathit{placeholder})/(\mathit{Rm} + \mathit{Vm} + \mathit{Im} + \mathit{Sm}))]\\%
+\mathit{contactoo} & = & [((\mathit{Io}\times \mathit{contactoorate}\times (\mathit{Ro} + \mathit{Vo} + \mathit{So})\times (\mathit{recoveryorate} + \mathit{deathorate})\times \mathit{placeholder})/(\mathit{Ro} + \mathit{Vo} + \mathit{Io} + \mathit{So}))]\\%
+\mathit{vaccinateSy} & = & [\mathit{vaccinateSyrate}\times \mathit{Sy}/(\mathit{Sy} + \mathit{Sm} + \mathit{So} + \mathit{Ry} + \mathit{Rm} + \mathit{Ro})]\\%
+\mathit{vaccinateSm} & = & [\mathit{vaccinateSmrate}\times \mathit{Sm}/(\mathit{Sy} + \mathit{Sm} + \mathit{So} + \mathit{Ry} + \mathit{Rm} + \mathit{Ro})]\\%
+\mathit{vaccinateSo} & = & [\mathit{vaccinateSorate}\times \mathit{So}/(\mathit{Sy} + \mathit{Sm} + \mathit{So} + \mathit{Ry} + \mathit{Rm} + \mathit{Ro})]\\%
 \mathit{recoveryy} & = & [\mathit{recoveryyrate}\times \mathit{Iy}]\\%
 \mathit{recoverym} & = & [\mathit{recoverymrate}\times \mathit{Im}]\\%
 \mathit{recoveryo} & = & [\mathit{recoveryorate}\times \mathit{Io}]\\%
+\mathit{vaccinateRy} & = & [\mathit{vaccinateRyrate}\times \mathit{Ry}/(\mathit{Sy} + \mathit{Sm} + \mathit{So} + \mathit{Ry} + \mathit{Rm} + \mathit{Ro})]\\%
+\mathit{vaccinateRm} & = & [\mathit{vaccinateRmrate}\times \mathit{Rm}/(\mathit{Sy} + \mathit{Sm} + \mathit{So} + \mathit{Ry} + \mathit{Rm} + \mathit{Ro})]\\%
+\mathit{vaccinateRo} & = & [\mathit{vaccinateRorate}\times \mathit{Ro}/(\mathit{Sy} + \mathit{Sm} + \mathit{So} + \mathit{Ry} + \mathit{Rm} + \mathit{Ro})]\\%
 \mathit{deathy} & = & [\mathit{deathyrate}\times \mathit{Iy}]\\%
 \mathit{deathm} & = & [\mathit{deathmrate}\times \mathit{Im}]\\%
 \mathit{deatho} & = & [\mathit{deathorate}\times \mathit{Io}]\\%
-\mathit{Sy} & = & (\mathit{contactyy},1){\downarrow}\mathit{Sy} + (\mathit{contactym},1){\downarrow}\mathit{Sy} + (\mathit{contactyo},1){\downarrow}\mathit{Sy} + (\mathit{vaccinatey},1){\downarrow}\mathit{Sy}\\%
-\mathit{Sm} & = & (\mathit{contactmy},1){\downarrow}\mathit{Sm} + (\mathit{contactmm},1){\downarrow}\mathit{Sm} + (\mathit{contactmo},1){\downarrow}\mathit{Sm} + (\mathit{vaccinatem},1){\downarrow}\mathit{Sm}\\%
-\mathit{So} & = & (\mathit{contactoy},1){\downarrow}\mathit{So} + (\mathit{contactom},1){\downarrow}\mathit{So} + (\mathit{contactoo},1){\downarrow}\mathit{So} + (\mathit{vaccinateo},1){\downarrow}\mathit{So}\\%
 \mathit{Iy} & = & (\mathit{contactyy},1){\uparrow}\mathit{Iy} + (\mathit{contactym},1){\uparrow}\mathit{Iy} + (\mathit{contactyo},1){\uparrow}\mathit{Iy} + (\mathit{contactmy},1)\oplus  + (\mathit{contactoy},1)\oplus  + (\mathit{recoveryy},1){\downarrow}\mathit{Iy} + (\mathit{deathy},1){\downarrow}\mathit{Iy}\\%
 \mathit{Im} & = & (\mathit{contactym},1)\oplus  + (\mathit{contactmy},1){\uparrow}\mathit{Im} + (\mathit{contactmm},1){\uparrow}\mathit{Im} + (\mathit{contactmo},1){\uparrow}\mathit{Im} + (\mathit{contactom},1)\oplus  + (\mathit{recoverym},1){\downarrow}\mathit{Im} + (\mathit{deathm},1){\downarrow}\mathit{Im}\\%
 \mathit{Io} & = & (\mathit{contactyo},1)\oplus  + (\mathit{contactmo},1)\oplus  + (\mathit{contactoy},1){\uparrow}\mathit{Io} + (\mathit{contactom},1){\uparrow}\mathit{Io} + (\mathit{contactoo},1){\uparrow}\mathit{Io} + (\mathit{recoveryo},1){\downarrow}\mathit{Io} + (\mathit{deatho},1){\downarrow}\mathit{Io}\\%
-\mathit{Ry} & = & (\mathit{vaccinatey},1){\uparrow}\mathit{Ry} + (\mathit{recoveryy},1){\uparrow}\mathit{Ry}\\%
-\mathit{Rm} & = & (\mathit{vaccinatem},1){\uparrow}\mathit{Rm} + (\mathit{recoverym},1){\uparrow}\mathit{Rm}\\%
-\mathit{Ro} & = & (\mathit{vaccinateo},1){\uparrow}\mathit{Ro} + (\mathit{recoveryo},1){\uparrow}\mathit{Ro}\\%
+\mathit{Sy} & = & (\mathit{contactyy},1){\downarrow}\mathit{Sy} + (\mathit{contactym},1){\downarrow}\mathit{Sy} + (\mathit{contactyo},1){\downarrow}\mathit{Sy} + (\mathit{vaccinateSy},1){\downarrow}\mathit{Sy}\\%
+\mathit{Sm} & = & (\mathit{contactmy},1){\downarrow}\mathit{Sm} + (\mathit{contactmm},1){\downarrow}\mathit{Sm} + (\mathit{contactmo},1){\downarrow}\mathit{Sm} + (\mathit{vaccinateSm},1){\downarrow}\mathit{Sm}\\%
+\mathit{So} & = & (\mathit{contactoy},1){\downarrow}\mathit{So} + (\mathit{contactom},1){\downarrow}\mathit{So} + (\mathit{contactoo},1){\downarrow}\mathit{So} + (\mathit{vaccinateSo},1){\downarrow}\mathit{So}\\%
+\mathit{Ry} & = & (\mathit{recoveryy},1){\uparrow}\mathit{Ry} + (\mathit{vaccinateRy},1){\downarrow}\mathit{Ry}\\%
+\mathit{Rm} & = & (\mathit{recoverym},1){\uparrow}\mathit{Rm} + (\mathit{vaccinateRm},1){\downarrow}\mathit{Rm}\\%
+\mathit{Ro} & = & (\mathit{recoveryo},1){\uparrow}\mathit{Ro} + (\mathit{vaccinateRo},1){\downarrow}\mathit{Ro}\\%
+\mathit{Vy} & = & (\mathit{vaccinateSy},1){\uparrow}\mathit{Vy} + (\mathit{vaccinateRy},1){\uparrow}\mathit{Vy}\\%
+\mathit{Vm} & = & (\mathit{vaccinateSm},1){\uparrow}\mathit{Vm} + (\mathit{vaccinateRm},1){\uparrow}\mathit{Vm}\\%
+\mathit{Vo} & = & (\mathit{vaccinateSo},1){\uparrow}\mathit{Vo} + (\mathit{vaccinateRo},1){\uparrow}\mathit{Vo}\\%
 D & = & (\mathit{deathy},1){\uparrow}D + (\mathit{deathm},1){\uparrow}D + (\mathit{deatho},1){\uparrow}D\\%
-(\mathit{Sy} {\parallel} \mathit{Sm} {\parallel} \mathit{So} {\parallel} \mathit{Iy} {\parallel} \mathit{Im} {\parallel} \mathit{Io} {\parallel} \mathit{Ry} {\parallel} \mathit{Rm} {\parallel} \mathit{Ro} {\parallel} D)%
+(\mathit{Iy} {\parallel} \mathit{Im} {\parallel} \mathit{Io} {\parallel} \mathit{Sy} {\parallel} \mathit{Sm} {\parallel} \mathit{So} {\parallel} \mathit{Ry} {\parallel} \mathit{Rm} {\parallel} \mathit{Ro} {\parallel} \mathit{Vy} {\parallel} \mathit{Vm} {\parallel} \mathit{Vo} {\parallel} D)%
 \end{eqnarray*}

@@ -1,0 +1,28 @@
+\begin{eqnarray*}
+\mathit{contactyy} & = & [(\mathit{contactyyrate}/(\mathit{Ry} + \mathit{Iy} + \mathit{Sy}))\times \mathit{Sy}\times \mathit{Iy}]\\%
+\mathit{contactym} & = & [(\mathit{contactymrate}/(\mathit{Rm} + \mathit{Im} + \mathit{Sm}))\times \mathit{Sy}\times \mathit{Im}]\\%
+\mathit{contactyo} & = & [(\mathit{contactyorate}/(\mathit{Ro} + \mathit{Io} + \mathit{So}))\times \mathit{Sy}\times \mathit{Io}]\\%
+\mathit{contactmy} & = & [(\mathit{contactmyrate}/(\mathit{Ry} + \mathit{Iy} + \mathit{Sy}))\times \mathit{Sm}\times \mathit{Iy}]\\%
+\mathit{contactmm} & = & [(\mathit{contactmmrate}/(\mathit{Rm} + \mathit{Im} + \mathit{Sm}))\times \mathit{Sm}\times \mathit{Im}]\\%
+\mathit{contactmo} & = & [(\mathit{contactmorate}/(\mathit{Ro} + \mathit{Io} + \mathit{So}))\times \mathit{Sm}\times \mathit{Io}]\\%
+\mathit{contactoy} & = & [(\mathit{contactoyrate}/(\mathit{Ry} + \mathit{Iy} + \mathit{Sy}))\times \mathit{So}\times \mathit{Iy}]\\%
+\mathit{contactom} & = & [(\mathit{contactomrate}/(\mathit{Rm} + \mathit{Im} + \mathit{Sm}))\times \mathit{So}\times \mathit{Im}]\\%
+\mathit{contactoo} & = & [(\mathit{contactoorate}/(\mathit{Ro} + \mathit{Io} + \mathit{So}))\times \mathit{So}\times \mathit{Io}]\\%
+\mathit{recoveryy} & = & [\mathit{recoveryyrate}\times \mathit{Iy}]\\%
+\mathit{recoverym} & = & [\mathit{recoverymrate}\times \mathit{Im}]\\%
+\mathit{recoveryo} & = & [\mathit{recoveryorate}\times \mathit{Io}]\\%
+\mathit{deathy} & = & [\mathit{deathyrate}\times \mathit{Iy}]\\%
+\mathit{deathm} & = & [\mathit{deathmrate}\times \mathit{Im}]\\%
+\mathit{deatho} & = & [\mathit{deathorate}\times \mathit{Io}]\\%
+\mathit{Iy} & = & (\mathit{contactyy},1){\uparrow}\mathit{Iy} + (\mathit{contactym},1){\uparrow}\mathit{Iy} + (\mathit{contactyo},1){\uparrow}\mathit{Iy} + (\mathit{contactmy},1)\oplus  + (\mathit{contactoy},1)\oplus  + (\mathit{recoveryy},1){\downarrow}\mathit{Iy} + (\mathit{deathy},1){\downarrow}\mathit{Iy}\\%
+\mathit{Im} & = & (\mathit{contactym},1)\oplus  + (\mathit{contactmy},1){\uparrow}\mathit{Im} + (\mathit{contactmm},1){\uparrow}\mathit{Im} + (\mathit{contactmo},1){\uparrow}\mathit{Im} + (\mathit{contactom},1)\oplus  + (\mathit{recoverym},1){\downarrow}\mathit{Im} + (\mathit{deathm},1){\downarrow}\mathit{Im}\\%
+\mathit{Io} & = & (\mathit{contactyo},1)\oplus  + (\mathit{contactmo},1)\oplus  + (\mathit{contactoy},1){\uparrow}\mathit{Io} + (\mathit{contactom},1){\uparrow}\mathit{Io} + (\mathit{contactoo},1){\uparrow}\mathit{Io} + (\mathit{recoveryo},1){\downarrow}\mathit{Io} + (\mathit{deatho},1){\downarrow}\mathit{Io}\\%
+\mathit{Sy} & = & (\mathit{contactyy},1){\downarrow}\mathit{Sy} + (\mathit{contactym},1){\downarrow}\mathit{Sy} + (\mathit{contactyo},1){\downarrow}\mathit{Sy}\\%
+\mathit{Sm} & = & (\mathit{contactmy},1){\downarrow}\mathit{Sm} + (\mathit{contactmm},1){\downarrow}\mathit{Sm} + (\mathit{contactmo},1){\downarrow}\mathit{Sm}\\%
+\mathit{So} & = & (\mathit{contactoy},1){\downarrow}\mathit{So} + (\mathit{contactom},1){\downarrow}\mathit{So} + (\mathit{contactoo},1){\downarrow}\mathit{So}\\%
+\mathit{Ry} & = & (\mathit{recoveryy},1){\uparrow}\mathit{Ry}\\%
+\mathit{Rm} & = & (\mathit{recoverym},1){\uparrow}\mathit{Rm}\\%
+\mathit{Ro} & = & (\mathit{recoveryo},1){\uparrow}\mathit{Ro}\\%
+D & = & (\mathit{deathy},1){\uparrow}D + (\mathit{deathm},1){\uparrow}D + (\mathit{deatho},1){\uparrow}D\\%
+(\mathit{Iy} {\parallel} \mathit{Im} {\parallel} \mathit{Io} {\parallel} \mathit{Sy} {\parallel} \mathit{Sm} {\parallel} \mathit{So} {\parallel} \mathit{Ry} {\parallel} \mathit{Rm} {\parallel} \mathit{Ro} {\parallel} D)%
+\end{eqnarray*}

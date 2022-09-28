@@ -1,19 +1,22 @@
 //-Functional rates
-contactyy = [(contactyyrate/(Iy + Ry + Sy))*Sy*Iy];
-contactym = [(contactymrate/(Im + Rm + Sm))*Sy*Im];
-contactyo = [(contactyorate/(Io + Ro + So))*Sy*Io];
-contactmy = [(contactmyrate/(Iy + Ry + Sy))*Sm*Iy];
-contactmm = [(contactmmrate/(Im + Rm + Sm))*Sm*Im];
-contactmo = [(contactmorate/(Io + Ro + So))*Sm*Io];
-contactoy = [(contactoyrate/(Iy + Ry + Sy))*So*Iy];
-contactom = [(contactomrate/(Im + Rm + Sm))*So*Im];
-contactoo = [(contactoorate/(Io + Ro + So))*So*Io];
-vaccinatey = [vaccinateyrate*Sy];
-vaccinatem = [vaccinatemrate*Sm];
-vaccinateo = [vaccinateorate*So];
+contactyy = [((Iy*contactyyrate*(Ry + Vy + Sy)*(recoveryyrate + deathyrate)*placeholder)/(Ry + Vy + Iy + Sy))];
+contactym = [((Im*contactymrate*(Rm + Vm + Sm)*(recoveryyrate + deathyrate)*placeholder)/(Rm + Vm + Im + Sm))];
+contactyo = [((Io*contactyorate*(Ro + Vo + So)*(recoveryyrate + deathyrate)*placeholder)/(Ro + Vo + Io + So))];
+contactmy = [((Iy*contactmyrate*(Ry + Vy + Sy)*(recoverymrate + deathmrate)*placeholder)/(Ry + Vy + Iy + Sy))];
+contactmm = [((Im*contactmmrate*(Rm + Vm + Sm)*(recoverymrate + deathmrate)*placeholder)/(Rm + Vm + Im + Sm))];
+contactmo = [((Io*contactmorate*(Ro + Vo + So)*(recoverymrate + deathmrate)*placeholder)/(Ro + Vo + Io + So))];
+contactoy = [((Iy*contactoyrate*(Ry + Vy + Sy)*(recoveryorate + deathorate)*placeholder)/(Ry + Vy + Iy + Sy))];
+contactom = [((Im*contactomrate*(Rm + Vm + Sm)*(recoveryorate + deathorate)*placeholder)/(Rm + Vm + Im + Sm))];
+contactoo = [((Io*contactoorate*(Ro + Vo + So)*(recoveryorate + deathorate)*placeholder)/(Ro + Vo + Io + So))];
+vaccinateSy = [vaccinateSyrate*Sy/(Sy + Sm + So + Ry + Rm + Ro)];
+vaccinateSm = [vaccinateSmrate*Sm/(Sy + Sm + So + Ry + Rm + Ro)];
+vaccinateSo = [vaccinateSorate*So/(Sy + Sm + So + Ry + Rm + Ro)];
 recoveryy = [recoveryyrate*Iy];
 recoverym = [recoverymrate*Im];
 recoveryo = [recoveryorate*Io];
+vaccinateRy = [vaccinateRyrate*Ry/(Sy + Sm + So + Ry + Rm + Ro)];
+vaccinateRm = [vaccinateRmrate*Rm/(Sy + Sm + So + Ry + Rm + Ro)];
+vaccinateRo = [vaccinateRorate*Ro/(Sy + Sm + So + Ry + Rm + Ro)];
 deathy = [deathyrate*Iy];
 deathm = [deathmrate*Im];
 deatho = [deathorate*Io];
@@ -21,12 +24,15 @@ deatho = [deathorate*Io];
 Iy = (contactyy,1)>>Iy + (contactym,1)>>Iy + (contactyo,1)>>Iy + (contactmy,1)(+) + (contactoy,1)(+) + (recoveryy,1)<<Iy + (deathy,1)<<Iy;
 Im = (contactym,1)(+) + (contactmy,1)>>Im + (contactmm,1)>>Im + (contactmo,1)>>Im + (contactom,1)(+) + (recoverym,1)<<Im + (deathm,1)<<Im;
 Io = (contactyo,1)(+) + (contactmo,1)(+) + (contactoy,1)>>Io + (contactom,1)>>Io + (contactoo,1)>>Io + (recoveryo,1)<<Io + (deatho,1)<<Io;
-Sy = (contactyy,1)<<Sy + (contactym,1)<<Sy + (contactyo,1)<<Sy + (vaccinatey,1)<<Sy;
-Sm = (contactmy,1)<<Sm + (contactmm,1)<<Sm + (contactmo,1)<<Sm + (vaccinatem,1)<<Sm;
-So = (contactoy,1)<<So + (contactom,1)<<So + (contactoo,1)<<So + (vaccinateo,1)<<So;
-Ry = (vaccinatey,1)>>Ry + (recoveryy,1)>>Ry;
-Rm = (vaccinatem,1)>>Rm + (recoverym,1)>>Rm;
-Ro = (vaccinateo,1)>>Ro + (recoveryo,1)>>Ro;
+Sy = (contactyy,1)<<Sy + (contactym,1)<<Sy + (contactyo,1)<<Sy + (vaccinateSy,1)<<Sy;
+Sm = (contactmy,1)<<Sm + (contactmm,1)<<Sm + (contactmo,1)<<Sm + (vaccinateSm,1)<<Sm;
+So = (contactoy,1)<<So + (contactom,1)<<So + (contactoo,1)<<So + (vaccinateSo,1)<<So;
+Ry = (recoveryy,1)>>Ry + (vaccinateRy,1)<<Ry;
+Rm = (recoverym,1)>>Rm + (vaccinateRm,1)<<Rm;
+Ro = (recoveryo,1)>>Ro + (vaccinateRo,1)<<Ro;
+Vy = (vaccinateSy,1)>>Vy + (vaccinateRy,1)>>Vy;
+Vm = (vaccinateSm,1)>>Vm + (vaccinateRm,1)>>Vm;
+Vo = (vaccinateSo,1)>>Vo + (vaccinateRo,1)>>Vo;
 D = (deathy,1)>>D + (deathm,1)>>D + (deatho,1)>>D;
 //System equation
-(Iy <> Im <> Io <> Sy <> Sm <> So <> Ry <> Rm <> Ro <> D)
+(Iy <> Im <> Io <> Sy <> Sm <> So <> Ry <> Rm <> Ro <> Vy <> Vm <> Vo <> D)

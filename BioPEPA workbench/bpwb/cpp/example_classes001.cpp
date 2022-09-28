@@ -162,7 +162,7 @@ Vector Initialize ()
 
 #include "KineticFunctions.cpp"
 
-Vector Propensity (const Vector& ___discreteSpeciesCount)
+Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
 {
   Vector ___propensity(___REACTIONS);
 

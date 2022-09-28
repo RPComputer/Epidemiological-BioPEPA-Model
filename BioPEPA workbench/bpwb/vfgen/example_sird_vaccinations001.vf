@@ -4,6 +4,10 @@
 -->
 <VectorField Name="example_sird_vaccinations001">
 
+<Parameter Name="placeholder_"
+           Description="placeholder"
+           Latex="\mathit{placeholder}"
+           DefaultValue="1" />
 <Parameter Name="contactyyrate_"
            Description="contactyyrate"
            Latex="\mathit{contactyyrate}"
@@ -40,17 +44,17 @@
            Description="contactoorate"
            Latex="\mathit{contactoorate}"
            DefaultValue="0.0005542863525515717" />
-<Parameter Name="vaccinateyrate_"
-           Description="vaccinateyrate"
-           Latex="\mathit{vaccinateyrate}"
+<Parameter Name="vaccinateSyrate_"
+           Description="vaccinateSyrate"
+           Latex="\mathit{vaccinateSyrate}"
            DefaultValue="1" />
-<Parameter Name="vaccinatemrate_"
-           Description="vaccinatemrate"
-           Latex="\mathit{vaccinatemrate}"
+<Parameter Name="vaccinateSmrate_"
+           Description="vaccinateSmrate"
+           Latex="\mathit{vaccinateSmrate}"
            DefaultValue="1" />
-<Parameter Name="vaccinateorate_"
-           Description="vaccinateorate"
-           Latex="\mathit{vaccinateorate}"
+<Parameter Name="vaccinateSorate_"
+           Description="vaccinateSorate"
+           Latex="\mathit{vaccinateSorate}"
            DefaultValue="1" />
 <Parameter Name="recoveryyrate_"
            Description="recoveryyrate"
@@ -64,6 +68,18 @@
            Description="recoveryorate"
            Latex="\mathit{recoveryorate}"
            DefaultValue="0.0025" />
+<Parameter Name="vaccinateRyrate_"
+           Description="vaccinateRyrate"
+           Latex="\mathit{vaccinateRyrate}"
+           DefaultValue="1" />
+<Parameter Name="vaccinateRmrate_"
+           Description="vaccinateRmrate"
+           Latex="\mathit{vaccinateRmrate}"
+           DefaultValue="1" />
+<Parameter Name="vaccinateRorate_"
+           Description="vaccinateRorate"
+           Latex="\mathit{vaccinateRorate}"
+           DefaultValue="1" />
 <Parameter Name="deathyrate_"
            Description="deathyrate"
            Latex="\mathit{deathyrate}"
@@ -80,51 +96,51 @@
 <Expression Name="contactyy_"
             Description="contactyy"
             Latex="\mathit{contactyy}"
-            Formula="(contactyyrate_/(Sy_ + Ry_ + Iy_))*Sy_*Iy_"/>
+            Formula="((Iy_*contactyyrate_*(Ry_ + Vy_ + Sy_)*(recoveryyrate_ + deathyrate_)*placeholder_)/(Ry_ + Vy_ + Iy_ + Sy_))"/>
 <Expression Name="contactym_"
             Description="contactym"
             Latex="\mathit{contactym}"
-            Formula="(contactymrate_/(Sm_ + Rm_ + Im_))*Sy_*Im_"/>
+            Formula="((Im_*contactymrate_*(Rm_ + Vm_ + Sm_)*(recoveryyrate_ + deathyrate_)*placeholder_)/(Rm_ + Vm_ + Im_ + Sm_))"/>
 <Expression Name="contactyo_"
             Description="contactyo"
             Latex="\mathit{contactyo}"
-            Formula="(contactyorate_/(So_ + Ro_ + Io_))*Sy_*Io_"/>
+            Formula="((Io_*contactyorate_*(Ro_ + Vo_ + So_)*(recoveryyrate_ + deathyrate_)*placeholder_)/(Ro_ + Vo_ + Io_ + So_))"/>
 <Expression Name="contactmy_"
             Description="contactmy"
             Latex="\mathit{contactmy}"
-            Formula="(contactmyrate_/(Sy_ + Ry_ + Iy_))*Sm_*Iy_"/>
+            Formula="((Iy_*contactmyrate_*(Ry_ + Vy_ + Sy_)*(recoverymrate_ + deathmrate_)*placeholder_)/(Ry_ + Vy_ + Iy_ + Sy_))"/>
 <Expression Name="contactmm_"
             Description="contactmm"
             Latex="\mathit{contactmm}"
-            Formula="(contactmmrate_/(Sm_ + Rm_ + Im_))*Sm_*Im_"/>
+            Formula="((Im_*contactmmrate_*(Rm_ + Vm_ + Sm_)*(recoverymrate_ + deathmrate_)*placeholder_)/(Rm_ + Vm_ + Im_ + Sm_))"/>
 <Expression Name="contactmo_"
             Description="contactmo"
             Latex="\mathit{contactmo}"
-            Formula="(contactmorate_/(So_ + Ro_ + Io_))*Sm_*Io_"/>
+            Formula="((Io_*contactmorate_*(Ro_ + Vo_ + So_)*(recoverymrate_ + deathmrate_)*placeholder_)/(Ro_ + Vo_ + Io_ + So_))"/>
 <Expression Name="contactoy_"
             Description="contactoy"
             Latex="\mathit{contactoy}"
-            Formula="(contactoyrate_/(Sy_ + Ry_ + Iy_))*So_*Iy_"/>
+            Formula="((Iy_*contactoyrate_*(Ry_ + Vy_ + Sy_)*(recoveryorate_ + deathorate_)*placeholder_)/(Ry_ + Vy_ + Iy_ + Sy_))"/>
 <Expression Name="contactom_"
             Description="contactom"
             Latex="\mathit{contactom}"
-            Formula="(contactomrate_/(Sm_ + Rm_ + Im_))*So_*Im_"/>
+            Formula="((Im_*contactomrate_*(Rm_ + Vm_ + Sm_)*(recoveryorate_ + deathorate_)*placeholder_)/(Rm_ + Vm_ + Im_ + Sm_))"/>
 <Expression Name="contactoo_"
             Description="contactoo"
             Latex="\mathit{contactoo}"
-            Formula="(contactoorate_/(So_ + Ro_ + Io_))*So_*Io_"/>
-<Expression Name="vaccinatey_"
-            Description="vaccinatey"
-            Latex="\mathit{vaccinatey}"
-            Formula="vaccinateyrate_*Sy_"/>
-<Expression Name="vaccinatem_"
-            Description="vaccinatem"
-            Latex="\mathit{vaccinatem}"
-            Formula="vaccinatemrate_*Sm_"/>
-<Expression Name="vaccinateo_"
-            Description="vaccinateo"
-            Latex="\mathit{vaccinateo}"
-            Formula="vaccinateorate_*So_"/>
+            Formula="((Io_*contactoorate_*(Ro_ + Vo_ + So_)*(recoveryorate_ + deathorate_)*placeholder_)/(Ro_ + Vo_ + Io_ + So_))"/>
+<Expression Name="vaccinateSy_"
+            Description="vaccinateSy"
+            Latex="\mathit{vaccinateSy}"
+            Formula="vaccinateSyrate_*Sy_/(Sy_ + Sm_ + So_ + Ry_ + Rm_ + Ro_)"/>
+<Expression Name="vaccinateSm_"
+            Description="vaccinateSm"
+            Latex="\mathit{vaccinateSm}"
+            Formula="vaccinateSmrate_*Sm_/(Sy_ + Sm_ + So_ + Ry_ + Rm_ + Ro_)"/>
+<Expression Name="vaccinateSo_"
+            Description="vaccinateSo"
+            Latex="\mathit{vaccinateSo}"
+            Formula="vaccinateSorate_*So_/(Sy_ + Sm_ + So_ + Ry_ + Rm_ + Ro_)"/>
 <Expression Name="recoveryy_"
             Description="recoveryy"
             Latex="\mathit{recoveryy}"
@@ -137,6 +153,18 @@
             Description="recoveryo"
             Latex="\mathit{recoveryo}"
             Formula="recoveryorate_*Io_"/>
+<Expression Name="vaccinateRy_"
+            Description="vaccinateRy"
+            Latex="\mathit{vaccinateRy}"
+            Formula="vaccinateRyrate_*Ry_/(Sy_ + Sm_ + So_ + Ry_ + Rm_ + Ro_)"/>
+<Expression Name="vaccinateRm_"
+            Description="vaccinateRm"
+            Latex="\mathit{vaccinateRm}"
+            Formula="vaccinateRmrate_*Rm_/(Sy_ + Sm_ + So_ + Ry_ + Rm_ + Ro_)"/>
+<Expression Name="vaccinateRo_"
+            Description="vaccinateRo"
+            Latex="\mathit{vaccinateRo}"
+            Formula="vaccinateRorate_*Ro_/(Sy_ + Sm_ + So_ + Ry_ + Rm_ + Ro_)"/>
 <Expression Name="deathy_"
             Description="deathy"
             Latex="\mathit{deathy}"
@@ -149,24 +177,6 @@
             Description="deatho"
             Latex="\mathit{deatho}"
             Formula="deathorate_*Io_"/>
-
-<StateVariable Name="Sy_"
-               Description="Sy"
-               Latex="\mathit{Sy}"
-               DefaultInitialCondition="990"
-               Formula=" - contactyy_ - contactym_ - contactyo_ - vaccinatey_"/>
-
-<StateVariable Name="Sm_"
-               Description="Sm"
-               Latex="\mathit{Sm}"
-               DefaultInitialCondition="490"
-               Formula=" - contactmy_ - contactmm_ - contactmo_ - vaccinatem_"/>
-
-<StateVariable Name="So_"
-               Description="So"
-               Latex="\mathit{So}"
-               DefaultInitialCondition="500"
-               Formula=" - contactoy_ - contactom_ - contactoo_ - vaccinateo_"/>
 
 <StateVariable Name="Iy_"
                Description="Iy"
@@ -186,23 +196,59 @@
                DefaultInitialCondition="0"
                Formula="contactoy_ + contactom_ + contactoo_ - recoveryo_ - deatho_"/>
 
+<StateVariable Name="Sy_"
+               Description="Sy"
+               Latex="\mathit{Sy}"
+               DefaultInitialCondition="9990"
+               Formula=" - contactyy_ - contactym_ - contactyo_ - vaccinateSy_"/>
+
+<StateVariable Name="Sm_"
+               Description="Sm"
+               Latex="\mathit{Sm}"
+               DefaultInitialCondition="4990"
+               Formula=" - contactmy_ - contactmm_ - contactmo_ - vaccinateSm_"/>
+
+<StateVariable Name="So_"
+               Description="So"
+               Latex="\mathit{So}"
+               DefaultInitialCondition="5000"
+               Formula=" - contactoy_ - contactom_ - contactoo_ - vaccinateSo_"/>
+
 <StateVariable Name="Ry_"
                Description="Ry"
                Latex="\mathit{Ry}"
                DefaultInitialCondition="0"
-               Formula="vaccinatey_ + recoveryy_"/>
+               Formula="recoveryy_ - vaccinateRy_"/>
 
 <StateVariable Name="Rm_"
                Description="Rm"
                Latex="\mathit{Rm}"
                DefaultInitialCondition="0"
-               Formula="vaccinatem_ + recoverym_"/>
+               Formula="recoverym_ - vaccinateRm_"/>
 
 <StateVariable Name="Ro_"
                Description="Ro"
                Latex="\mathit{Ro}"
                DefaultInitialCondition="0"
-               Formula="vaccinateo_ + recoveryo_"/>
+               Formula="recoveryo_ - vaccinateRo_"/>
+
+<StateVariable Name="Vy_"
+               Description="Vy"
+               Latex="\mathit{Vy}"
+               DefaultInitialCondition="0"
+               Formula="vaccinateSy_ + vaccinateRy_"/>
+
+<StateVariable Name="Vm_"
+               Description="Vm"
+               Latex="\mathit{Vm}"
+               DefaultInitialCondition="0"
+               Formula="vaccinateSm_ + vaccinateRm_"/>
+
+<StateVariable Name="Vo_"
+               Description="Vo"
+               Latex="\mathit{Vo}"
+               DefaultInitialCondition="0"
+               Formula="vaccinateSo_ + vaccinateRo_"/>
 
 <StateVariable Name="D_"
                Description="D"

@@ -2,8 +2,8 @@ infect = [(I*placeholder)/(S+I+R+V)];
 infectcount = [(I*placeholder)/(S+I+R+V)];
 recover = [gamma1*I];
 death = [alpha*I];
-vaccinateS = [S*vaccinerate/(S+R)];
-vaccinateR = [R*vaccinerate/(S+R)];
+vaccinateS = [S*vaccinerate*percentage/(S+R)];
+vaccinateR = [R*vaccinerate*percentage/(S+R)];
 
 S = (infect)<<S + (vaccinateS)<<S;
 I = (infect)>>I + (recover)<<I + (death)<<I;

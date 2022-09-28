@@ -92,6 +92,9 @@ def checkparameters(param):
     for s in param["initial_state"].values():
         if len(param["initial_state"].values()) != param["model_classes_number"]:
             error("Error in initial state definition")
+        for l in param["initial_state"].values():
+            if len(l) != param["state_number"]:
+               error("Error in initial state definition") 
         for p in s:
             sum += p
     if sum != param["total_population"]:

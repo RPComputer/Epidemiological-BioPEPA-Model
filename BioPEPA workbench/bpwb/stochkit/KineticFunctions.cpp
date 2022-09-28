@@ -52,6 +52,7 @@ double theta(double pArg)
 
 /* Add your own functions here.  Have fun. */
 #include <string>
+#include <algorithm>
 #include <vector>
 #include <cmath>
 #include <sstream>
@@ -117,7 +118,7 @@ int getClassIndex(std::string className)
 {
   for (long unsigned int i = 0; i < datatableHeader.size(); ++i)
   {
-    if (datatableHeader.at(i) == className)
+    if (className.compare(datatableHeader.at(i)) == 0)
       return i;
   }
   return 0;
@@ -140,6 +141,7 @@ double readDatatable(double t, const char *filename, std::string className)
     {
       std::string substr;
       std::getline(sstream, substr, ','); // get first string delimited by comma
+      substr.erase(std::remove(substr.begin(),substr.end(),'\"'),substr.end());
       datatableHeader.push_back(substr);
     }
     double readvalue;
@@ -169,7 +171,7 @@ double readDatatable(double t, const char *filename, std::string className)
   }
   double result;
   int index = getClassIndex(className);
-  if (t <= RtValues.size())
+  if (t <= datatableValues.size())
     result = datatableValues.at(round(t)).at(index);
   else
     result = 0;

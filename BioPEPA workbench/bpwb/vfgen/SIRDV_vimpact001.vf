@@ -12,6 +12,10 @@
            Description="vaccinerate"
            Latex="\mathit{vaccinerate}"
            DefaultValue="1" />
+<Parameter Name="percentage_"
+           Description="percentage"
+           Latex="\mathit{percentage}"
+           DefaultValue="0.66" />
 <Parameter Name="gamma1_"
            Description="gamma1"
            Latex="\mathit{gamma1}"
@@ -40,16 +44,16 @@
 <Expression Name="vaccinateS_"
             Description="vaccinateS"
             Latex="\mathit{vaccinateS}"
-            Formula="S_*vaccinerate_/(S_+R_)"/>
+            Formula="S_*vaccinerate_*percentage_/(S_+R_)"/>
 <Expression Name="vaccinateR_"
             Description="vaccinateR"
             Latex="\mathit{vaccinateR}"
-            Formula="R_*vaccinerate_/(S_+R_)"/>
+            Formula="R_*vaccinerate_*percentage_/(S_+R_)"/>
 
 <StateVariable Name="S_"
                Description="S"
                Latex="S"
-               DefaultInitialCondition="60000000"
+               DefaultInitialCondition="59641488"
                Formula=" - infect_ - vaccinateS_"/>
 
 <StateVariable Name="I_"

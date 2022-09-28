@@ -29,14 +29,14 @@ contactom -> Io;
 So -> contactoo;
 contactoo -> Io;
 
-Sy -> vaccinatey;
-vaccinatey -> Ry;
+Sy -> vaccinateSy;
+vaccinateSy -> Vy;
 
-Sm -> vaccinatem;
-vaccinatem -> Rm;
+Sm -> vaccinateSm;
+vaccinateSm -> Vm;
 
-So -> vaccinateo;
-vaccinateo -> Ro;
+So -> vaccinateSo;
+vaccinateSo -> Vo;
 
 Iy -> recoveryy;
 recoveryy -> Ry;
@@ -46,6 +46,15 @@ recoverym -> Rm;
 
 Io -> recoveryo;
 recoveryo -> Ro;
+
+Ry -> vaccinateRy;
+vaccinateRy -> Vy;
+
+Rm -> vaccinateRm;
+vaccinateRm -> Vm;
+
+Ro -> vaccinateRo;
+vaccinateRo -> Vo;
 
 Iy -> deathy;
 deathy -> D;
@@ -65,24 +74,30 @@ contactmo [shape=box,fontsize=10,height=.2,label="contactmo"];
 contactoy [shape=box,fontsize=10,height=.2,label="contactoy"];
 contactom [shape=box,fontsize=10,height=.2,label="contactom"];
 contactoo [shape=box,fontsize=10,height=.2,label="contactoo"];
-vaccinatey [shape=box,fontsize=10,height=.2,label="vaccinatey"];
-vaccinatem [shape=box,fontsize=10,height=.2,label="vaccinatem"];
-vaccinateo [shape=box,fontsize=10,height=.2,label="vaccinateo"];
+vaccinateSy [shape=box,fontsize=10,height=.2,label="vaccinateSy"];
+vaccinateSm [shape=box,fontsize=10,height=.2,label="vaccinateSm"];
+vaccinateSo [shape=box,fontsize=10,height=.2,label="vaccinateSo"];
 recoveryy [shape=box,fontsize=10,height=.2,label="recoveryy"];
 recoverym [shape=box,fontsize=10,height=.2,label="recoverym"];
 recoveryo [shape=box,fontsize=10,height=.2,label="recoveryo"];
+vaccinateRy [shape=box,fontsize=10,height=.2,label="vaccinateRy"];
+vaccinateRm [shape=box,fontsize=10,height=.2,label="vaccinateRm"];
+vaccinateRo [shape=box,fontsize=10,height=.2,label="vaccinateRo"];
 deathy [shape=box,fontsize=10,height=.2,label="deathy"];
 deathm [shape=box,fontsize=10,height=.2,label="deathm"];
 deatho [shape=box,fontsize=10,height=.2,label="deatho"];
-Sy [style=bold,label="Sy"];
-Sm [style=bold,label="Sm"];
-So [style=bold,label="So"];
 Iy [style=bold,label="Iy"];
 Im [style=bold,label="Im"];
 Io [style=bold,label="Io"];
+Sy [style=bold,label="Sy"];
+Sm [style=bold,label="Sm"];
+So [style=bold,label="So"];
 Ry [style=bold,label="Ry"];
 Rm [style=bold,label="Rm"];
 Ro [style=bold,label="Ro"];
+Vy [style=bold,label="Vy"];
+Vm [style=bold,label="Vm"];
+Vo [style=bold,label="Vo"];
 D [style=bold,label="D"];
 
 }

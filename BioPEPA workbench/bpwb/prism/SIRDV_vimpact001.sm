@@ -5,6 +5,7 @@ ctmc
 
 const double _placeholder = 1;
 const double _vaccinerate = 1;
+const double _percentage = 0.66;
 const double _gamma1 = 0.196;
 const double _alpha = 0.004;
 
@@ -14,18 +15,18 @@ module Rates
   [_infectcount] (((_I*_placeholder)/(_S+_I+_R+_V)) > 0) -> ((_I*_placeholder)/(_S+_I+_R+_V)) : true;
   [_recover] ((_gamma1*_I) > 0) -> (_gamma1*_I) : true;
   [_death] ((_alpha*_I) > 0) -> (_alpha*_I) : true;
-  [_vaccinateS] ((_S*_vaccinerate/(_S+_R)) > 0) -> (_S*_vaccinerate/(_S+_R)) : true;
-  [_vaccinateR] ((_R*_vaccinerate/(_S+_R)) > 0) -> (_R*_vaccinerate/(_S+_R)) : true;
+  [_vaccinateS] ((_S*_vaccinerate*_percentage/(_S+_R)) > 0) -> (_S*_vaccinerate*_percentage/(_S+_R)) : true;
+  [_vaccinateR] ((_R*_vaccinerate*_percentage/(_S+_R)) > 0) -> (_R*_vaccinerate*_percentage/(_S+_R)) : true;
 
 endmodule
 
 // Species: _S, _I, _R, _D, _V, _CUMI
 
-const int MAX = 60000000 + 2 + 0 + 0 + 0 + 2;
+const int MAX = 59641488 + 2 + 0 + 0 + 0 + 2;
 
 module _S
 
-  _S : [0..MAX] init 60000000;
+  _S : [0..MAX] init 59641488;
 
   [_infect] (_S >= 1) -> 1 : (_S' = _S - 1);
   [_vaccinateS] (_S >= 1) -> 1 : (_S' = _S - 1);

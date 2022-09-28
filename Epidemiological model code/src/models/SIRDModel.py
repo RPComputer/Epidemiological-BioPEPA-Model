@@ -12,7 +12,7 @@ class SIRDmodel (ModelImplementation):
         self.classes = self.parameters["model_classes"]
         self.transmissionStatesToClass = set(self.parameters["transmission_states"])
         self.taction = parameters["transmission_action"]
-        self.substitutions.append(SubstitutionInfo(placeholderVariable="placeholder", custom_function_c_name="readRt", custom_function_cpp_name="readRt", inputParameters=["\"Rt1.csv\""]))
+        self.substitutions.append(SubstitutionInfo(placeholderVariable="placeholder", custom_function_c_name="readRt", custom_function_cpp_name="readRt", inputParameters=["\"Rt.csv\""]))
 
     def contactToTransmissionMatrix(self, contactMatrix, diseaseRates):
         diseaseRates = list(diseaseRates)
@@ -46,13 +46,18 @@ class SIRDmodel (ModelImplementation):
         coefficient = Tmatrix[coord[c1],coord[c2]]
         coefficientName = ratename + "rate"
         coefficients[coefficientName] = coefficient
-        elements = '*S' + c1 + '*I' + c2
+        infected = 'I' + c2 + '*'
+        notInfected = ""
         totSum = ""
         classedStates = set(self.parameters["transmission_states"]).union(set(self.parameters["internal_classed_states"]))
         for s in classedStates:
             totSum += s+c2 + " + "
+            if s != 'I':
+                notInfected += s+c2 + " + "
         totSum = totSum.strip('+ ')
-        rate = "(" + str(coefficientName) + "/(" + totSum + "))" + elements #update with readRt function placeholder
+        notInfected = notInfected.strip('+ ')
+        elements = 'recovery'+c1+'rate + death'+c1+'rate'
+        rate = "((" + infected + str(coefficientName) + '*(' + notInfected + ')' + '*(' + elements + ')*placeholder)/(' + totSum + "))"
         action = ratename + " = [" + rate + "];"
         return (action, coefficients)
 
@@ -60,6 +65,7 @@ class SIRDmodel (ModelImplementation):
         Tmatrix = self.contactToTransmissionMatrix(matrix, self.parameters["disease_rates_by_class"].values())
         diseaseRates = self.parameters["disease_rates_by_class"]
         result = ([],dict())
+        result[1]['placeholder'] = 1
         #compute actions linked to classes that have to be rated
         classedActionsToRate = [self.taction]
         for e,act in self.parameters["states_description"].items():

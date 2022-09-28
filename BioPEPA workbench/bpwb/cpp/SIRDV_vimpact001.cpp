@@ -35,6 +35,7 @@
 double
     placeholder = 1,
     vaccinerate = 1,
+    percentage = 0.66,
     gamma1 = 0.196,
     alpha = 0.004;
 
@@ -75,11 +76,12 @@ Vector Initialize ()
   /* Reaction constant initialisation */
   placeholder = 1;
   vaccinerate = 1;
+  percentage = 0.66;
   gamma1 = 0.196;
   alpha = 0.004;
 
   Vector ___initialSpeciesCount(___SPECIES, 0.0);
-  ___initialSpeciesCount(___S) = 60000000;
+  ___initialSpeciesCount(___S) = 59641488;
   ___initialSpeciesCount(___I) = 2;
   ___initialSpeciesCount(___R) = 0;
   ___initialSpeciesCount(___D) = 0;
@@ -106,10 +108,10 @@ Vector Propensity (const Vector& ___discreteSpeciesCount, double t)
   /*      death = [alpha*I] */
   ___propensity(___death) = (alpha*I);
 
-  /*      vaccinateS = [S*vaccinerate/(S+R)] */
-  ___propensity(___vaccinateS) = (S*vaccinerate/(S+R));
+  /*      vaccinateS = [S*vaccinerate*percentage/(S+R)] */
+  ___propensity(___vaccinateS) = (S*vaccinerate*percentage/(S+R));
 
-  /*      vaccinateR = [R*vaccinerate/(S+R)] */
-  ___propensity(___vaccinateR) = (R*vaccinerate/(S+R));
+  /*      vaccinateR = [R*vaccinerate*percentage/(S+R)] */
+  ___propensity(___vaccinateR) = (R*vaccinerate*percentage/(S+R));
   return ___propensity;
 }

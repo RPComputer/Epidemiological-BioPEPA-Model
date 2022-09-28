@@ -3,8 +3,8 @@
 \mathit{infectcount} & = & [(I\times \mathit{placeholder})/(S+I+R+V)]\\%
 \mathit{recover} & = & [\mathit{gamma1}\times I]\\%
 \mathit{death} & = & [\alpha\times I]\\%
-\mathit{vaccinateS} & = & [S\times \mathit{vaccinerate}/(S+R)]\\%
-\mathit{vaccinateR} & = & [R\times \mathit{vaccinerate}/(S+R)]\\%
+\mathit{vaccinateS} & = & [S\times \mathit{vaccinerate}\times \mathit{percentage}/(S+R)]\\%
+\mathit{vaccinateR} & = & [R\times \mathit{vaccinerate}\times \mathit{percentage}/(S+R)]\\%
 %
 S & = & (\mathit{infect}){\downarrow}S + (\mathit{vaccinateS}){\downarrow}S\\%
 I & = & (\mathit{infect}){\uparrow}I + (\mathit{recover}){\downarrow}I + (\mathit{death}){\downarrow}I\\%

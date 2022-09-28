@@ -4,9 +4,10 @@
 
 placeholder = 1;
 vaccinerate = 1;
+percentage = 0.66;
 gamma1 = 0.196;
 alpha = 0.004;
-S = 60000000;
+S = 59641488;
 I = 2;
 R = 0;
 D = 0;
@@ -17,5 +18,5 @@ CUMI = 2;
 "infectcount",  -> CUMI, [(I*placeholder)/(S+I+R+V)] ;
 "recover", I -> R, [gamma1*I] ;
 "death", I -> D, [alpha*I] ;
-"vaccinateS", S -> V, [S*vaccinerate/(S+R)] ;
-"vaccinateR", R -> V, [R*vaccinerate/(S+R)] ;
+"vaccinateS", S -> V, [S*vaccinerate*percentage/(S+R)] ;
+"vaccinateR", R -> V, [R*vaccinerate*percentage/(S+R)] ;

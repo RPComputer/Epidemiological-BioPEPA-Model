@@ -1,0 +1,330 @@
+// PRISM model compiled from Bio-PEPA input file "example2_sird" by
+// Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+
+ctmc
+
+const double _contactyyrate = 0.0027714317627578586;
+const double _contactymrate = 0.027714317627578585;
+const double _contactyorate = 0.0027714317627578586;
+const double _contactmyrate = 0.002494288586482073;
+const double _contactmmrate = 0.0038800044678610015;
+const double _contactmorate = 0.0022171454102062867;
+const double _contactoyrate = 0.0013857158813789293;
+const double _contactomrate = 0.027714317627578585;
+const double _contactoorate = 0.0005542863525515717;
+const double _recoveryyrate = 0.005;
+const double _recoverymrate = 0.0035;
+const double _recoveryorate = 0.0025;
+const double _deathyrate = 0.0001;
+const double _deathmrate = 0.00055;
+const double _deathorate = 0.001;
+
+module Rates
+
+  [_contactyy] (((_contactyyrate/(_Ry + _Iy + _Sy))*_Sy*_Iy) > 0) -> ((_contactyyrate/(_Ry + _Iy + _Sy))*_Sy*_Iy) : true;
+  [_contactym] (((_contactymrate/(_Rm + _Im + _Sm))*_Sy*_Im) > 0) -> ((_contactymrate/(_Rm + _Im + _Sm))*_Sy*_Im) : true;
+  [_contactyo] (((_contactyorate/(_Ro + _Io + _So))*_Sy*_Io) > 0) -> ((_contactyorate/(_Ro + _Io + _So))*_Sy*_Io) : true;
+  [_contactmy] (((_contactmyrate/(_Ry + _Iy + _Sy))*_Sm*_Iy) > 0) -> ((_contactmyrate/(_Ry + _Iy + _Sy))*_Sm*_Iy) : true;
+  [_contactmm] (((_contactmmrate/(_Rm + _Im + _Sm))*_Sm*_Im) > 0) -> ((_contactmmrate/(_Rm + _Im + _Sm))*_Sm*_Im) : true;
+  [_contactmo] (((_contactmorate/(_Ro + _Io + _So))*_Sm*_Io) > 0) -> ((_contactmorate/(_Ro + _Io + _So))*_Sm*_Io) : true;
+  [_contactoy] (((_contactoyrate/(_Ry + _Iy + _Sy))*_So*_Iy) > 0) -> ((_contactoyrate/(_Ry + _Iy + _Sy))*_So*_Iy) : true;
+  [_contactom] (((_contactomrate/(_Rm + _Im + _Sm))*_So*_Im) > 0) -> ((_contactomrate/(_Rm + _Im + _Sm))*_So*_Im) : true;
+  [_contactoo] (((_contactoorate/(_Ro + _Io + _So))*_So*_Io) > 0) -> ((_contactoorate/(_Ro + _Io + _So))*_So*_Io) : true;
+  [_recoveryy] ((_recoveryyrate*_Iy) > 0) -> (_recoveryyrate*_Iy) : true;
+  [_recoverym] ((_recoverymrate*_Im) > 0) -> (_recoverymrate*_Im) : true;
+  [_recoveryo] ((_recoveryorate*_Io) > 0) -> (_recoveryorate*_Io) : true;
+  [_deathy] ((_deathyrate*_Iy) > 0) -> (_deathyrate*_Iy) : true;
+  [_deathm] ((_deathmrate*_Im) > 0) -> (_deathmrate*_Im) : true;
+  [_deatho] ((_deathorate*_Io) > 0) -> (_deathorate*_Io) : true;
+
+endmodule
+
+// Species: _Iy, _Im, _Io, _Sy, _Sm, _So, _Ry, _Rm, _Ro, _D
+
+const int MAX = 10 + 10 + 0 + 990 + 490 + 500 + 0 + 0 + 0 + 0;
+
+module _Iy
+
+  _Iy : [0..MAX] init 10;
+
+  [_contactyy] (_Iy + 1 <= MAX) -> 1 : (_Iy' = _Iy + 1);
+  [_contactym] (_Iy + 1 <= MAX) -> 1 : (_Iy' = _Iy + 1);
+  [_contactyo] (_Iy + 1 <= MAX) -> 1 : (_Iy' = _Iy + 1);
+  [_contactmy] (_Iy + 0 <= MAX) -> 1 : (_Iy' = _Iy + 0);
+  [_contactoy] (_Iy + 0 <= MAX) -> 1 : (_Iy' = _Iy + 0);
+  [_recoveryy] (_Iy >= 1) -> 1 : (_Iy' = _Iy - 1);
+  [_deathy] (_Iy >= 1) -> 1 : (_Iy' = _Iy - 1);
+
+endmodule
+
+module _Im
+
+  _Im : [0..MAX] init 10;
+
+  [_contactym] (_Im + 0 <= MAX) -> 1 : (_Im' = _Im + 0);
+  [_contactmy] (_Im + 1 <= MAX) -> 1 : (_Im' = _Im + 1);
+  [_contactmm] (_Im + 1 <= MAX) -> 1 : (_Im' = _Im + 1);
+  [_contactmo] (_Im + 1 <= MAX) -> 1 : (_Im' = _Im + 1);
+  [_contactom] (_Im + 0 <= MAX) -> 1 : (_Im' = _Im + 0);
+  [_recoverym] (_Im >= 1) -> 1 : (_Im' = _Im - 1);
+  [_deathm] (_Im >= 1) -> 1 : (_Im' = _Im - 1);
+
+endmodule
+
+module _Io
+
+  _Io : [0..MAX] init 0;
+
+  [_contactyo] (_Io + 0 <= MAX) -> 1 : (_Io' = _Io + 0);
+  [_contactmo] (_Io + 0 <= MAX) -> 1 : (_Io' = _Io + 0);
+  [_contactoy] (_Io + 1 <= MAX) -> 1 : (_Io' = _Io + 1);
+  [_contactom] (_Io + 1 <= MAX) -> 1 : (_Io' = _Io + 1);
+  [_contactoo] (_Io + 1 <= MAX) -> 1 : (_Io' = _Io + 1);
+  [_recoveryo] (_Io >= 1) -> 1 : (_Io' = _Io - 1);
+  [_deatho] (_Io >= 1) -> 1 : (_Io' = _Io - 1);
+
+endmodule
+
+module _Sy
+
+  _Sy : [0..MAX] init 990;
+
+  [_contactyy] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+  [_contactym] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+  [_contactyo] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+
+endmodule
+
+module _Sm
+
+  _Sm : [0..MAX] init 490;
+
+  [_contactmy] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+  [_contactmm] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+  [_contactmo] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+
+endmodule
+
+module _So
+
+  _So : [0..MAX] init 500;
+
+  [_contactoy] (_So >= 1) -> 1 : (_So' = _So - 1);
+  [_contactom] (_So >= 1) -> 1 : (_So' = _So - 1);
+  [_contactoo] (_So >= 1) -> 1 : (_So' = _So - 1);
+
+endmodule
+
+module _Ry
+
+  _Ry : [0..MAX] init 0;
+
+  [_recoveryy] (_Ry + 1 <= MAX) -> 1 : (_Ry' = _Ry + 1);
+
+endmodule
+
+module _Rm
+
+  _Rm : [0..MAX] init 0;
+
+  [_recoverym] (_Rm + 1 <= MAX) -> 1 : (_Rm' = _Rm + 1);
+
+endmodule
+
+module _Ro
+
+  _Ro : [0..MAX] init 0;
+
+  [_recoveryo] (_Ro + 1 <= MAX) -> 1 : (_Ro' = _Ro + 1);
+
+endmodule
+
+module _D
+
+  _D : [0..MAX] init 0;
+
+  [_deathy] (_D + 1 <= MAX) -> 1 : (_D' = _D + 1);
+  [_deathm] (_D + 1 <= MAX) -> 1 : (_D' = _D + 1);
+  [_deatho] (_D + 1 <= MAX) -> 1 : (_D' = _D + 1);
+
+endmodule
+
+
+// count rewards: "number of occurrences of contactyy"
+rewards "_contactyy"
+  [_contactyy] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactym"
+rewards "_contactym"
+  [_contactym] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactyo"
+rewards "_contactyo"
+  [_contactyo] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactmy"
+rewards "_contactmy"
+  [_contactmy] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactmm"
+rewards "_contactmm"
+  [_contactmm] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactmo"
+rewards "_contactmo"
+  [_contactmo] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactoy"
+rewards "_contactoy"
+  [_contactoy] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactom"
+rewards "_contactom"
+  [_contactom] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of contactoo"
+rewards "_contactoo"
+  [_contactoo] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of recoveryy"
+rewards "_recoveryy"
+  [_recoveryy] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of recoverym"
+rewards "_recoverym"
+  [_recoverym] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of recoveryo"
+rewards "_recoveryo"
+  [_recoveryo] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of deathy"
+rewards "_deathy"
+  [_deathy] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of deathm"
+rewards "_deathm"
+  [_deathm] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of deatho"
+rewards "_deatho"
+  [_deatho] true : 1;
+endrewards
+
+// rewards: "number of Iy molecules present"
+rewards "_Iy"
+  true : _Iy;
+endrewards
+
+// rewards: "square of number of Iy molecules present (used to calculate standard derivation)"
+rewards "_Iy_squared"
+  true : _Iy * _Iy;
+endrewards
+
+// rewards: "number of Im molecules present"
+rewards "_Im"
+  true : _Im;
+endrewards
+
+// rewards: "square of number of Im molecules present (used to calculate standard derivation)"
+rewards "_Im_squared"
+  true : _Im * _Im;
+endrewards
+
+// rewards: "number of Io molecules present"
+rewards "_Io"
+  true : _Io;
+endrewards
+
+// rewards: "square of number of Io molecules present (used to calculate standard derivation)"
+rewards "_Io_squared"
+  true : _Io * _Io;
+endrewards
+
+// rewards: "number of Sy molecules present"
+rewards "_Sy"
+  true : _Sy;
+endrewards
+
+// rewards: "square of number of Sy molecules present (used to calculate standard derivation)"
+rewards "_Sy_squared"
+  true : _Sy * _Sy;
+endrewards
+
+// rewards: "number of Sm molecules present"
+rewards "_Sm"
+  true : _Sm;
+endrewards
+
+// rewards: "square of number of Sm molecules present (used to calculate standard derivation)"
+rewards "_Sm_squared"
+  true : _Sm * _Sm;
+endrewards
+
+// rewards: "number of So molecules present"
+rewards "_So"
+  true : _So;
+endrewards
+
+// rewards: "square of number of So molecules present (used to calculate standard derivation)"
+rewards "_So_squared"
+  true : _So * _So;
+endrewards
+
+// rewards: "number of Ry molecules present"
+rewards "_Ry"
+  true : _Ry;
+endrewards
+
+// rewards: "square of number of Ry molecules present (used to calculate standard derivation)"
+rewards "_Ry_squared"
+  true : _Ry * _Ry;
+endrewards
+
+// rewards: "number of Rm molecules present"
+rewards "_Rm"
+  true : _Rm;
+endrewards
+
+// rewards: "square of number of Rm molecules present (used to calculate standard derivation)"
+rewards "_Rm_squared"
+  true : _Rm * _Rm;
+endrewards
+
+// rewards: "number of Ro molecules present"
+rewards "_Ro"
+  true : _Ro;
+endrewards
+
+// rewards: "square of number of Ro molecules present (used to calculate standard derivation)"
+rewards "_Ro_squared"
+  true : _Ro * _Ro;
+endrewards
+
+// rewards: "number of D molecules present"
+rewards "_D"
+  true : _D;
+endrewards
+
+// rewards: "square of number of D molecules present (used to calculate standard derivation)"
+rewards "_D_squared"
+  true : _D * _D;
+endrewards
+
+
+
+// End PRISM model compiled from example2_sird

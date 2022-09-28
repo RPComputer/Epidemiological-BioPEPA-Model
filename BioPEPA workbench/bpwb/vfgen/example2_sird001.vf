@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<!-- VFgen model compiled from Bio-PEPA input file "example2_sird" by
+ Bio-PEPA Workbench Version 1.0 "Charlie Mingus" [22nd-April-2009]
+-->
+<VectorField Name="example2_sird001">
+
+<Parameter Name="contactyyrate_"
+           Description="contactyyrate"
+           Latex="\mathit{contactyyrate}"
+           DefaultValue="0.0027714317627578586" />
+<Parameter Name="contactymrate_"
+           Description="contactymrate"
+           Latex="\mathit{contactymrate}"
+           DefaultValue="0.027714317627578585" />
+<Parameter Name="contactyorate_"
+           Description="contactyorate"
+           Latex="\mathit{contactyorate}"
+           DefaultValue="0.0027714317627578586" />
+<Parameter Name="contactmyrate_"
+           Description="contactmyrate"
+           Latex="\mathit{contactmyrate}"
+           DefaultValue="0.002494288586482073" />
+<Parameter Name="contactmmrate_"
+           Description="contactmmrate"
+           Latex="\mathit{contactmmrate}"
+           DefaultValue="0.0038800044678610015" />
+<Parameter Name="contactmorate_"
+           Description="contactmorate"
+           Latex="\mathit{contactmorate}"
+           DefaultValue="0.0022171454102062867" />
+<Parameter Name="contactoyrate_"
+           Description="contactoyrate"
+           Latex="\mathit{contactoyrate}"
+           DefaultValue="0.0013857158813789293" />
+<Parameter Name="contactomrate_"
+           Description="contactomrate"
+           Latex="\mathit{contactomrate}"
+           DefaultValue="0.027714317627578585" />
+<Parameter Name="contactoorate_"
+           Description="contactoorate"
+           Latex="\mathit{contactoorate}"
+           DefaultValue="0.0005542863525515717" />
+<Parameter Name="recoveryyrate_"
+           Description="recoveryyrate"
+           Latex="\mathit{recoveryyrate}"
+           DefaultValue="0.005" />
+<Parameter Name="recoverymrate_"
+           Description="recoverymrate"
+           Latex="\mathit{recoverymrate}"
+           DefaultValue="0.0035" />
+<Parameter Name="recoveryorate_"
+           Description="recoveryorate"
+           Latex="\mathit{recoveryorate}"
+           DefaultValue="0.0025" />
+<Parameter Name="deathyrate_"
+           Description="deathyrate"
+           Latex="\mathit{deathyrate}"
+           DefaultValue="0.0001" />
+<Parameter Name="deathmrate_"
+           Description="deathmrate"
+           Latex="\mathit{deathmrate}"
+           DefaultValue="0.00055" />
+<Parameter Name="deathorate_"
+           Description="deathorate"
+           Latex="\mathit{deathorate}"
+           DefaultValue="0.001" />
+
+<Expression Name="contactyy_"
+            Description="contactyy"
+            Latex="\mathit{contactyy}"
+            Formula="(contactyyrate_/(Ry_ + Iy_ + Sy_))*Sy_*Iy_"/>
+<Expression Name="contactym_"
+            Description="contactym"
+            Latex="\mathit{contactym}"
+            Formula="(contactymrate_/(Rm_ + Im_ + Sm_))*Sy_*Im_"/>
+<Expression Name="contactyo_"
+            Description="contactyo"
+            Latex="\mathit{contactyo}"
+            Formula="(contactyorate_/(Ro_ + Io_ + So_))*Sy_*Io_"/>
+<Expression Name="contactmy_"
+            Description="contactmy"
+            Latex="\mathit{contactmy}"
+            Formula="(contactmyrate_/(Ry_ + Iy_ + Sy_))*Sm_*Iy_"/>
+<Expression Name="contactmm_"
+            Description="contactmm"
+            Latex="\mathit{contactmm}"
+            Formula="(contactmmrate_/(Rm_ + Im_ + Sm_))*Sm_*Im_"/>
+<Expression Name="contactmo_"
+            Description="contactmo"
+            Latex="\mathit{contactmo}"
+            Formula="(contactmorate_/(Ro_ + Io_ + So_))*Sm_*Io_"/>
+<Expression Name="contactoy_"
+            Description="contactoy"
+            Latex="\mathit{contactoy}"
+            Formula="(contactoyrate_/(Ry_ + Iy_ + Sy_))*So_*Iy_"/>
+<Expression Name="contactom_"
+            Description="contactom"
+            Latex="\mathit{contactom}"
+            Formula="(contactomrate_/(Rm_ + Im_ + Sm_))*So_*Im_"/>
+<Expression Name="contactoo_"
+            Description="contactoo"
+            Latex="\mathit{contactoo}"
+            Formula="(contactoorate_/(Ro_ + Io_ + So_))*So_*Io_"/>
+<Expression Name="recoveryy_"
+            Description="recoveryy"
+            Latex="\mathit{recoveryy}"
+            Formula="recoveryyrate_*Iy_"/>
+<Expression Name="recoverym_"
+            Description="recoverym"
+            Latex="\mathit{recoverym}"
+            Formula="recoverymrate_*Im_"/>
+<Expression Name="recoveryo_"
+            Description="recoveryo"
+            Latex="\mathit{recoveryo}"
+            Formula="recoveryorate_*Io_"/>
+<Expression Name="deathy_"
+            Description="deathy"
+            Latex="\mathit{deathy}"
+            Formula="deathyrate_*Iy_"/>
+<Expression Name="deathm_"
+            Description="deathm"
+            Latex="\mathit{deathm}"
+            Formula="deathmrate_*Im_"/>
+<Expression Name="deatho_"
+            Description="deatho"
+            Latex="\mathit{deatho}"
+            Formula="deathorate_*Io_"/>
+
+<StateVariable Name="Iy_"
+               Description="Iy"
+               Latex="\mathit{Iy}"
+               DefaultInitialCondition="10"
+               Formula="contactyy_ + contactym_ + contactyo_ - recoveryy_ - deathy_"/>
+
+<StateVariable Name="Im_"
+               Description="Im"
+               Latex="\mathit{Im}"
+               DefaultInitialCondition="10"
+               Formula="contactmy_ + contactmm_ + contactmo_ - recoverym_ - deathm_"/>
+
+<StateVariable Name="Io_"
+               Description="Io"
+               Latex="\mathit{Io}"
+               DefaultInitialCondition="0"
+               Formula="contactoy_ + contactom_ + contactoo_ - recoveryo_ - deatho_"/>
+
+<StateVariable Name="Sy_"
+               Description="Sy"
+               Latex="\mathit{Sy}"
+               DefaultInitialCondition="990"
+               Formula=" - contactyy_ - contactym_ - contactyo_"/>
+
+<StateVariable Name="Sm_"
+               Description="Sm"
+               Latex="\mathit{Sm}"
+               DefaultInitialCondition="490"
+               Formula=" - contactmy_ - contactmm_ - contactmo_"/>
+
+<StateVariable Name="So_"
+               Description="So"
+               Latex="\mathit{So}"
+               DefaultInitialCondition="500"
+               Formula=" - contactoy_ - contactom_ - contactoo_"/>
+
+<StateVariable Name="Ry_"
+               Description="Ry"
+               Latex="\mathit{Ry}"
+               DefaultInitialCondition="0"
+               Formula="recoveryy_"/>
+
+<StateVariable Name="Rm_"
+               Description="Rm"
+               Latex="\mathit{Rm}"
+               DefaultInitialCondition="0"
+               Formula="recoverym_"/>
+
+<StateVariable Name="Ro_"
+               Description="Ro"
+               Latex="\mathit{Ro}"
+               DefaultInitialCondition="0"
+               Formula="recoveryo_"/>
+
+<StateVariable Name="D_"
+               Description="D"
+               Latex="D"
+               DefaultInitialCondition="0"
+               Formula="deathy_ + deathm_ + deatho_"/>
+
+<!-- End VFgen model compiled from example2_sird
+-->
+</VectorField>

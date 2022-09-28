@@ -1,0 +1,34 @@
+\nonstopmode
+\documentclass{llncs}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\newcommand{\Butterfly}{\mbox{\large $\rhd\!\!\!\lhd$}}
+\newcommand{\sync}[1]{\raisebox{-1.0ex}{$\;\stackrel{\Butterfly}{\scriptscriptstyle #1}\,$}}
+\title{Bio-PEPA Model Report}
+\author{Bio-PEPA Workbench}
+\institute{\today}
+\begin{document}
+\maketitle
+\section{Bio-PEPA model}
+\input{example2_sird_biopepa}
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{dot/example2_sird.pdf}
+\caption{Reaction network}
+\end{center}
+\end{figure}
+\newpage
+\section{Graphs from Bio-PEPA model}
+\includegraphics[scale=1]{png/example2_sird001_stochkit_results_0}
+\appendix
+\newpage
+\section{Bio-PEPA input file}
+\verbatiminput{example2_sird.biopepa}
+\newpage
+\section{Dizzy equivalent input file}
+\verbatiminput{dizzy/example2_sird001.dizzy}
+\newpage
+\section{PRISM equivalent input file}
+\verbatiminput{prism/example2_sird001.sm}
+\end{document}

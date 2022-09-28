@@ -1,11 +1,12 @@
 {
-    "biopepa_file_name": "SEIRDV",
+    "biopepa_file_name": "SIRDV_vimpact",
     "substitutions": [
         {
-            "custom_function_c_name": "readRt",
-            "custom_function_cpp_name": "readRt",
+            "custom_function_c_name": "readDatatable",
+            "custom_function_cpp_name": "readDatatable",
             "input_parameters": [
-                "\"Rt_SEIRDV.csv\""
+                "\"dataSIRDV_vimpact.csv\"",
+                "\"beta\""
             ],
             "input_time_variable": true,
             "placeholderVariable": "placeholder"
@@ -14,7 +15,7 @@
             "custom_function_c_name": "readDatatable",
             "custom_function_cpp_name": "readDatatable",
             "input_parameters": [
-                "\"vacciniSEIRDV.csv\"",
+                "\"dataSIRDV_vimpact.csv\"",
                 "\"n\""
             ],
             "input_time_variable": true,

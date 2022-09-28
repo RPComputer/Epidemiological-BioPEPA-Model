@@ -3,6 +3,7 @@
 
 ctmc
 
+const double _placeholder = 1;
 const double _contactyyrate = 0.0027714317627578586;
 const double _contactymrate = 0.027714317627578585;
 const double _contactyorate = 0.0027714317627578586;
@@ -12,75 +13,48 @@ const double _contactmorate = 0.0022171454102062867;
 const double _contactoyrate = 0.0013857158813789293;
 const double _contactomrate = 0.027714317627578585;
 const double _contactoorate = 0.0005542863525515717;
-const double _vaccinateyrate = 1;
-const double _vaccinatemrate = 1;
-const double _vaccinateorate = 1;
+const double _vaccinateSyrate = 1;
+const double _vaccinateSmrate = 1;
+const double _vaccinateSorate = 1;
 const double _recoveryyrate = 0.005;
 const double _recoverymrate = 0.0035;
 const double _recoveryorate = 0.0025;
+const double _vaccinateRyrate = 1;
+const double _vaccinateRmrate = 1;
+const double _vaccinateRorate = 1;
 const double _deathyrate = 0.0001;
 const double _deathmrate = 0.00055;
 const double _deathorate = 0.001;
 
 module Rates
 
-  [_contactyy] (((_contactyyrate/(_Sy + _Ry + _Iy))*_Sy*_Iy) > 0) -> ((_contactyyrate/(_Sy + _Ry + _Iy))*_Sy*_Iy) : true;
-  [_contactym] (((_contactymrate/(_Sm + _Rm + _Im))*_Sy*_Im) > 0) -> ((_contactymrate/(_Sm + _Rm + _Im))*_Sy*_Im) : true;
-  [_contactyo] (((_contactyorate/(_So + _Ro + _Io))*_Sy*_Io) > 0) -> ((_contactyorate/(_So + _Ro + _Io))*_Sy*_Io) : true;
-  [_contactmy] (((_contactmyrate/(_Sy + _Ry + _Iy))*_Sm*_Iy) > 0) -> ((_contactmyrate/(_Sy + _Ry + _Iy))*_Sm*_Iy) : true;
-  [_contactmm] (((_contactmmrate/(_Sm + _Rm + _Im))*_Sm*_Im) > 0) -> ((_contactmmrate/(_Sm + _Rm + _Im))*_Sm*_Im) : true;
-  [_contactmo] (((_contactmorate/(_So + _Ro + _Io))*_Sm*_Io) > 0) -> ((_contactmorate/(_So + _Ro + _Io))*_Sm*_Io) : true;
-  [_contactoy] (((_contactoyrate/(_Sy + _Ry + _Iy))*_So*_Iy) > 0) -> ((_contactoyrate/(_Sy + _Ry + _Iy))*_So*_Iy) : true;
-  [_contactom] (((_contactomrate/(_Sm + _Rm + _Im))*_So*_Im) > 0) -> ((_contactomrate/(_Sm + _Rm + _Im))*_So*_Im) : true;
-  [_contactoo] (((_contactoorate/(_So + _Ro + _Io))*_So*_Io) > 0) -> ((_contactoorate/(_So + _Ro + _Io))*_So*_Io) : true;
-  [_vaccinatey] ((_vaccinateyrate*_Sy) > 0) -> (_vaccinateyrate*_Sy) : true;
-  [_vaccinatem] ((_vaccinatemrate*_Sm) > 0) -> (_vaccinatemrate*_Sm) : true;
-  [_vaccinateo] ((_vaccinateorate*_So) > 0) -> (_vaccinateorate*_So) : true;
+  [_contactyy] ((((_Iy*_contactyyrate*(_Ry + _Vy + _Sy)*(_recoveryyrate + _deathyrate)*_placeholder)/(_Ry + _Vy + _Iy + _Sy))) > 0) -> (((_Iy*_contactyyrate*(_Ry + _Vy + _Sy)*(_recoveryyrate + _deathyrate)*_placeholder)/(_Ry + _Vy + _Iy + _Sy))) : true;
+  [_contactym] ((((_Im*_contactymrate*(_Rm + _Vm + _Sm)*(_recoveryyrate + _deathyrate)*_placeholder)/(_Rm + _Vm + _Im + _Sm))) > 0) -> (((_Im*_contactymrate*(_Rm + _Vm + _Sm)*(_recoveryyrate + _deathyrate)*_placeholder)/(_Rm + _Vm + _Im + _Sm))) : true;
+  [_contactyo] ((((_Io*_contactyorate*(_Ro + _Vo + _So)*(_recoveryyrate + _deathyrate)*_placeholder)/(_Ro + _Vo + _Io + _So))) > 0) -> (((_Io*_contactyorate*(_Ro + _Vo + _So)*(_recoveryyrate + _deathyrate)*_placeholder)/(_Ro + _Vo + _Io + _So))) : true;
+  [_contactmy] ((((_Iy*_contactmyrate*(_Ry + _Vy + _Sy)*(_recoverymrate + _deathmrate)*_placeholder)/(_Ry + _Vy + _Iy + _Sy))) > 0) -> (((_Iy*_contactmyrate*(_Ry + _Vy + _Sy)*(_recoverymrate + _deathmrate)*_placeholder)/(_Ry + _Vy + _Iy + _Sy))) : true;
+  [_contactmm] ((((_Im*_contactmmrate*(_Rm + _Vm + _Sm)*(_recoverymrate + _deathmrate)*_placeholder)/(_Rm + _Vm + _Im + _Sm))) > 0) -> (((_Im*_contactmmrate*(_Rm + _Vm + _Sm)*(_recoverymrate + _deathmrate)*_placeholder)/(_Rm + _Vm + _Im + _Sm))) : true;
+  [_contactmo] ((((_Io*_contactmorate*(_Ro + _Vo + _So)*(_recoverymrate + _deathmrate)*_placeholder)/(_Ro + _Vo + _Io + _So))) > 0) -> (((_Io*_contactmorate*(_Ro + _Vo + _So)*(_recoverymrate + _deathmrate)*_placeholder)/(_Ro + _Vo + _Io + _So))) : true;
+  [_contactoy] ((((_Iy*_contactoyrate*(_Ry + _Vy + _Sy)*(_recoveryorate + _deathorate)*_placeholder)/(_Ry + _Vy + _Iy + _Sy))) > 0) -> (((_Iy*_contactoyrate*(_Ry + _Vy + _Sy)*(_recoveryorate + _deathorate)*_placeholder)/(_Ry + _Vy + _Iy + _Sy))) : true;
+  [_contactom] ((((_Im*_contactomrate*(_Rm + _Vm + _Sm)*(_recoveryorate + _deathorate)*_placeholder)/(_Rm + _Vm + _Im + _Sm))) > 0) -> (((_Im*_contactomrate*(_Rm + _Vm + _Sm)*(_recoveryorate + _deathorate)*_placeholder)/(_Rm + _Vm + _Im + _Sm))) : true;
+  [_contactoo] ((((_Io*_contactoorate*(_Ro + _Vo + _So)*(_recoveryorate + _deathorate)*_placeholder)/(_Ro + _Vo + _Io + _So))) > 0) -> (((_Io*_contactoorate*(_Ro + _Vo + _So)*(_recoveryorate + _deathorate)*_placeholder)/(_Ro + _Vo + _Io + _So))) : true;
+  [_vaccinateSy] ((_vaccinateSyrate*_Sy/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) > 0) -> (_vaccinateSyrate*_Sy/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) : true;
+  [_vaccinateSm] ((_vaccinateSmrate*_Sm/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) > 0) -> (_vaccinateSmrate*_Sm/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) : true;
+  [_vaccinateSo] ((_vaccinateSorate*_So/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) > 0) -> (_vaccinateSorate*_So/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) : true;
   [_recoveryy] ((_recoveryyrate*_Iy) > 0) -> (_recoveryyrate*_Iy) : true;
   [_recoverym] ((_recoverymrate*_Im) > 0) -> (_recoverymrate*_Im) : true;
   [_recoveryo] ((_recoveryorate*_Io) > 0) -> (_recoveryorate*_Io) : true;
+  [_vaccinateRy] ((_vaccinateRyrate*_Ry/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) > 0) -> (_vaccinateRyrate*_Ry/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) : true;
+  [_vaccinateRm] ((_vaccinateRmrate*_Rm/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) > 0) -> (_vaccinateRmrate*_Rm/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) : true;
+  [_vaccinateRo] ((_vaccinateRorate*_Ro/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) > 0) -> (_vaccinateRorate*_Ro/(_Sy + _Sm + _So + _Ry + _Rm + _Ro)) : true;
   [_deathy] ((_deathyrate*_Iy) > 0) -> (_deathyrate*_Iy) : true;
   [_deathm] ((_deathmrate*_Im) > 0) -> (_deathmrate*_Im) : true;
   [_deatho] ((_deathorate*_Io) > 0) -> (_deathorate*_Io) : true;
 
 endmodule
 
-// Species: _Sy, _Sm, _So, _Iy, _Im, _Io, _Ry, _Rm, _Ro, _D
+// Species: _Iy, _Im, _Io, _Sy, _Sm, _So, _Ry, _Rm, _Ro, _Vy, _Vm, _Vo, _D
 
-const int MAX = 990 + 490 + 500 + 10 + 10 + 0 + 0 + 0 + 0 + 0;
-
-module _Sy
-
-  _Sy : [0..MAX] init 990;
-
-  [_contactyy] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
-  [_contactym] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
-  [_contactyo] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
-  [_vaccinatey] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
-
-endmodule
-
-module _Sm
-
-  _Sm : [0..MAX] init 490;
-
-  [_contactmy] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
-  [_contactmm] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
-  [_contactmo] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
-  [_vaccinatem] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
-
-endmodule
-
-module _So
-
-  _So : [0..MAX] init 500;
-
-  [_contactoy] (_So >= 1) -> 1 : (_So' = _So - 1);
-  [_contactom] (_So >= 1) -> 1 : (_So' = _So - 1);
-  [_contactoo] (_So >= 1) -> 1 : (_So' = _So - 1);
-  [_vaccinateo] (_So >= 1) -> 1 : (_So' = _So - 1);
-
-endmodule
+const int MAX = 10 + 10 + 0 + 9990 + 4990 + 5000 + 0 + 0 + 0 + 0 + 0 + 0 + 0;
 
 module _Iy
 
@@ -124,12 +98,45 @@ module _Io
 
 endmodule
 
+module _Sy
+
+  _Sy : [0..MAX] init 9990;
+
+  [_contactyy] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+  [_contactym] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+  [_contactyo] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+  [_vaccinateSy] (_Sy >= 1) -> 1 : (_Sy' = _Sy - 1);
+
+endmodule
+
+module _Sm
+
+  _Sm : [0..MAX] init 4990;
+
+  [_contactmy] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+  [_contactmm] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+  [_contactmo] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+  [_vaccinateSm] (_Sm >= 1) -> 1 : (_Sm' = _Sm - 1);
+
+endmodule
+
+module _So
+
+  _So : [0..MAX] init 5000;
+
+  [_contactoy] (_So >= 1) -> 1 : (_So' = _So - 1);
+  [_contactom] (_So >= 1) -> 1 : (_So' = _So - 1);
+  [_contactoo] (_So >= 1) -> 1 : (_So' = _So - 1);
+  [_vaccinateSo] (_So >= 1) -> 1 : (_So' = _So - 1);
+
+endmodule
+
 module _Ry
 
   _Ry : [0..MAX] init 0;
 
-  [_vaccinatey] (_Ry + 1 <= MAX) -> 1 : (_Ry' = _Ry + 1);
   [_recoveryy] (_Ry + 1 <= MAX) -> 1 : (_Ry' = _Ry + 1);
+  [_vaccinateRy] (_Ry >= 1) -> 1 : (_Ry' = _Ry - 1);
 
 endmodule
 
@@ -137,8 +144,8 @@ module _Rm
 
   _Rm : [0..MAX] init 0;
 
-  [_vaccinatem] (_Rm + 1 <= MAX) -> 1 : (_Rm' = _Rm + 1);
   [_recoverym] (_Rm + 1 <= MAX) -> 1 : (_Rm' = _Rm + 1);
+  [_vaccinateRm] (_Rm >= 1) -> 1 : (_Rm' = _Rm - 1);
 
 endmodule
 
@@ -146,8 +153,35 @@ module _Ro
 
   _Ro : [0..MAX] init 0;
 
-  [_vaccinateo] (_Ro + 1 <= MAX) -> 1 : (_Ro' = _Ro + 1);
   [_recoveryo] (_Ro + 1 <= MAX) -> 1 : (_Ro' = _Ro + 1);
+  [_vaccinateRo] (_Ro >= 1) -> 1 : (_Ro' = _Ro - 1);
+
+endmodule
+
+module _Vy
+
+  _Vy : [0..MAX] init 0;
+
+  [_vaccinateSy] (_Vy + 1 <= MAX) -> 1 : (_Vy' = _Vy + 1);
+  [_vaccinateRy] (_Vy + 1 <= MAX) -> 1 : (_Vy' = _Vy + 1);
+
+endmodule
+
+module _Vm
+
+  _Vm : [0..MAX] init 0;
+
+  [_vaccinateSm] (_Vm + 1 <= MAX) -> 1 : (_Vm' = _Vm + 1);
+  [_vaccinateRm] (_Vm + 1 <= MAX) -> 1 : (_Vm' = _Vm + 1);
+
+endmodule
+
+module _Vo
+
+  _Vo : [0..MAX] init 0;
+
+  [_vaccinateSo] (_Vo + 1 <= MAX) -> 1 : (_Vo' = _Vo + 1);
+  [_vaccinateRo] (_Vo + 1 <= MAX) -> 1 : (_Vo' = _Vo + 1);
 
 endmodule
 
@@ -207,19 +241,19 @@ rewards "_contactoo"
   [_contactoo] true : 1;
 endrewards
 
-// count rewards: "number of occurrences of vaccinatey"
-rewards "_vaccinatey"
-  [_vaccinatey] true : 1;
+// count rewards: "number of occurrences of vaccinateSy"
+rewards "_vaccinateSy"
+  [_vaccinateSy] true : 1;
 endrewards
 
-// count rewards: "number of occurrences of vaccinatem"
-rewards "_vaccinatem"
-  [_vaccinatem] true : 1;
+// count rewards: "number of occurrences of vaccinateSm"
+rewards "_vaccinateSm"
+  [_vaccinateSm] true : 1;
 endrewards
 
-// count rewards: "number of occurrences of vaccinateo"
-rewards "_vaccinateo"
-  [_vaccinateo] true : 1;
+// count rewards: "number of occurrences of vaccinateSo"
+rewards "_vaccinateSo"
+  [_vaccinateSo] true : 1;
 endrewards
 
 // count rewards: "number of occurrences of recoveryy"
@@ -237,6 +271,21 @@ rewards "_recoveryo"
   [_recoveryo] true : 1;
 endrewards
 
+// count rewards: "number of occurrences of vaccinateRy"
+rewards "_vaccinateRy"
+  [_vaccinateRy] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of vaccinateRm"
+rewards "_vaccinateRm"
+  [_vaccinateRm] true : 1;
+endrewards
+
+// count rewards: "number of occurrences of vaccinateRo"
+rewards "_vaccinateRo"
+  [_vaccinateRo] true : 1;
+endrewards
+
 // count rewards: "number of occurrences of deathy"
 rewards "_deathy"
   [_deathy] true : 1;
@@ -250,36 +299,6 @@ endrewards
 // count rewards: "number of occurrences of deatho"
 rewards "_deatho"
   [_deatho] true : 1;
-endrewards
-
-// rewards: "number of Sy molecules present"
-rewards "_Sy"
-  true : _Sy;
-endrewards
-
-// rewards: "square of number of Sy molecules present (used to calculate standard derivation)"
-rewards "_Sy_squared"
-  true : _Sy * _Sy;
-endrewards
-
-// rewards: "number of Sm molecules present"
-rewards "_Sm"
-  true : _Sm;
-endrewards
-
-// rewards: "square of number of Sm molecules present (used to calculate standard derivation)"
-rewards "_Sm_squared"
-  true : _Sm * _Sm;
-endrewards
-
-// rewards: "number of So molecules present"
-rewards "_So"
-  true : _So;
-endrewards
-
-// rewards: "square of number of So molecules present (used to calculate standard derivation)"
-rewards "_So_squared"
-  true : _So * _So;
 endrewards
 
 // rewards: "number of Iy molecules present"
@@ -312,6 +331,36 @@ rewards "_Io_squared"
   true : _Io * _Io;
 endrewards
 
+// rewards: "number of Sy molecules present"
+rewards "_Sy"
+  true : _Sy;
+endrewards
+
+// rewards: "square of number of Sy molecules present (used to calculate standard derivation)"
+rewards "_Sy_squared"
+  true : _Sy * _Sy;
+endrewards
+
+// rewards: "number of Sm molecules present"
+rewards "_Sm"
+  true : _Sm;
+endrewards
+
+// rewards: "square of number of Sm molecules present (used to calculate standard derivation)"
+rewards "_Sm_squared"
+  true : _Sm * _Sm;
+endrewards
+
+// rewards: "number of So molecules present"
+rewards "_So"
+  true : _So;
+endrewards
+
+// rewards: "square of number of So molecules present (used to calculate standard derivation)"
+rewards "_So_squared"
+  true : _So * _So;
+endrewards
+
 // rewards: "number of Ry molecules present"
 rewards "_Ry"
   true : _Ry;
@@ -340,6 +389,36 @@ endrewards
 // rewards: "square of number of Ro molecules present (used to calculate standard derivation)"
 rewards "_Ro_squared"
   true : _Ro * _Ro;
+endrewards
+
+// rewards: "number of Vy molecules present"
+rewards "_Vy"
+  true : _Vy;
+endrewards
+
+// rewards: "square of number of Vy molecules present (used to calculate standard derivation)"
+rewards "_Vy_squared"
+  true : _Vy * _Vy;
+endrewards
+
+// rewards: "number of Vm molecules present"
+rewards "_Vm"
+  true : _Vm;
+endrewards
+
+// rewards: "square of number of Vm molecules present (used to calculate standard derivation)"
+rewards "_Vm_squared"
+  true : _Vm * _Vm;
+endrewards
+
+// rewards: "number of Vo molecules present"
+rewards "_Vo"
+  true : _Vo;
+endrewards
+
+// rewards: "square of number of Vo molecules present (used to calculate standard derivation)"
+rewards "_Vo_squared"
+  true : _Vo * _Vo;
 endrewards
 
 // rewards: "number of D molecules present"
