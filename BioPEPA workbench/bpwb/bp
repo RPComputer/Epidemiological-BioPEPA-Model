@@ -131,7 +131,7 @@ then
     then 
       echo "Running stochkit simulator."
       c=$(basename $i .cpp)
-      /usr/bin/time -v ${STOCHKIT}/stochkit ${c}  | grep "Maximum resident set size"
+      /usr/bin/time  --append -o ${c}_stats.txt -v ${STOCHKIT}/stochkit ${c}
       sort -n ${c}*.dat > ${c}_stochkit_results_0.dat
   #     awk '{ print $5 }' ${c}.endtimes | sort -n | cat -n > ${c}_endtimes.dat
   #     rm -f ${c}.endtimes
@@ -149,7 +149,7 @@ then
     mv Makefile-${b}_cvdemo sundials
     (cd sundials ; make -f  Makefile-${b}_cvdemo )
     echo "Running sundials simulator."
-    /usr/bin/time -v ./sundials/${b}_cvdemo "stoptime=${STOPTIME}" > sundials/${b}_sundials_results_0.dat | grep "Maximum resident set size"
+    /usr/bin/time --append -o ${c}_stats.txt -v ./sundials/${b}_cvdemo "stoptime=${STOPTIME}" > sundials/${b}_sundials_results_0.dat  
     mv ./sundials/*.dat ./
     mv $i vfgen
   done
