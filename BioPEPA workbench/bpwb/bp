@@ -40,12 +40,12 @@ else
   USESUNDIALS= false
 fi
 
-if grep -v "\#" biopepa.cfg | grep "use.custom.functions.filename"
+if grep -v "\#" biopepa.cfg | grep "use.custom.functions.basename"
 then
-  str="$(grep -v "\#" biopepa.cfg | grep 'use.custom.functions.filename')"
+  str="$(grep -v "\#" biopepa.cfg | grep 'use.custom.functions.basename')"
   CUSTOMFUNCTIONSCONFIG=$(cut -d ':' -f2- <<< $str)
 else
-  CUSTOMFUNCTIONSCONFIG="custom_functions_config.json"
+  CUSTOMFUNCTIONSCONFIG="custom_functions_config"
 fi
 
 #Solver selection
@@ -116,7 +116,12 @@ echo "Complete run of VFgen on $b for Sundials"
 if $CUSTOMFUNCTIONS
 then
   echo "Preparing simulators code: upgrading code with custom functions"
-  python3 insert_custom_functions.py -c $CUSTOMFUNCTIONSCONFIG
+  for i in *.biopepa ; do
+    basename=$(basename ${i} .biopepa)
+    c="${CUSTOMFUNCTIONSCONFIG}${basename}.json"
+    echo "Upgrading: $c"
+    python3 insert_custom_functions.py -c $c
+  done
 fi
 
 if $USESTOCHKIT

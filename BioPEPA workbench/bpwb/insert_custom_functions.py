@@ -51,7 +51,11 @@ def checkconfiguration(config):
 
 def parseconfiguration():
     global configuration
-    pfile = open(configfilename, 'r')
+    try:
+        pfile = open(configfilename, 'r')
+    except FileNotFoundError:
+        print("Config file: ", configfilename, " not found")
+        quit()
     configuration = json.load(pfile)
     checkconfiguration(configuration)
     
@@ -65,13 +69,17 @@ def writefiles():
         filedata = file.read()
     #STOCHKIT modification
     for substituion in configuration["substitutions"]:
+        if type(substituion["input_parameters"][0]) == list:
+            subsStochkit = substituion["input_parameters"][0]
+        else:
+            subsStochkit = substituion["input_parameters"]
         #Compute function call
         functionCall = substituion["custom_function_cpp_name"] + "("
         first = True
         if substituion["input_time_variable"] == True:
             functionCall += "t"
             first = False
-        for v in substituion["input_parameters"]:
+        for v in subsStochkit:
             if first:
                 functionCall += v
                 first = False
@@ -86,25 +94,26 @@ def writefiles():
     # Write the file out again
     with open('./stochkit/ProblemDefinition.cpp', 'w') as file:
         file.write(filedata)
-    include = True
 
     #SUNDIALS modification
     filepath = './sundials/' + configuration["biopepa_file_name"] + '001_cv.c'
     with open(filepath, 'r') as file :
-            filedata = file.readlines()
+        filedata = file.readlines()
+    #Add custom function include
+    index = filedata.index('#include <math.h>\n')
+    filedata.insert(index, '#include "CustomFunctions.c"\n')
     for substituion in configuration["substitutions"]:
-        #Add custom function include
-        if include:
-            index = filedata.index('#include <math.h>\n')
-            filedata.insert(index, '#include "CustomFunctions.c"\n')
-            include = False
+        if type(substituion["input_parameters"][0]) == list:
+            subsSundials = substituion["input_parameters"][1]
+        else:
+            subsSundials = substituion["input_parameters"]
         #Compute function call
         functionCall = substituion["custom_function_c_name"] + "("
         first = True
         if substituion["input_time_variable"] == True:
             functionCall += "t"
             first = False
-        for v in substituion["input_parameters"]:
+        for v in subsSundials:
             if '"' not in v:
                 v = v + '_'
             if first:
